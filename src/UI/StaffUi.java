@@ -1,6 +1,6 @@
 package UI;
 
-import controller.StaffController;
+//import controller.StaffController;
 
 import java.util.Scanner;
 
@@ -72,7 +72,4 @@ class StaffUi implements ConsoleBasedInterface {
         } while (choice != 9);
     }
 
-    public void displayLoginPage(){
-
-    }
 }
