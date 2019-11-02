@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * Cineplex represents a collection of Cinema class, or cinema hall
  * @version 1
  * @since 17/10/2019
- * @typeofclass entity
  */
 public class Cineplex implements Serializable {
     private int cineplexID;
@@ -22,5 +21,6 @@ public class Cineplex implements Serializable {
         this.cinemaArrayList = cinemaArrayList;
         this.moviesArrayList = moviesArrayList;
     }
+
 
 }
