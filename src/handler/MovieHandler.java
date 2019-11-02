@@ -26,5 +26,6 @@ public class MovieHandler extends DataHandler {
 
     public void setMovieArrayList(ArrayList<Movie> movieArrayList) {
         this.movieArrayList = movieArrayList;
+        writeSerializedObject(movieArrayList);
     }
 }

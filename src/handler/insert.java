@@ -30,8 +30,8 @@ public class insert {
                 "Josh Zhang	Noah Yap Joshua Tan	Maxi Lim", "PG13", 4.0, "133min","2D", reviewArrayList);
 
         //movieArrayList = movieHandler.readSerializedObject();
-        movieArrayList.add(movie);
-        movieHandler.writeSerializedObject(movieArrayList);
+        //movieArrayList.add(movie);
+        //movieHandler.writeSerializedObject(movieArrayList);
     }
 }
     /*private int movieId;
