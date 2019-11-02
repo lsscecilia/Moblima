@@ -1,5 +1,6 @@
 package handler;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,4 +27,5 @@ public class CinemaHandler extends DataHandler {
         this.cinemaArrayList = cinemaArrayList;
         writeSerializedObject(cinemaArrayList);
     }
+
 }
