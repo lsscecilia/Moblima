@@ -1,10 +1,16 @@
 package handler;
 
+import Controller.HandlerInterface;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataHandler {
+public class DataHandler implements HandlerInterface {
+    public DataHandler() {
+    }
+
+    @Override
     public List readSerializedObject(String filename) {
         List pDetails = null;
         FileInputStream fis = null;
@@ -26,6 +32,7 @@ public class DataHandler {
         return pDetails;
     }
 
+    @Override
     public void writeSerializedObject(String filename, List list) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;

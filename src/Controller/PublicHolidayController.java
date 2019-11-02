@@ -1,0 +1,17 @@
+package Controller;
+
+import entity.PublicHoliday;
+import handler.DataHandler;
+
+import java.util.ArrayList;
+
+public class PublicHolidayController {
+    private HandlerInterface handlerInterface;
+    private ArrayList<PublicHoliday> publicHolidayArrayList;
+
+    public PublicHolidayController()
+    {
+        handlerInterface = new DataHandler();
+        publicHolidayArrayList = (ArrayList<PublicHoliday>) handlerInterface.readSerializedObject("PublicHoliday");
+    }
+}
