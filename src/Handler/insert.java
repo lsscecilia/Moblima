@@ -1,8 +1,6 @@
 package Handler;
 
-import Entity.Movie;
-import Entity.Review;
-import Entity.Staff;
+import Entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +28,32 @@ public class insert {
                 " What hilarious situations will happen as they train together and their military roles are reversed? " +
                 "There'll be new enemy threats and their brotherhood will be put to the test." , "Jack Neo" ,
                 "Josh Zhang	Noah Yap Joshua Tan	Maxi Lim", "PG13", 4.0, "133min","2D", reviewArrayList);
-
-
          */
 
-        ArrayList<Staff> staffArrayList = new ArrayList<>();
-        staffArrayList.add(new Staff("test", Staff.hashPassword("test")));
-
-
         HandlerInterface database = new DataHandler();
-        database.writeSerializedObject("Staff", staffArrayList);
+        ArrayList<Movie> movieArrayList = new ArrayList<>();
+        movieArrayList = database.readSerializedObject("Movie");
+        for(Movie movie: movieArrayList){
+            System.out.println(movie.getMovieId());
+        }
+
+
+        //ArrayList<Cineplex> cineplexArrayList = new ArrayList<>();
+        //ArrayList<Cinema> cinemaArrayList = new ArrayList<>();
+        //ArrayList<Movie> movieArrayList = database.readSerializedObject("Movie");
+
+        //private final String FILEPATH = System.getProperty("user.dir")+"/src/data/";
+        /*
+        for(Movie movie: movieArrayList){
+            System.out.println(movie.toString());
+        }
+
+         */
+        //cineplexArrayList.add(new Cineplex(1, "Jem","Jurong East", ));
+
+
+
+        //database.writeSerializedObject("Cineplex", cineplexArrayList);
         //movieArrayList = movieHandler.readSerializedObject();
         //movieArrayList.add(movie);
         //movieHandler.writeSerializedObject(movieArrayList);

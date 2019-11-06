@@ -6,13 +6,22 @@ import Handler.HandlerInterface;
 
 import java.util.ArrayList;
 
-public class CineplexController {
+public class CineplexController implements ControllerInterface {
     private HandlerInterface database;
     private ArrayList<Cineplex> cineplexArrayList;
-    // have all the cineplex in molbima, each cineplex have their own set of movie, and own set of cinema
+
 
     public CineplexController( ArrayList<Cineplex> cineplexArrayList) {
         this.database = new DataHandler();
-        this.cineplexArrayList = database.readSerializedObject("Cineplex.dat");
+        this.cineplexArrayList = database.readSerializedObject("Cineplex");
+    }
+
+    private void viewAllCineplex(){
+
+    }
+
+    @Override
+    public void updateDat() {
+
     }
 }

@@ -27,7 +27,6 @@ public class StaffController implements ControllerInterface {
         database.writeSerializedObject("Staff.dat", staffArrayList);
     }
 
-
     /**
      * Adds new Staff to access the system.
      * Remember to hash the password when creating new staff.
