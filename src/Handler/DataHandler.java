@@ -10,11 +10,12 @@ public class DataHandler implements HandlerInterface {
 
     @Override
     public <T> ArrayList<T> readSerializedObject(String filename) {
+        final String PATH = System.getProperty("user.dir")+"/src/Data/";
         ArrayList<T> pDetails = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
         try {
-            fis = new FileInputStream(filename);
+            fis = new FileInputStream(PATH + filename);
             in = new ObjectInputStream(fis);
             pDetails = (ArrayList) in.readObject();
             in.close();
@@ -32,10 +33,11 @@ public class DataHandler implements HandlerInterface {
 
     @Override
     public <T> void writeSerializedObject(String filename, ArrayList<T> list) {
+        final String PATH = System.getProperty("user.dir")+"/src/Data/";
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
-            fos = new FileOutputStream(filename);
+            fos = new FileOutputStream(PATH + filename);
             out = new ObjectOutputStream(fos);
             out.writeObject(list);
             out.close();

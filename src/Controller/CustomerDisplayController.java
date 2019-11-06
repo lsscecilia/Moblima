@@ -1,6 +1,6 @@
 package Controller;
 
-public class CustomerController implements ControllerInterface{
+public class CustomerDisplayController implements ControllerInterface{
 
 
     @Override

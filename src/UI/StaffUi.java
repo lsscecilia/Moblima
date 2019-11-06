@@ -3,7 +3,7 @@ package UI;
 //import controller.StaffController;
 
 import Controller.ControllerInterface;
-import Controller.DisplayController;
+import Controller.StaffDisplayController;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ class StaffUi implements ConsoleBasedInterface {
 
     @Override
     public void show() {
-        ControllerInterface displayController = new DisplayController();
+        ControllerInterface displayController = new StaffDisplayController();
         Scanner sc = new Scanner(System.in);
 
         int choice = 0;
@@ -34,7 +34,7 @@ class StaffUi implements ConsoleBasedInterface {
 
             switch (choice) {
                 case 1:
-                    ((DisplayController) displayController).viewAllCineplex();
+                    
                     break;
                 case 2:
                     break;

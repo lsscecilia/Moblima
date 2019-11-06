@@ -1,6 +1,6 @@
 package Controller;
 
-public class DisplayController implements ControllerInterface {
+public class StaffDisplayController implements ControllerInterface {
     BookingController bookingController;
     CineplexController cineplexController;
     MovieController movieController;
@@ -9,7 +9,7 @@ public class DisplayController implements ControllerInterface {
     ShowTimeController showTimeController;
     TransactionController transactionController;
 
-    public DisplayController(){
+    public StaffDisplayController(){
         //cineplexController = new CineplexController();
     }
 
