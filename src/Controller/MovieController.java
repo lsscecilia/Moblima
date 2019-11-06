@@ -1,20 +1,20 @@
 package Controller;
 
-import entity.Movie;
-import handler.DataHandler;
-import handler.HandlerInterface;
+import Entity.Movie;
+import Handler.DataHandler;
+import Handler.HandlerInterface;
 
 import java.util.ArrayList;
 
 public class MovieController {
-    private HandlerInterface handlerInterface;
+    private HandlerInterface database;
     private ArrayList<Movie> movieArrayList;
     //the movie here represent all the movie in moblima, each cineplex hav full/subset of it
 
     public MovieController()
     {
-        handlerInterface = new DataHandler();
-        movieArrayList = handlerInterface.readSerializedObject("movie.dat");
+        database = new DataHandler();
+        movieArrayList = database.readSerializedObject("movie.dat");
 
     }
 }

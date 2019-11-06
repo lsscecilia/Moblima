@@ -1,5 +1,5 @@
 package UI;
-import controller.StaffController;
+import Controller.StaffController;
 
 import java.util.Scanner;
 
@@ -17,7 +17,7 @@ public class MoblimaApp {
     }
 
     public static void main(String[] args) {
-        //StaffController staffController = new StaffController();
+        StaffController staffController = new StaffController();
         Scanner sc = new Scanner(System.in);
         boolean login = false;
         int userChoice = 0;

@@ -1,10 +1,7 @@
 package Controller;
 
-import entity.PublicHoliday;
-import entity.ShowTime;
-import entity.Ticket;
-import handler.DataHandler;
-import handler.HandlerInterface;
+import Entity.ShowTime;
+import Entity.Ticket;
 
 import java.util.ArrayList;
 
@@ -12,7 +9,7 @@ import java.util.ArrayList;
 public class BookingController {
     private PricingChartController pricingChartController;
     private PublicHolidayController publicHolidayController;
-    private ArrayList<Ticket> ticketArrayListw;
+    private ArrayList<Ticket> ticketArrayList;
     private ShowTime showTime;
     private String customerClass;
 

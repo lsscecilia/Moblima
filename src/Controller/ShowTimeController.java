@@ -1,18 +1,29 @@
 package Controller;
 
-import entity.ShowTime;
-import handler.DataHandler;
-import handler.HandlerInterface;
+import Entity.ShowTime;
+import Handler.DataHandler;
+import Handler.HandlerInterface;
 
 import java.util.ArrayList;
 
-public class ShowTimeController {
-    private HandlerInterface handlerInterface;
+public class ShowTimeController implements  ControllerInterface{
+    private HandlerInterface database;
     private ArrayList<ShowTime> showTimeArrayList;
     //all the showtime regardless of which cineplex
+
     public ShowTimeController()
     {
-        handlerInterface = new DataHandler();
-        showTimeArrayList = handlerInterface.readSerializedObject("ShowTime.dat");
+        database = new DataHandler();
+        showTimeArrayList = database.readSerializedObject("ShowTime.dat");
+    }
+
+    @Override
+    public void display() {
+
+    }
+
+    @Override
+    public void updateDat(){
+        database.writeSerializedObject("ShowTime.dat", showTimeArrayList);
     }
 }
