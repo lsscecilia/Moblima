@@ -142,7 +142,7 @@ class StaffUi implements ConsoleBasedInterface {
         sc.nextLine();
         System.out.println("Please enter the Movie Title:");
         movieTitle = sc.nextLine();
-        System.out.println("Please enter the Movie Status [Coming Soon, Preview, Now Showing]:");
+        System.out.println("Please enter the Movie Status (Coming Soon, Preview, Now Showing):");
         movieStatus = sc.nextLine();
         System.out.println("Please enter the Movie Synopsis:");
         movieSynopsis = sc.nextLine();
@@ -153,8 +153,8 @@ class StaffUi implements ConsoleBasedInterface {
         System.out.println("Please enter the Movie Rating [PG13, NC16, M18, R21]:");
         movieRating = sc.nextLine();
         System.out.println("Please enter the movie duration: (in mins)");
-        movieDuration = sc.nextLine() + "mins";
-        System.out.println("Please enter the movie type: [2D, 3D]");
+        movieDuration = sc.nextLine();
+        System.out.println("Please enter the movie type: (2D, 3D)");
         movieType = sc.next();
 
          while(true){
@@ -252,6 +252,7 @@ class StaffUi implements ConsoleBasedInterface {
             System.out.println("To: ");
             String changedString = sc.nextLine();
             movieController.updateExistingMovieDetail(chosenMovieId, chosenIndex, changedString);
+            System.out.println("You have successfully updated Movie ID " + chosenMovieId + "!");
         }
         else{
             System.out.println("You have chosen to exit!");
