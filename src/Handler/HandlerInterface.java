@@ -1,7 +1,6 @@
-package handler;
+package Handler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Interface for UI

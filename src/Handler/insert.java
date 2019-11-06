@@ -1,7 +1,7 @@
-package handler;
+package Handler;
 
-import entity.Movie;
-import entity.Review;
+import Entity.Movie;
+import Entity.Review;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,18 +1,18 @@
 package Controller;
 
-import entity.PricingChart;
-import handler.DataHandler;
-import handler.HandlerInterface;
+import Entity.PricingChart;
+import Handler.DataHandler;
+import Handler.HandlerInterface;
 
 import java.util.ArrayList;
 
 public class PricingChartController {
-    private HandlerInterface handlerInterface;
+    private HandlerInterface database;
     private ArrayList<PricingChart> pricingChartArrayList;
 
     public PricingChartController()
     {
-        handlerInterface = new DataHandler();
-        pricingChartArrayList = (ArrayList<PricingChart>) handlerInterface.readSerializedObject("PricingChart");
+        database = new DataHandler();
+        pricingChartArrayList = database.readSerializedObject("PricingChart");
     }
 }

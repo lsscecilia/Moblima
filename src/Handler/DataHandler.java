@@ -1,8 +1,7 @@
-package handler;
+package Handler;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DataHandler implements HandlerInterface {
 

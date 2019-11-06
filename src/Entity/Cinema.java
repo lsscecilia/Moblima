@@ -1,4 +1,4 @@
-package entity;
+package Entity;
 import java.io.Serializable;
 /**
  * Cinema class represents an instance of the Cinema hall

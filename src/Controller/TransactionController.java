@@ -1,19 +1,19 @@
 package Controller;
 
-import entity.Transaction;
-import handler.DataHandler;
-import handler.HandlerInterface;
+import Entity.Transaction;
+import Handler.DataHandler;
+import Handler.HandlerInterface;
 
 import java.util.ArrayList;
 
 public class TransactionController {
     //add transaction aft any booking
-    private HandlerInterface handlerInterface;
+    private HandlerInterface database;
     private ArrayList<Transaction> transactionArrayList;
 
     public TransactionController()
     {
-        handlerInterface = new DataHandler();
-        transactionArrayList = handlerInterface.readSerializedObject("Transaction.dat");
+        database = new DataHandler();
+        transactionArrayList = database.readSerializedObject("Transaction.dat");
     }
 }
