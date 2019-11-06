@@ -1,5 +1,4 @@
 package Entity;
-import Database.SerializeDB;
 
 import java.io.Serializable;
 
@@ -20,7 +19,7 @@ public class Review implements Serializable {
 
     @Override
     public String toString(){
-        return ("Rating: " + String.valueOf(rating) + "\n" +
+        return ("Rating: " + rating + "\n" +
                 " MovieGoerReview: " + movieGoerReview + "\n");
     }
     public String getMovieGoerReview() {
