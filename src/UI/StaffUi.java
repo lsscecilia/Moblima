@@ -2,8 +2,10 @@ package UI;
 
 //import controller.StaffController;
 
+import Controller.MovieController;
 import Entity.Movie;
 import Entity.Review;
+import Entity.Staff;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,7 +14,11 @@ import java.util.Scanner;
  * modifier package-private
  */
 class StaffUi implements ConsoleBasedInterface {
+    private MovieController movieController;
 
+    public StaffUi(){
+        this.movieController = new MovieController();
+    }
     /**
      * Allows the Staff to choose the different options
      */
@@ -86,7 +92,9 @@ class StaffUi implements ConsoleBasedInterface {
             switch (choice) {
                 case 1:
                     addNewMovie();
+                    break;
                 case 2:
+                    removeExistingMovie();
                     break;
                 case 3:
                     break;
@@ -105,6 +113,9 @@ class StaffUi implements ConsoleBasedInterface {
         } while (choice != 4);
     }
 
+    /**
+     * Allows user to input new movie and it's details!
+     */
     public void addNewMovie(){
         Scanner sc = new Scanner(System.in);
 
@@ -165,11 +176,19 @@ class StaffUi implements ConsoleBasedInterface {
                                , movieType
                                , movieReviews);
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(movie.toString());
 
+        if(movieController.addNewMovie(movie) == true ){
+            System.out.println("\n" + "New Movie has been successfully created!");
+        }
+        else{
+            System.out.println("\n" + "Sorry, something went wrong! :(");
+        }
+        System.out.println("==================== Add New Movie ====================");
     }
 
+    public void removeExistingMovie(){
+        System.out.println("Please enter the ");
+    }
 
     /**
      * UI display for "Setting for Individual Cineplex"
