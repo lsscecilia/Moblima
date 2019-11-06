@@ -7,7 +7,7 @@ import java.util.List;
  * modifier package-private
  */
 public interface HandlerInterface {
-    List readSerializedObject(String filename);
-    void writeSerializedObject(String filename, List list);
+    public <T> List<T> readSerializedObject(String filename);
+    public <T> void writeSerializedObject(String filename, List<T> list);
 
 }

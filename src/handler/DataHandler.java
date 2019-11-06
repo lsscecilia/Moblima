@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataHandler implements HandlerInterface {
+
     public DataHandler() {
     }
 
     @Override
-    public List readSerializedObject(String filename) {
-        List pDetails = null;
+    public <T> List<T> readSerializedObject(String filename) {
+        List<T> pDetails = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
         try {
@@ -31,7 +32,7 @@ public class DataHandler implements HandlerInterface {
     }
 
     @Override
-    public void writeSerializedObject(String filename, List list) {
+    public <T> void writeSerializedObject(String filename, List<T> list) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
@@ -45,3 +46,4 @@ public class DataHandler implements HandlerInterface {
         }
     }
 }
+
