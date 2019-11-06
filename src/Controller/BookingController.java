@@ -44,7 +44,6 @@ public class BookingController {
     }
 
 
-
     public void newTransaction()
     {
 
