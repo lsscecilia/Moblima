@@ -17,10 +17,6 @@ public class ShowTimeController implements  ControllerInterface{
         showTimeArrayList = database.readSerializedObject("ShowTime.dat");
     }
 
-    @Override
-    public void display() {
-
-    }
 
     @Override
     public void updateDat(){
