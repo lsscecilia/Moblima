@@ -2,6 +2,9 @@ package UI;
 
 //import controller.StaffController;
 
+import Controller.ControllerInterface;
+import Controller.DisplayController;
+
 import java.util.Scanner;
 
 /**
@@ -11,22 +14,18 @@ class StaffUi implements ConsoleBasedInterface {
 
     @Override
     public void show() {
-        //StaffController staffController = new StaffController();
+        ControllerInterface displayController = new DisplayController();
         Scanner sc = new Scanner(System.in);
 
         int choice = 0;
         do {
             System.out.println("======================== STAFF ========================");
-            System.out.println("|1.  Cineplexes                                       |");
-            System.out.println("|2.  Cinemas                                          |");
-            System.out.println("|3.  Movies                                           |");
-            System.out.println("|4.  Show Times                                       |");
-            System.out.println("|5.  Prices                                           |");
-            System.out.println("|6.  Holidays                                         |");
-            System.out.println("|7.  List Top 5 ranking by ticket sales               |");
-            System.out.println("|8.  List Top 5 movies by overall reviewer's ratings  |");
-            System.out.println("|9.  Back                                             |");
-            System.out.println("|10. Quit                                             |");
+            System.out.println("| 1.  View All Cineplex                               |");
+            System.out.println("| 2.  Setting for individual Cineplex                 |");
+            System.out.println("| 3.  Setting for All Cineplex                        |");
+            System.out.println("| 4.  Configure System Setting                        |");
+            System.out.println("| 5.  Back                                            |");
+            System.out.println("| 6.  Quit                                            |");
             System.out.println("=======================================================");
             System.out.print("Please input your choice: ");
 
@@ -35,32 +34,18 @@ class StaffUi implements ConsoleBasedInterface {
 
             switch (choice) {
                 case 1:
-
+                    ((DisplayController) displayController).viewAllCineplex();
                     break;
                 case 2:
-
                     break;
                 case 3:
-
                     break;
                 case 4:
-
                     break;
                 case 5:
-
+                    //Back
                     break;
                 case 6:
-
-                    break;
-                case 7:
-
-                    break;
-                case 8:
-
-                    break;
-                case 9:
-                    break;
-                case 10:
                     sc.close();
                     System.out.println("Program terminating...");
                     System.exit(0);
@@ -69,7 +54,7 @@ class StaffUi implements ConsoleBasedInterface {
                     break;
             }
 
-        } while (choice != 9);
+        } while (choice != 5);
     }
 
 }
