@@ -15,6 +15,7 @@ public class MovieController {
     {
         database = new DataHandler();
         movieArrayList = database.readSerializedObject("movie.dat");
-
     }
+
+
 }

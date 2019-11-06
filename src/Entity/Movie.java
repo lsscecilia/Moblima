@@ -16,13 +16,12 @@ public class Movie implements Serializable{
     private String movieDirector;
     private String movieCast;
     private String movieRating;
-    private double overallMovieRating;
     private String movieDuration;
     private String movieType;
     private ArrayList <Review> movieReviews;
 
-    public Movie(int movieId, String movieTitle, String movieStatus, String movieSynopsis, String movieDirector, String movieCast, String movieRating,
-                 double overallMovieRating, String movieDuration, String movieType, ArrayList<Review> movieReviews) {
+    public Movie(int movieId, String movieTitle, String movieStatus, String movieSynopsis, String movieDirector, String movieCast, String movieRating
+            , String movieDuration, String movieType, ArrayList<Review> movieReviews) {
         this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.movieStatus = movieStatus;
@@ -30,7 +29,6 @@ public class Movie implements Serializable{
         this.movieDirector = movieDirector;
         this.movieCast = movieCast;
         this.movieRating = movieRating;
-        this.overallMovieRating = overallMovieRating;
         this.movieDuration = movieDuration;
         this.movieType = movieType;
         this.movieReviews = movieReviews;
@@ -100,14 +98,6 @@ public class Movie implements Serializable{
 
     public void setMovieRating(String movieRating) {
         this.movieRating = movieRating;
-    }
-
-    public double getOverallMovieRating() {
-        return overallMovieRating;
-    }
-
-    public void setOverallMovieRating(double overallMovieRating) {
-        this.overallMovieRating = overallMovieRating;
     }
 
     public String getMovieDuration() {
