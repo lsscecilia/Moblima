@@ -4,7 +4,6 @@ import Entity.Staff;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,20 +13,20 @@ public class StaffController implements ControllerInterface {
     private HandlerInterface database;
 
     public StaffController(){
-        this.staffArrayList = new ArrayList<>();
         this.database = new DataHandler();
+        this.staffArrayList = database.readSerializedObject("Staff");
     }
 
 
-    @Override
-    public void display() {
-
-    }
-
+    /**
+     * After a user has chosen to modify the ArrayList such as deletion or addition, it will call this method
+     * to write the ArrayList into the DAT file using DataHandler.
+     */
     @Override
     public void updateDat() {
-
+        database.writeSerializedObject("Staff.dat", staffArrayList);
     }
+
 
     /**
      * Adds new Staff to access the system.
@@ -43,7 +42,7 @@ public class StaffController implements ControllerInterface {
             }
         }
         staffArrayList.add(staff);
-        setArrayList(staffArrayList);
+        updateDat();
         return true;
     }
 
