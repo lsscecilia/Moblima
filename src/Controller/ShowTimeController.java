@@ -13,6 +13,6 @@ public class ShowTimeController {
     public ShowTimeController()
     {
         handlerInterface = new DataHandler();
-        showTimeArrayList = (ArrayList<ShowTime>) handlerInterface.readSerializedObject("ShowTime.dat");
+        showTimeArrayList = handlerInterface.readSerializedObject("ShowTime.dat");
     }
 }

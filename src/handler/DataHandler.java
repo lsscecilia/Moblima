@@ -10,8 +10,8 @@ public class DataHandler implements HandlerInterface {
     }
 
     @Override
-    public <T> List<T> readSerializedObject(String filename) {
-        List<T> pDetails = null;
+    public <T> ArrayList<T> readSerializedObject(String filename) {
+        ArrayList<T> pDetails = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
         try {
@@ -32,7 +32,7 @@ public class DataHandler implements HandlerInterface {
     }
 
     @Override
-    public <T> void writeSerializedObject(String filename, List<T> list) {
+    public <T> void writeSerializedObject(String filename, ArrayList<T> list) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {

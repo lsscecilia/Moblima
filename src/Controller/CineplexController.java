@@ -13,6 +13,6 @@ public class CineplexController {
 
     public CineplexController( ArrayList<Cineplex> cineplexArrayList) {
         this.handlerInterface = new DataHandler();
-        this.cineplexArrayList = (ArrayList<Cineplex>) handlerInterface.readSerializedObject("Cineplex.dat");
+        this.cineplexArrayList = handlerInterface.readSerializedObject("Cineplex.dat");
     }
 }

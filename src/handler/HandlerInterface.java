@@ -1,5 +1,6 @@
 package handler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * modifier package-private
  */
 public interface HandlerInterface {
-    public <T> List<T> readSerializedObject(String filename);
-    public <T> void writeSerializedObject(String filename, List<T> list);
+    public <T> ArrayList<T> readSerializedObject(String filename);
+    public <T> void writeSerializedObject(String filename, ArrayList<T> list);
 
 }
