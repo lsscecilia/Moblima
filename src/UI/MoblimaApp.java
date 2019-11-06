@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class MoblimaApp {
 
     /**
-     * helps implement Dependency Inversion Principle by reducing coupling between Main and U
+     * helps implement Dependency Inversion Principle by reducing coupling between Moblima and Controller
      * @param consoleBasedInterface
      */
     private static void loadUi(ConsoleBasedInterface consoleBasedInterface){

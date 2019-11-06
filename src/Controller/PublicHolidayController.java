@@ -13,6 +13,7 @@ public class PublicHolidayController {
     public PublicHolidayController()
     {
         handlerInterface = new DataHandler();
-        publicHolidayArrayList = (ArrayList<PublicHoliday>) handlerInterface.readSerializedObject("PublicHoliday");
+        publicHolidayArrayList = handlerInterface.readSerializedObject("PublicHoliday");
+
     }
 }

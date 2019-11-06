@@ -14,6 +14,6 @@ public class TransactionController {
     public TransactionController()
     {
         handlerInterface = new DataHandler();
-        transactionArrayList = (ArrayList<Transaction>) handlerInterface.readSerializedObject("Transaction.dat");
+        transactionArrayList = handlerInterface.readSerializedObject("Transaction.dat");
     }
 }

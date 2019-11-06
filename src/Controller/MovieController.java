@@ -14,6 +14,7 @@ public class MovieController {
     public MovieController()
     {
         handlerInterface = new DataHandler();
-        movieArrayList = (ArrayList<Movie>) handlerInterface.readSerializedObject("movie.dat");
+        movieArrayList = handlerInterface.readSerializedObject("movie.dat");
+
     }
 }
