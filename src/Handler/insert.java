@@ -10,9 +10,8 @@ import java.util.List;
 public class insert {
     public static void main(String[] args)
     {
-        /*
         ArrayList reviewArrayList = new ArrayList();
-        List movieArrayList = new ArrayList();
+        ArrayList<Movie> movieArrayList = new ArrayList();
         //MovieHandler movieHandler = new MovieHandler();
 
 
@@ -32,15 +31,15 @@ public class insert {
                 "Josh Zhang	Noah Yap Joshua Tan	Maxi Lim", "PG13", 4.0, "133min","2D", reviewArrayList);
 
 
-         */
+
 
         ArrayList<Staff> staffArrayList = new ArrayList<>();
-        staffArrayList.add(new Staff("test", Staff.hashPassword("test")));
+        //staffArrayList.add(new Staff("test", Staff.hashPassword("test")));
 
 
         HandlerInterface database = new DataHandler();
-        database.writeSerializedObject("Staff", staffArrayList);
-        //movieArrayList = movieHandler.readSerializedObject();
+        //database.writeSerializedObject("Staff", staffArrayList);
+        movieArrayList = database.readSerializedObject("Movie");
         //movieArrayList.add(movie);
         //movieHandler.writeSerializedObject(movieArrayList);
     }
