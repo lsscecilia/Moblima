@@ -2,6 +2,7 @@ package Handler;
 
 import Entity.Movie;
 import Entity.Review;
+import Entity.Staff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 public class insert {
     public static void main(String[] args)
     {
+        /*
         ArrayList reviewArrayList = new ArrayList();
         List movieArrayList = new ArrayList();
         //MovieHandler movieHandler = new MovieHandler();
@@ -29,19 +31,17 @@ public class insert {
                 "There'll be new enemy threats and their brotherhood will be put to the test." , "Jack Neo" ,
                 "Josh Zhang	Noah Yap Joshua Tan	Maxi Lim", "PG13", 4.0, "133min","2D", reviewArrayList);
 
-        //mwwovieArrayList = movieHandler.readSerializedObject();
+
+         */
+
+        ArrayList<Staff> staffArrayList = new ArrayList<>();
+        staffArrayList.add(new Staff("test", Staff.hashPassword("test")));
+
+
+        HandlerInterface database = new DataHandler();
+        database.writeSerializedObject("Staff", staffArrayList);
+        //movieArrayList = movieHandler.readSerializedObject();
         //movieArrayList.add(movie);
         //movieHandler.writeSerializedObject(movieArrayList);
     }
 }
-    /*private int movieId;
-    private String movieTitle;
-    private String movieStatus;
-    private String movieSynopsis;
-    private String movieDirector;
-    private String movieCast;
-    private String movieRating;
-    private double overallMovieRating;
-    private String movieDuration;
-    private String movieType;
-    private ArrayList <Review> movieReviews;*/

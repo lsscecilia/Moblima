@@ -1,6 +1,7 @@
 package Entity;
+import java.io.Serializable;
 
-public class Staff {
+public class Staff implements Serializable{
     private String userName;
     private String password;
 
