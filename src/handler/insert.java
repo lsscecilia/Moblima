@@ -11,7 +11,7 @@ public class insert {
     {
         ArrayList reviewArrayList = new ArrayList();
         List movieArrayList = new ArrayList();
-        MovieHandler movieHandler = new MovieHandler();
+        //MovieHandler movieHandler = new MovieHandler();
 
 
         Review review = new Review("Very good movie", 4);
@@ -29,7 +29,7 @@ public class insert {
                 "There'll be new enemy threats and their brotherhood will be put to the test." , "Jack Neo" ,
                 "Josh Zhang	Noah Yap Joshua Tan	Maxi Lim", "PG13", 4.0, "133min","2D", reviewArrayList);
 
-        //movieArrayList = movieHandler.readSerializedObject();
+        //mwwovieArrayList = movieHandler.readSerializedObject();
         //movieArrayList.add(movie);
         //movieHandler.writeSerializedObject(movieArrayList);
     }

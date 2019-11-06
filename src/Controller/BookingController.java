@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class BookingController {
     private PricingChartController pricingChartController;
     private PublicHolidayController publicHolidayController;
-    private ArrayList<Ticket> ticketArrayList;
+    private ArrayList<Ticket> ticketArrayListw;
     private ShowTime showTime;
     private String customerClass;
 
