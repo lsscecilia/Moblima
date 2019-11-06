@@ -30,8 +30,8 @@ class StaffUi implements ConsoleBasedInterface {
         do {
             System.out.println("======================== STAFF ========================");
             System.out.println("| 1.  View All Cineplex                               |");
-            System.out.println("| 2.  Setting for All Cineplex                        |");
-            System.out.println("| 3.  Setting for individual Cineplex                 |");
+            System.out.println("| 2.  All Cineplex                                    |");
+            System.out.println("| 3.  Individual Cineplex                             |");
             System.out.println("| 4.  Configure System Setting                        |");
             System.out.println("| 5.  Back                                            |");
             System.out.println("| 6.  Quit                                            |");
@@ -68,6 +68,11 @@ class StaffUi implements ConsoleBasedInterface {
     }
 
 
+    // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
+
+    // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
+
+    // -------------------------------------------------------OPTION 2:Setting for All Cineplex-------------------------------------------------------
     /**
      * UI display for "Setting for all Cineplex"
      * Allows Staff to Add new movie, Remove existing movie, Update existing movie detail
@@ -97,6 +102,7 @@ class StaffUi implements ConsoleBasedInterface {
                     removeExistingMovie();
                     break;
                 case 3:
+                    updateExistingMovieDetail();
                     break;
                 case 4:
                     //back
@@ -133,37 +139,39 @@ class StaffUi implements ConsoleBasedInterface {
         System.out.println("==================== Add New Movie ====================");
         System.out.println("Please enter the Movie ID (Integer):");
         movieId = sc.nextInt();
+        sc.nextLine();
         System.out.println("Please enter the Movie Title:");
-        movieTitle = sc.next();
+        movieTitle = sc.nextLine();
         System.out.println("Please enter the Movie Status [Coming Soon, Preview, Now Showing]:");
-        movieStatus = sc.next();
+        movieStatus = sc.nextLine();
         System.out.println("Please enter the Movie Synopsis:");
-        movieSynopsis = sc.next();
+        movieSynopsis = sc.nextLine();
         System.out.println("Please enter the Movie Director:");
-        movieDirector = sc.next();
+        movieDirector = sc.nextLine();
         System.out.println("Please enter the Movie Cast(s) (Split by comma):");
-        movieCast = sc.next();
+        movieCast = sc.nextLine();
         System.out.println("Please enter the Movie Rating [PG13, NC16, M18, R21]:");
-        movieRating = sc.next();
+        movieRating = sc.nextLine();
         System.out.println("Please enter the movie duration: (in mins)");
-        movieDuration = sc.next() + " mins";
+        movieDuration = sc.nextLine() + "mins";
         System.out.println("Please enter the movie type: [2D, 3D]");
         movieType = sc.next();
 
-        do{
-            System.out.println("Do you wish to enter additional reviews? (Y/N)");
-            if(sc.next().equalsIgnoreCase("Y")){
-                System.out.println("Enter your rating, (1-5):");
-                int userRating = sc.nextInt();
-                System.out.println("Enter your review!:");
-                String userReview = sc.next();
+         while(true){
+             System.out.println("Do you wish to enter additional reviews? (Y/N)");
+             if(sc.next().equalsIgnoreCase("Y")){
+                 System.out.println("Enter your rating, (1-5):");
+                 int userRating = sc.nextInt();
+                 sc.nextLine();
+                 System.out.println("Enter your review!:");
+                 String userReview = sc.nextLine();
 
-                movieReviews.add(new Review(userReview, userRating));
-            }
-            else{
-                break;
-            }
-        } while(sc.next().equalsIgnoreCase("Y"));
+                 movieReviews.add(new Review(userReview, userRating));
+             }
+             else{
+                 break;
+             }
+         }
 
         Movie movie = new Movie(movieId
                                , movieTitle
@@ -177,19 +185,83 @@ class StaffUi implements ConsoleBasedInterface {
                                , movieReviews);
 
 
-        if(movieController.addNewMovie(movie) == true ){
+        if(movieController.addNewMovie(movie)){
             System.out.println("\n" + "New Movie has been successfully created!");
         }
         else{
             System.out.println("\n" + "Sorry, something went wrong! :(");
         }
-        System.out.println("==================== Add New Movie ====================");
+        System.out.println("========================================================" + "\n");
     }
 
+    /**
+     * Allows Staff Admin to remove Movie based on MovieID or MovieTitle.
+     */
     public void removeExistingMovie(){
-        System.out.println("Please enter the ");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("================ Remove Existing Movie ================");
+        System.out.println("These are the following Movies Available: " + "\n");
+        if(!movieController.isEmpty()){
+            movieController.viewAllMovie();
+            System.out.println("\n" + "Please enter the movie ID that you wish to delete! (Enter 0 to cancel)");
+            int userChoice = sc.nextInt();
+            if(userChoice != 0){
+                if(movieController.removeMovieById(userChoice)){
+                    System.out.println("The movie has been successfully removed!");
+                }
+                else{
+                    System.out.println("Sorry, something went wrong! :(");
+                }
+            }
+            else{
+                System.out.println("You have chosen to exit!");
+            }
+            System.out.println("========================================================" + "\n");
+        }
+        else{
+            System.out.println("There is no movie available! :( Please add new movies!" + "\n");
+        }
     }
 
+    /**
+     * Allows staff to update existing movie details
+     */
+    public void updateExistingMovieDetail(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("================ Update Existing Movie ================");
+        movieController.viewAllMovie();
+        System.out.println("Which Movie would you like to update? (Enter 0 to cancel)");
+        int chosenMovieId = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Which portion would you like to update? (Enter 0 to cancel)");
+        System.out.println("1. Movie ID");
+        System.out.println("2. Movie Title");
+        System.out.println("3. Movie Status");
+        System.out.println("4. Movie Synopsis");
+        System.out.println("5. Movie Director");
+        System.out.println("6. Movie Cast");
+        System.out.println("7. Movie Rating");
+        System.out.println("8. Movie Duration");
+        System.out.println("9. Movie Type");
+        int chosenIndex = sc.nextInt();
+        sc.nextLine();
+
+        if(chosenMovieId != 0 && chosenIndex != 0){
+            System.out.println("You are changing: ");
+            movieController.printIndex(chosenMovieId, chosenIndex);
+            System.out.println("To: ");
+            String changedString = sc.nextLine();
+            movieController.updateExistingMovieDetail(chosenMovieId, chosenIndex, changedString);
+        }
+        else{
+            System.out.println("You have chosen to exit!");
+        }
+        System.out.println("========================================================" + "\n");
+    }
+    // -------------------------------------------------------OPTION 2:Setting for All Cineplex-------------------------------------------------------
+
+
+    // -------------------------------------------------------OPTION 3:Setting for individual Cineplex-------------------------------------------------------
     /**
      * UI display for "Setting for Individual Cineplex"
      * Allows Staff to
@@ -197,5 +269,8 @@ class StaffUi implements ConsoleBasedInterface {
     public void showSettingForIndividualCineplex(){
 
     }
+    // -------------------------------------------------------OPTION 3:Setting for individual Cineplex-------------------------------------------------------
 
+    // -------------------------------------------------------OPTION 4:Configure System Setting-------------------------------------------------------
+    // -------------------------------------------------------OPTION 4:Configure System Setting-------------------------------------------------------
 }

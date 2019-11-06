@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class Movie implements Serializable{
 
+    private static final long serialVersionUID = -5830846618847949096L;
     private int movieId;
     private String movieTitle;
     private String movieStatus;
