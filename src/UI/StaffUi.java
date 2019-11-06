@@ -24,8 +24,8 @@ class StaffUi implements ConsoleBasedInterface {
             System.out.println("| 2.  Setting for individual Cineplex                 |");
             System.out.println("| 3.  Setting for All Cineplex                        |");
             System.out.println("| 4.  Configure System Setting                        |");
-            System.out.println("| 4.  Back                                            |");
-            System.out.println("| 5.  Quit                                            |");
+            System.out.println("| 5.  Back                                            |");
+            System.out.println("| 6.  Quit                                            |");
             System.out.println("=======================================================");
             System.out.print("Please input your choice: ");
 
@@ -37,14 +37,15 @@ class StaffUi implements ConsoleBasedInterface {
                     ((DisplayController) displayController).viewAllCineplex();
                     break;
                 case 2:
-
                     break;
                 case 3:
-
                     break;
                 case 4:
                     break;
                 case 5:
+                    //Back
+                    break;
+                case 6:
                     sc.close();
                     System.out.println("Program terminating...");
                     System.exit(0);
@@ -53,7 +54,7 @@ class StaffUi implements ConsoleBasedInterface {
                     break;
             }
 
-        } while (choice != 4);
+        } while (choice != 5);
     }
 
 }
