@@ -1,8 +1,6 @@
 package Handler;
 
-import Entity.Movie;
-import Entity.Review;
-import Entity.Staff;
+import Entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +28,6 @@ public class insert {
                 "There'll be new enemy threats and their brotherhood will be put to the test." , "Jack Neo" ,
                 "Josh Zhang,Noah Yap,Joshua Tan,Maxi Lim", "PG13", "133min","2D", reviewArrayList);
 
-        HandlerInterface database = new DataHandler();
-
 
 
         ArrayList<Movie> movieArrayList = new ArrayList<>();
@@ -58,6 +54,29 @@ public class insert {
 
  */
 
+
+/**
+ *     private int cineplexID;
+ *     private String cineplexName;
+ *     private String location;
+ *     private ArrayList<Cinema> cinemaArrayList;
+ *     private ArrayList<Movie> movieInCineplexArrayList;
+ *
+ *    private int cinemaID;
+ *     private int rows;
+ *     private int column;
+ */
+
+        Cinema cinema1 = new Cinema(1,10,10);
+
+
+        HandlerInterface database = new DataHandler();
+
+        ArrayList<Cineplex> cineplexArrayList = new ArrayList<>();
+
+        ArrayList<Cinema> cinemaArrayList = database.readSerializedObject("Movie");
+
+        ArrayList<Movie> movieArrayList = database.readSerializedObject("Movie");
 
     }
 }

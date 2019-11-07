@@ -6,18 +6,28 @@ import java.io.Serializable;
  * @since 17/10/2019
  */
 public class ShowTime implements Serializable{
+    private Cineplex cineplex;
     private Movie movie;
-    private Cinema cinema;
+    private int cinemaID;
     private String date; // yyyy-MM-dd
     private int time;
     private int[][] seatLayout;
 
-    public ShowTime(Movie movie, Cinema cinema, String date, int time, int[][] seatLayout) {
+    public ShowTime(Cineplex cineplex, Movie movie, int cinemaID, String date, int time, int[][] seatLayout) {
+        this.cineplex = cineplex;
         this.movie = movie;
-        this.cinema = cinema;
+        this.cinemaID = cinemaID;
         this.date = date;
         this.time = time;
         this.seatLayout = seatLayout;
+    }
+
+    public Cineplex getCineplex() {
+        return cineplex;
+    }
+
+    public void setCineplex(Cineplex cineplex) {
+        this.cineplex = cineplex;
     }
 
     public Movie getMovie() {
@@ -28,12 +38,12 @@ public class ShowTime implements Serializable{
         this.movie = movie;
     }
 
-    public Cinema getCinema() {
-        return cinema;
+    public int getCinemaID() {
+        return cinemaID;
     }
 
-    public void setCinema(Cinema cinema) {
-        this.cinema = cinema;
+    public void setCinemaID(int cinemaID) {
+        this.cinemaID = cinemaID;
     }
 
     public String getDate() {
