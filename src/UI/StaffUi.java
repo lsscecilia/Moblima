@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 class StaffUi implements ConsoleBasedInterface {
     private MovieController movieController;
-    //private CineplexController cineplexController;
+    private CineplexController cineplexController;
 
     public StaffUi(){
         this.movieController = new MovieController();
@@ -47,7 +47,7 @@ class StaffUi implements ConsoleBasedInterface {
 
             switch (choice) {
                 case 1:
-
+                    showAllCineplex();
                     break;
                 case 2:
                     showSettingForAllCineplex();
@@ -76,6 +76,48 @@ class StaffUi implements ConsoleBasedInterface {
 
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
+    public void showAllCineplex(){
+        cineplexController.displayAllCineplexInfo();
+        Scanner sc = new Scanner(System.in);
+
+        int choice = 0;
+        do {
+            System.out.println("=============== All Cineplex Information ==============");
+            System.out.println("| 1.  Add new movie                                   |");
+            System.out.println("| 2.  Remove existing movie                           |");
+            System.out.println("| 3.  Update existing movie detail                    |");
+            System.out.println("| 4.  Back                                            |");
+            System.out.println("| 5.  Quit                                            |");
+            System.out.println("=======================================================");
+            System.out.print("Please input your choice: ");
+
+            choice = sc.nextInt();
+            System.out.print("\n");
+
+            switch (choice) {
+                case 1:
+                    addNewMovie();
+                    break;
+                case 2:
+                    removeExistingMovie();
+                    break;
+                case 3:
+                    updateExistingMovieDetail();
+                    break;
+                case 4:
+                    //back
+                    break;
+                case 5:
+                    sc.close();
+                    System.out.println("Program terminating...");
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+            }
+
+        } while (choice != 4);
+    }
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
 

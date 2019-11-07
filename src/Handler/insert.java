@@ -66,17 +66,48 @@ public class insert {
  *     private int rows;
  *     private int column;
  */
-
-        Cinema cinema1 = new Cinema(1,10,10);
-
-
+/*
         HandlerInterface database = new DataHandler();
 
         ArrayList<Cineplex> cineplexArrayList = new ArrayList<>();
 
-        ArrayList<Cinema> cinemaArrayList = database.readSerializedObject("Movie");
+        ArrayList<Cinema> cinemaArrayList1 = new ArrayList<>();
+        ArrayList<Movie> movieArrayList1 = database.readSerializedObject("Movie");
+        Cinema cinema1 = new Cinema(1,8,2, "Platinum Movie Suites");
+        Cinema cinema2 = new Cinema(2,10, 5, "Ordinary");
+        Cinema cinema3 = new Cinema(3,10, 4, "Ordinary");
+        cinemaArrayList1.add(cinema1);
+        cinemaArrayList1.add(cinema2);
+        cinemaArrayList1.add(cinema3);
+        Cineplex cineplex1 = new Cineplex(1, "Jem", "Jurong East", cinemaArrayList1,movieArrayList1);
 
-        ArrayList<Movie> movieArrayList = database.readSerializedObject("Movie");
+        ArrayList<Cinema> cinemaArrayList2 = new ArrayList<>();
+        Cinema cinema4 = new Cinema(1,5,4, "Platinum Movie Suites");
+        Cinema cinema5 = new Cinema(2,12, 10, "Ordinary");
+        Cinema cinema6 = new Cinema(3,11, 8, "Ordinary");
+        cinemaArrayList2.add(cinema4);
+        cinemaArrayList2.add(cinema5);
+        cinemaArrayList2.add(cinema6);
+        Cineplex cineplex2 = new Cineplex(2, "Lido", "Orchard", cinemaArrayList2,movieArrayList1);
+
+        ArrayList<Cinema> cinemaArrayList3 = new ArrayList<>();
+        Cinema cinema7 = new Cinema(1,10,10, "Ordinary");
+        Cinema cinema8 = new Cinema(2,12, 10, "Ordinary");
+        Cinema cinema9 = new Cinema(3,10, 12, "Ordinary");
+        cinemaArrayList3.add(cinema7);
+        cinemaArrayList3.add(cinema8);
+        cinemaArrayList3.add(cinema9);
+        Cineplex cineplex3 = new Cineplex(3, "The Cathay", "Dhoby Ghaut", cinemaArrayList3,movieArrayList1);
+
+        cineplexArrayList.add(cineplex1);
+        cineplexArrayList.add(cineplex2);
+        cineplexArrayList.add(cineplex3);
+
+        database.writeSerializedObject("Cineplex",cineplexArrayList);
+
+ */
+
+
 
     }
 }
