@@ -2,6 +2,7 @@ package UI;
 
 //import controller.StaffController;
 
+import Controller.CineplexController;
 import Controller.MovieController;
 import Entity.Movie;
 import Entity.Review;
@@ -15,10 +16,13 @@ import java.util.Scanner;
  */
 class StaffUi implements ConsoleBasedInterface {
     private MovieController movieController;
+    //private CineplexController cineplexController;
 
     public StaffUi(){
         this.movieController = new MovieController();
+        //this.cineplexController = new CineplexController();
     }
+
     /**
      * Allows the Staff to choose the different options
      */
@@ -43,6 +47,7 @@ class StaffUi implements ConsoleBasedInterface {
 
             switch (choice) {
                 case 1:
+
                     break;
                 case 2:
                     showSettingForAllCineplex();
@@ -51,6 +56,7 @@ class StaffUi implements ConsoleBasedInterface {
                     showSettingForIndividualCineplex();
                     break;
                 case 4:
+                    showSettingForSystemSetting();
                     break;
                 case 5:
                     //Back
@@ -71,6 +77,7 @@ class StaffUi implements ConsoleBasedInterface {
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
+
 
     // -------------------------------------------------------OPTION 2:Setting for All Cineplex-------------------------------------------------------
     /**
@@ -267,11 +274,54 @@ class StaffUi implements ConsoleBasedInterface {
      * UI display for "Setting for Individual Cineplex"
      * Allows Staff to
      */
-    public void showSettingForIndividualCineplex(){
+    public void showSettingForIndividualCineplex() {
+        Scanner sc = new Scanner(System.in);
+
+        int choice = 0;
+        do {
+            System.out.println("=========== Setting For Individual Cineplex ===========");
+            System.out.println("| 1.                               |");
+            System.out.println("| 2.  All Cineplex                                    |");
+            System.out.println("| 3.  Individual Cineplex                             |");
+            System.out.println("| 4.  Configure System Setting                        |");
+            System.out.println("| 5.  Back                                            |");
+            System.out.println("| 6.  Quit                                            |");
+            System.out.println("=======================================================");
+            System.out.print("Please input your choice: ");
+
+            choice = sc.nextInt();
+            System.out.print("\n");
+
+            switch (choice) {
+                case 1:
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    //Back
+                    break;
+                case 6:
+                    sc.close();
+                    System.out.println("Program terminating...");
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+            }
+
+        } while (choice != 5);
 
     }
     // -------------------------------------------------------OPTION 3:Setting for individual Cineplex-------------------------------------------------------
 
     // -------------------------------------------------------OPTION 4:Configure System Setting-------------------------------------------------------
+    public void showSettingForSystemSetting(){
+
+    }
     // -------------------------------------------------------OPTION 4:Configure System Setting-------------------------------------------------------
 }

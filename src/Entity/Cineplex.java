@@ -12,14 +12,15 @@ public class Cineplex implements Serializable {
     private String cineplexName;
     private String location;
     private ArrayList<Cinema> cinemaArrayList;
-    private ArrayList<Integer> moviesArrayList;
+    private ArrayList<Movie> movieInCineplexArrayList;
 
-    public Cineplex(int cineplexID, String cineplexName, String location, ArrayList<Cinema> cinemaArrayList, ArrayList<Integer> moviesArrayList) {
+    public Cineplex(int cineplexID, String cineplexName, String location,
+                    ArrayList<Cinema> cinemaArrayList, ArrayList<Movie> movieInCineplexArrayList) {
         this.cineplexID = cineplexID;
         this.cineplexName = cineplexName;
         this.location = location;
         this.cinemaArrayList = cinemaArrayList;
-        this.moviesArrayList = moviesArrayList;
+        this.movieInCineplexArrayList = movieInCineplexArrayList;
     }
 
     public int getCineplexID() {
@@ -54,11 +55,11 @@ public class Cineplex implements Serializable {
         this.cinemaArrayList = cinemaArrayList;
     }
 
-    public ArrayList<Integer> getMoviesArrayList() {
-        return moviesArrayList;
+    public ArrayList<Movie> getMovieInCineplexArrayList() {
+        return movieInCineplexArrayList;
     }
 
-    public void setMoviesArrayList(ArrayList<Integer> moviesArrayList) {
-        this.moviesArrayList = moviesArrayList;
+    public void setMovieInCineplexArrayList(ArrayList<Movie> movieInCineplexArrayList) {
+        this.movieInCineplexArrayList = movieInCineplexArrayList;
     }
 }
