@@ -19,8 +19,16 @@ public class CineplexController implements ControllerInterface{
     /**
      * Displays all the Cineplex Information
      */
-    public ArrayList<Cineplex> returnAllCineplexInfo(){
-        return cineplexArrayList;
+    public void displayAllCineplexInfo(){
+        if(cineplexArrayList != null){
+            for(Cineplex cineplex : cineplexArrayList){
+                System.out.println(cineplex.toString());
+            }
+        }
+        else{
+            System.out.println("There isn't any Cineplex :(");
+        }
+
     }
 
     @Override
