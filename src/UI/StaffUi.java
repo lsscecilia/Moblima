@@ -20,7 +20,7 @@ class StaffUi implements ConsoleBasedInterface {
 
     public StaffUi(){
         this.movieController = new MovieController();
-        //this.cineplexController = new CineplexController();
+        this.cineplexController = new CineplexController();
     }
 
     /**
