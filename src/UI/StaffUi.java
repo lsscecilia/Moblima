@@ -35,11 +35,10 @@ class StaffUi implements ConsoleBasedInterface {
         do {
             System.out.println("======================== STAFF ========================");
             System.out.println("| 1.  View All Cineplex                               |");
-            System.out.println("| 2.  All Cineplex                                    |");
-            System.out.println("| 3.  Individual Cineplex                             |");
-            System.out.println("| 4.  Configure System Setting                        |");
-            System.out.println("| 5.  Back                                            |");
-            System.out.println("| 6.  Quit                                            |");
+            System.out.println("| 2.  Settings across all Cineplex                    |");
+            System.out.println("| 3.  Configure System Setting                        |");
+            System.out.println("| 4.  Back                                            |");
+            System.out.println("| 5.  Quit                                            |");
             System.out.println("=======================================================");
             System.out.print("Please input your choice: ");
 
@@ -54,41 +53,34 @@ class StaffUi implements ConsoleBasedInterface {
                     showSettingForAllCineplex();
                     break;
                 case 3:
-                    showSettingForIndividualCineplex();
-                    break;
-                case 4:
                     showSettingForSystemSetting();
                     break;
-                case 5:
-                    //Back
+                case 4:
+                    //break
                     break;
-                case 6:
+                case 5:
                     sc.close();
                     System.out.println("Program terminating...");
                     System.exit(0);
                     break;
+
                 default:
                     break;
             }
 
-        } while (choice != 5);
+        } while (choice != 4);
     }
 
 
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
     public void showAllCineplex(){
-        ArrayList<Cineplex> cineplexArrayList = cineplexController.returnAllCineplexInfo();
         Scanner sc = new Scanner(System.in);
 
         int choice = 0;
         do {
             System.out.println("=============== All Cineplex Information ==============");
-            System.out.println("| 1.  Add new movie                                   |");
-            System.out.println("| 2.  Remove existing movie                           |");
-            System.out.println("| 3.  Update existing movie detail                    |");
-            System.out.println("| 4.  Back                                            |");
-            System.out.println("| 5.  Quit                                            |");
+            cineplexController.displayAllCineplexInfo();
             System.out.println("=======================================================");
             System.out.print("Please input your choice: ");
 
@@ -312,59 +304,9 @@ class StaffUi implements ConsoleBasedInterface {
     // -------------------------------------------------------OPTION 2:Setting for All Cineplex-------------------------------------------------------
 
 
-    // -------------------------------------------------------OPTION 3:Setting for individual Cineplex-------------------------------------------------------
-    /**
-     * UI display for "Setting for Individual Cineplex"
-     * Allows Staff to
-     */
-    public void showSettingForIndividualCineplex() {
-        Scanner sc = new Scanner(System.in);
-
-        int choice = 0;
-        do {
-            System.out.println("=========== Setting For Individual Cineplex ===========");
-            System.out.println("| 1.                               |");
-            System.out.println("| 2.  All Cineplex                                    |");
-            System.out.println("| 3.  Individual Cineplex                             |");
-            System.out.println("| 4.  Configure System Setting                        |");
-            System.out.println("| 5.  Back                                            |");
-            System.out.println("| 6.  Quit                                            |");
-            System.out.println("=======================================================");
-            System.out.print("Please input your choice: ");
-
-            choice = sc.nextInt();
-            System.out.print("\n");
-
-            switch (choice) {
-                case 1:
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    //Back
-                    break;
-                case 6:
-                    sc.close();
-                    System.out.println("Program terminating...");
-                    System.exit(0);
-                    break;
-                default:
-                    break;
-            }
-
-        } while (choice != 5);
-
-    }
-    // -------------------------------------------------------OPTION 3:Setting for individual Cineplex-------------------------------------------------------
-
-    // -------------------------------------------------------OPTION 4:Configure System Setting-------------------------------------------------------
+    // -------------------------------------------------------OPTION 3:Configure System Setting-------------------------------------------------------
     public void showSettingForSystemSetting(){
 
     }
-    // -------------------------------------------------------OPTION 4:Configure System Setting-------------------------------------------------------
+    // -------------------------------------------------------OPTION 3:Configure System Setting-------------------------------------------------------
 }

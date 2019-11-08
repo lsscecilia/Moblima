@@ -2,14 +2,23 @@ package Handler;
 
 import Entity.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class insert {
     public static void main(String[] args)
     {
-
 /*
+        HandlerInterface database = new DataHandler();
+
+        ArrayList<Cineplex> cineplexArrayList = new ArrayList<>();
+        cineplexArrayList = database.readSerializedObject("Cineplex");
+        ArrayList<Cinema> cinemaArrayList = cineplexArrayList.get(0).getCinemaArrayList();
+        for(Cinema cinema:cinemaArrayList){
+            System.out.println(cinema.getColumn());
+        }
+
         ArrayList reviewArrayList = new ArrayList();
         ArrayList<Movie> movieArrayList = new ArrayList();
 

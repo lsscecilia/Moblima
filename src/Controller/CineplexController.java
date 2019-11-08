@@ -21,8 +21,12 @@ public class CineplexController implements ControllerInterface{
      */
     public void displayAllCineplexInfo(){
         if(cineplexArrayList != null){
-            for(Cineplex cineplex : cineplexArrayList){
-                System.out.println(cineplex.toString());
+            try{
+                for(Cineplex cineplex : cineplexArrayList){
+                    System.out.println(cineplexArrayList.indexOf(cineplex)+1 + ".  " + cineplex.getCineplexName());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         else{
