@@ -19,10 +19,8 @@ public class CineplexController implements ControllerInterface{
     /**
      * Displays all the Cineplex Information
      */
-    public void displayAllCineplexInfo(){
-        for(Cineplex cineplex : cineplexArrayList){
-            System.out.println(cineplex.toString());
-        }
+    public ArrayList<Cineplex> returnAllCineplexInfo(){
+        return cineplexArrayList;
     }
 
     @Override

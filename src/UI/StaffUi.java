@@ -4,6 +4,7 @@ package UI;
 
 import Controller.CineplexController;
 import Controller.MovieController;
+import Entity.Cineplex;
 import Entity.Movie;
 import Entity.Review;
 import Entity.Staff;
@@ -77,7 +78,7 @@ class StaffUi implements ConsoleBasedInterface {
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
     public void showAllCineplex(){
-        cineplexController.displayAllCineplexInfo();
+        ArrayList<Cineplex> cineplexArrayList = cineplexController.returnAllCineplexInfo();
         Scanner sc = new Scanner(System.in);
 
         int choice = 0;
@@ -96,16 +97,16 @@ class StaffUi implements ConsoleBasedInterface {
 
             switch (choice) {
                 case 1:
-                    addNewMovie();
+
                     break;
                 case 2:
-                    removeExistingMovie();
+
                     break;
                 case 3:
-                    updateExistingMovieDetail();
+
                     break;
                 case 4:
-                    //back
+
                     break;
                 case 5:
                     sc.close();
