@@ -14,7 +14,6 @@ public class MovieController implements ControllerInterface{
 
     public static String wordWrap(String a) {
         StringBuilder sb = new StringBuilder(a);
-
         int i = 0;
         int x = 100;
         while (i + 100 < sb.length() && (i = sb.lastIndexOf(" ", i + x)) != -1) {
@@ -127,6 +126,31 @@ public class MovieController implements ControllerInterface{
                 }
             }
         }
+    }
+
+    /**
+     * print Movie Id and Title
+     */
+    public void printMovieIdAndTitle(){
+        for(Movie movie: movieArrayList){
+            System.out.println("Movie ID: " + movie.getMovieId() + " | Movie Title: " + movie.getMovieTitle());
+        }
+    }
+
+    /**
+     * returns Movie Object based on movie ID
+     * @param movieId
+     * @return Movie
+     */
+    public Movie returnMovieFromId(int movieId){
+        Movie movieReturn = null;
+        for(Movie movie: movieArrayList){
+            if(movie.getMovieId() == movieId){
+                movieReturn = movie;
+                break;
+            }
+        }
+        return movieReturn;
     }
 
     /**
