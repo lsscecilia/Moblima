@@ -63,17 +63,32 @@ public class CineplexController implements ControllerInterface{
         }
     }
 
+    public Cineplex returnCineplexFromId(int cineplexId){
+        Cineplex returnCineplex = null;
+        for(Cineplex cineplex: cineplexArrayList){
+            if(cineplex.getCineplexID()==cineplexId){
+                return cineplex;
+            }
+        }
+        return returnCineplex;
+    }
+
     public boolean addMovieToCineplex(int cineplexId, Movie movie){
         for(Cineplex cineplex: cineplexArrayList){
-            if(cineplex.getCineplexID() == cineplexId){
-                for(Movie movie1:cineplex.getMovieInCineplexArrayList()){
+            if(cineplex.getCineplexID() == cineplexId){ //if cinplex is what we want
+                for(Movie movie1:cineplex.getMovieInCineplexArrayList()){ //check if the movie already exist
                     if(movie1.getMovieId() == movie.getMovieId()){
                         return false;
                     }
                 }
-                cineplex.getMovieInCineplexArrayList().add(movie);
-                //sort cineplex arraylist
-                updateDat();
+                cineplex.getMovieInCineplexArrayList().add(movie); //means movie doesn't exist in this cineplexId
+                for(Movie movie1:cineplex.getMovieInCineplexArrayList()){
+                    System.out.println(movie1.getMovieTitle());
+                }
+                //need to implement sort cineplex arraylist
+                //updateDat();
+                // DONT TURN ^^ updateDat ON CAUSE it will write to file then need to keep adding new movie to test
+                // just test on adding movie 5.
                 return true;
             }
         }

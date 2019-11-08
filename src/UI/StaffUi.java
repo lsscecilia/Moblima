@@ -91,7 +91,11 @@ class StaffUi implements ConsoleBasedInterface {
 
             switch (choice) {
                 case 1:
+                    displayIndividualCineplex(choice);
+                    break;
                 case 2:
+                    displayIndividualCineplex(choice);
+                    break;
                 case 3:
                     displayIndividualCineplex(choice);
                     break;
