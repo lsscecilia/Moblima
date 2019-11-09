@@ -1,6 +1,8 @@
 package Entity;
 
 
+import java.time.LocalTime;
+
 /**
  * @version 1
  * @since 17/10/2019
@@ -15,23 +17,10 @@ public class PricingChart {
     private String dayOfTheWeek;
     private String movieType;
     private double price;
-    private int fromTime;
-    private int toTime;
+    private LocalTime fromTime;
+    private LocalTime toTime;
 
-    public PricingChart()
-    {
-        this.pricingChartID = -1;
-        this.cinemaType = null;
-        this.customerClass = null;
-        this.dayOfTheWeek = null;
-        this.movieType = null;
-        this.price = -1;
-        this.fromTime = -1;
-        this.toTime = -1;
-    }
-
-    public PricingChart(int pricingChartID, String cinemaType, String customerClass
-            , String dayOfTheWeek, String movieType, int fromTime, int toTime, double price) {
+    public PricingChart(int pricingChartID, String cinemaType, String customerClass, String dayOfTheWeek, String movieType, double price, LocalTime fromTime, LocalTime toTime) {
         this.pricingChartID = pricingChartID;
         this.cinemaType = cinemaType;
         this.customerClass = customerClass;
@@ -41,6 +30,7 @@ public class PricingChart {
         this.fromTime = fromTime;
         this.toTime = toTime;
     }
+
 
     public int getPricingChartID() {
         return pricingChartID;
@@ -90,12 +80,19 @@ public class PricingChart {
         this.price = price;
     }
 
-    public int getFromTime() {return fromTime;}
+    public LocalTime getFromTime() {
+        return fromTime;
+    }
 
-    public void setFromTime(int Time) {this.fromTime = Time;}
+    public void setFromTime(LocalTime fromTime) {
+        this.fromTime = fromTime;
+    }
 
-    public int getToTime() {return toTime;}
+    public LocalTime getToTime() {
+        return toTime;
+    }
 
-    public void setToTime(int Time) {this.toTime = Time;}
-
+    public void setToTime(LocalTime toTime) {
+        this.toTime = toTime;
+    }
 }

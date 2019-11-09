@@ -19,6 +19,10 @@ public class CineplexController implements ControllerInterface{
         this.cineplexArrayList = database.readSerializedObject("Cineplex");
     }
 
+    public ArrayList<Cineplex> getCineplexArrayList() {
+        return cineplexArrayList;
+    }
+
     /**
      * Displays all the Cineplex Information
      */
@@ -93,6 +97,30 @@ public class CineplexController implements ControllerInterface{
             }
         }
         return false;
+    }
+
+    public ArrayList<Cineplex> cineplexShowingMovie(int movieId)
+    {
+        ArrayList<Movie> movieArrayList;
+        ArrayList<Cineplex> newCineplexArray = new ArrayList<>();
+        for (Cineplex cineplex: cineplexArrayList)
+        {
+            movieArrayList = cineplex.getMovieInCineplexArrayList();
+            for (Movie movie: movieArrayList)
+            {
+                if (movie.getMovieId()==movieId)
+                {
+                    newCineplexArray.add(cineplex);
+                    break;
+                }
+            }
+        }
+        return newCineplexArray;
+    }
+
+    public int getCineplexId(ArrayList<Cineplex> cineplexArrayList, int index)
+    {
+        return cineplexArrayList.get(index).getCineplexID();
     }
 
     @Override

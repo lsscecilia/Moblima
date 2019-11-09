@@ -11,12 +11,12 @@ import java.io.Serializable;
 public class Transaction implements Serializable{
     private String TID;
     private String namePurchaser;
-    private int mobileNumber;
+    private long mobileNumber;
     private String emailAddress;
     private double totalPrice;
     private ArrayList<Ticket> ticketArrayList;
 
-    public Transaction(String TID, String namePurchaser, int mobileNumber, String emailAddress, double totalPrice, ArrayList<Ticket> ticketArrayList) {
+    public Transaction(String TID, String namePurchaser, long mobileNumber, String emailAddress, double totalPrice, ArrayList<Ticket> ticketArrayList) {
         this.TID = TID;
         this.namePurchaser = namePurchaser;
         this.mobileNumber = mobileNumber;
@@ -41,11 +41,11 @@ public class Transaction implements Serializable{
         this.namePurchaser = namePurchaser;
     }
 
-    public int getMobileNumber() {
+    public long getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(int mobileNumber) {
+    public void setMobileNumber(long mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 

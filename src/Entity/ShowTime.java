@@ -1,24 +1,28 @@
 package Entity;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @version 1
  * @since 17/10/2019
  */
-public class ShowTime implements Serializable{
+public class ShowTime implements Serializable, Comparable<ShowTime>{
     private Cineplex cineplex;
     private Movie movie;
     private int cinemaID;
-    private String date; // yyyy-MM-dd
-    private int time;
+    private int column;
+    private int row;
+    private LocalDateTime dateTime;
     private int[][] seatLayout;
 
-    public ShowTime(Cineplex cineplex, Movie movie, int cinemaID, String date, int time, int[][] seatLayout) {
+    public ShowTime(Cineplex cineplex, Movie movie, int cinemaID, int column, int row, LocalDateTime dateTime, int[][] seatLayout) {
         this.cineplex = cineplex;
         this.movie = movie;
         this.cinemaID = cinemaID;
-        this.date = date;
-        this.time = time;
+        this.column = column;
+        this.row = row;
+        this.dateTime = dateTime;
         this.seatLayout = seatLayout;
     }
 
@@ -46,20 +50,12 @@ public class ShowTime implements Serializable{
         this.cinemaID = cinemaID;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public int[][] getSeatLayout() {
@@ -69,4 +65,33 @@ public class ShowTime implements Serializable{
     public void setSeatLayout(int[][] seatLayout) {
         this.seatLayout = seatLayout;
     }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void seatOccupied(int row, int column)
+    {
+        seatLayout[row][column] = 1;
+    }
+
+    @Override
+    public int compareTo(ShowTime o) {
+        if (getDateTime() == null || o.getDateTime() == null)
+            return  0;
+        return getDateTime().compareTo(o.getDateTime());
+    }
+
 }
