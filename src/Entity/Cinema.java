@@ -9,13 +9,13 @@ public class Cinema implements Serializable{
     private int cinemaID;
     private int rows;
     private int column;
-    private String movieType;
+    private String cinemaType;
 
-    public Cinema(int cinemaID, int rows, int column, String movieType) {
+    public Cinema(int cinemaID, int rows, int column, String cinemaType) {
         this.cinemaID = cinemaID;
         this.rows = rows;
         this.column = column;
-        this.movieType = movieType;
+        this.cinemaType = cinemaType;
     }
 
     public int getCinemaID() {
@@ -42,12 +42,12 @@ public class Cinema implements Serializable{
         this.column = column;
     }
 
-    public String getMovieType() {
-        return movieType;
+    public String getCinemaType() {
+        return cinemaType;
     }
 
-    public void setMovieType(String movieType) {
-        this.movieType = movieType;
+    public void setCinemaType(String cinemaType) {
+        this.cinemaType = cinemaType;
     }
 }
 

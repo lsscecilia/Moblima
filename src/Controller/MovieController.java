@@ -1,6 +1,7 @@
 package Controller;
 
 import Entity.Movie;
+import Entity.Review;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
 
@@ -29,6 +30,7 @@ public class MovieController implements ControllerInterface{
         database = new DataHandler();
         movieArrayList = database.readSerializedObject("movie");
     }
+
 
     /**
      * Checks whether the addition of new Movie details is successful
@@ -172,6 +174,65 @@ public class MovieController implements ControllerInterface{
             }
         }
         updateDat();
+    }
+
+    public ArrayList<Movie> getMovieArrayList() {
+        return movieArrayList;
+    }
+
+    public ArrayList<Movie> getMovieArrayListAvalBooking(){
+        ArrayList<Movie> newMovies = new ArrayList<>();
+        for (Movie movie: movieArrayList)
+        {
+            if (movie.getMovieStatus().compareTo("Coming Soon")!=0)
+            {
+                newMovies.add(movie);
+            }
+        }
+        return newMovies;
+    }
+
+    public static double getOverallRatings(Movie movie){
+        return calculateOverallRatings(movie.getMovieReviews());
+    }
+
+    private static double calculateOverallRatings(ArrayList<Review> reviewArrayList){
+        int total=0;
+        int count=0;
+        for (Review review: reviewArrayList)
+        {
+            total += review.getRating();
+            count++;
+        }
+        return (double) total/count;
+    }
+
+    public ArrayList<Movie> searchMovie(String search)
+    {
+        ArrayList<Movie> searchArrayList = new ArrayList<>();
+        for (Movie movie: movieArrayList)
+        {
+            if (movie.getMovieTitle().toLowerCase().contains(search.toLowerCase()))
+            {
+                searchArrayList.add(movie);
+            }
+        }
+        return searchArrayList;
+    }
+
+    public boolean noResultFound(ArrayList<Movie> movieArrayList)
+    {
+        if (movieArrayList.isEmpty())
+        {
+            System.out.println("No results found");
+            return true;
+        }
+        return false;
+    }
+
+    public int getMovieId(ArrayList<Movie> movieArrayList, int index)
+    {
+        return movieArrayList.get(index).getMovieId();
     }
 
     /**
