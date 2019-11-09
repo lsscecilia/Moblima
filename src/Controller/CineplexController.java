@@ -1,11 +1,13 @@
 package Controller;
 
+import Entity.Cinema;
 import Entity.Cineplex;
 import Entity.Movie;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CineplexController implements ControllerInterface{
     private HandlerInterface database;
@@ -37,7 +39,64 @@ public class CineplexController implements ControllerInterface{
         else{
             System.out.println("There isn't any Cineplex :(");
         }
+    }
 
+
+
+    public void viewCineplex(int cineplexID){
+        if(cineplexArrayList!= null){
+            for(Cineplex cineplex:cineplexArrayList){
+                if(cineplex.getCineplexID() == cineplexID){
+                    System.out.println("Cineplex ID: " + cineplex.getCineplexID());
+                    System.out.println("Cineplex Name: " + cineplex.getCineplexName());
+                    System.out.println("Cineplex location: " + cineplex.getLocation() + "\n");
+                    System.out.println("Movie showing in " + cineplex.getCineplexName() + ": ");
+                    for(Movie movie: cineplex.getMovieInCineplexArrayList()){
+                        System.out.println("Movie ID: " + movie.getMovieId() + " Movie Title: " + movie.getMovieTitle());
+                    }
+                    System.out.println("\n" + "Cinema Halls: ");
+                    System.out.println("==============");
+                    for(Cinema cinema: cineplex.getCinemaArrayList()){
+                        System.out.println("Cinema Hall: " + cinema.getCinemaID());
+                        System.out.println("Cinema Size: ");
+                        System.out.println("Number of Rows: " + cinema.getRows());
+                        System.out.println("Number of Columns: " + cinema.getColumn() + "\n");
+                    }
+                }
+            }
+        }
+    }
+
+    public Cineplex returnCineplexFromId(int cineplexId){
+        Cineplex returnCineplex = null;
+        for(Cineplex cineplex: cineplexArrayList){
+            if(cineplex.getCineplexID()==cineplexId){
+                return cineplex;
+            }
+        }
+        return returnCineplex;
+    }
+
+    public boolean addMovieToCineplex(int cineplexId, Movie movie){
+        for(Cineplex cineplex: cineplexArrayList){
+            if(cineplex.getCineplexID() == cineplexId){ //if cinplex is what we want
+                for(Movie movie1:cineplex.getMovieInCineplexArrayList()){ //check if the movie already exist
+                    if(movie1.getMovieId() == movie.getMovieId()){
+                        return false;
+                    }
+                }
+                cineplex.getMovieInCineplexArrayList().add(movie); //means movie doesn't exist in this cineplexId
+                for(Movie movie1:cineplex.getMovieInCineplexArrayList()){
+                    System.out.println(movie1.getMovieTitle());
+                }
+                //need to implement sort cineplex arraylist
+                //updateDat();
+                // DONT TURN ^^ updateDat ON CAUSE it will write to file then need to keep adding new movie to test
+                // just test on adding movie 5.
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Cineplex> cineplexShowingMovie(int movieId)

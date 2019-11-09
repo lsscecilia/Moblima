@@ -81,6 +81,8 @@ class StaffUi implements ConsoleBasedInterface {
         do {
             System.out.println("=============== All Cineplex Information ==============");
             cineplexController.displayAllCineplexInfo();
+            System.out.println("4.  Back");
+            System.out.println("5.  Quit");
             System.out.println("=======================================================");
             System.out.print("Please input your choice: ");
 
@@ -89,16 +91,15 @@ class StaffUi implements ConsoleBasedInterface {
 
             switch (choice) {
                 case 1:
-
+                    displayIndividualCineplex(choice);
                     break;
                 case 2:
-
+                    displayIndividualCineplex(choice);
                     break;
                 case 3:
-
+                    displayIndividualCineplex(choice);
                     break;
                 case 4:
-
                     break;
                 case 5:
                     sc.close();
@@ -111,6 +112,79 @@ class StaffUi implements ConsoleBasedInterface {
 
         } while (choice != 4);
     }
+
+    public void displayIndividualCineplex(int cineplexID){
+        Scanner sc = new Scanner(System.in);
+
+        int choice = 0;
+        do {
+            System.out.println("================= Cineplex Information ================");
+            cineplexController.viewCineplex(cineplexID);
+            System.out.println("\n" + "1.  Add new Movie.");
+            System.out.println("2.  Remove Movie.");
+            System.out.println("3.  Add new ShowTime!");
+            System.out.println("4.  Modify ShowTime");
+            System.out.println("5.  Remove ShowTime");
+            System.out.println("6.  Back");
+            System.out.println("7.  Quit");
+            System.out.println("=======================================================");
+            System.out.print("Please input your choice: ");
+
+            choice = sc.nextInt();
+            System.out.print("\n");
+
+            switch (choice) {
+                case 1:
+                    addNewMovieInCineplex(cineplexID);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    sc.close();
+                    System.out.println("Program terminating...");
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+            }
+
+        } while (choice != 6);
+    }
+
+    public void addNewMovieInCineplex(int cineplexID){
+        Scanner sc = new Scanner(System.in);
+
+        int choice = 0;
+        System.out.println("======================= Add New Movie ======================");
+        System.out.println("Choose a movie to add to this cineplex! (Enter the Movie ID!)");
+        movieController.printMovieIdAndTitle();
+        System.out.println("============================================================");
+        System.out.print("Please input your choice: ");
+        System.out.print("\n");
+
+        choice = sc.nextInt();
+        sc.nextLine();
+        if(cineplexController.addMovieToCineplex(cineplexID, movieController.returnMovieFromId(choice))){
+            System.out.println("Movie successfully added!");
+        }
+        else{
+            System.out.println("Something went wrong :(");
+        }
+    }
+
+    public void addNewShowTimeInCineplex(int cineplexID){
+
+    }
+
+
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
 
