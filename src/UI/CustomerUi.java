@@ -11,6 +11,7 @@ import javax.net.ssl.SNIHostName;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -67,7 +68,7 @@ class CustomerUi implements ConsoleBasedInterface{
 
                     break;
                 case 4:
-
+                    showOption4();
                     break;
                 case 5:
 
@@ -107,6 +108,7 @@ class CustomerUi implements ConsoleBasedInterface{
             System.out.println("--------------------------------------------------------------------------------------");
             System.out.println();
             customerUIController.showMovieList();
+            System.out.println("test");
             System.out.println("====================== Option =========================");
             System.out.println("|1. Select movie for more details                     |");
             System.out.println("|2. Back                                              |");
@@ -419,60 +421,132 @@ class CustomerUi implements ConsoleBasedInterface{
     }
 
     //for option4, give a option to go back /go back to main menu
+    //-------------------------------------------------------------------------------------------------
+    //get MOVIE ID pass it into customerUIController -> cineplexController -> cineplexShowing(int movieID)
+    //display cineplex aval
+
+    //display all show time for that cineplex
+    //select showtime
+
+
+    //show movie
+    //ask which movie u want to watch?
+    //get user input
+    //display showtime from that list according to cineplex
+    //choose showtime
+    //choose num of seats
+    // type of ticket for each seats (if day = weekday and time < 6pm** check for this tho and must put default)
+    // choose seats
+    // pass showtime, numSeats, seats, customerClass(arraylist for this) into makeBooking()
+    // retreive buyers details (name, email, num etc etc)
+    // confirmation display & payment
+    // once confirm, add to transactions, update seat layout in showtime
+
 
     public void showOption4() //buy tickets --> split the thing up so can go back. so u select 1 shit in 1 class
     {
         ArrayList<Movie> movieArrayList = customerUIController.showMovieListAvalBooking();
-        System.out.println("Select movie to watch: ");
-        int movieIndex = sc.nextInt();
-        showOption4_1(customerUIController.getMovieId(movieArrayList, movieIndex-1));
-        //get MOVIE ID pass it into customerUIController -> cineplexController -> cineplexShowing(int movieID)
-        //display cineplex aval
+        try
+        {
+            System.out.println("Select movie to watch: ");
+            int movieIndex = sc.nextInt();
+            showOption4_1(customerUIController.getMovieId(movieArrayList, movieIndex-1));
+        }
+        catch (InputMismatchException mismatchInput)
+        {
+            System.out.println("Sorry, please enter a valid number");
+        }
+        catch  (IndexOutOfBoundsException exception)
+        {
+            System.out.println("Sorry please enter a valid number");
+        }
+        finally
+        {
+            sc.nextLine();
+            showOption4();
+        }
 
-        //display all show time for that cineplex
-        //select showtime
-
-
-        //show movie
-        //ask which movie u want to watch?
-        //get user input
-        //display showtime from that list according to cineplex
-        //choose showtime
-        //choose num of seats
-        // type of ticket for each seats (if day = weekday and time < 6pm** check for this tho and must put default)
-        // choose seats
-        // pass showtime, numSeats, seats, customerClass(arraylist for this) into makeBooking()
-        // retreive buyers details (name, email, num etc etc)
-        // confirmation display & payment
-        // once confirm, add to transactions, update seat layout in showtime
     }
 
     public void showOption4_1(int movieId)
     {
         System.out.println("Cineplex avaliable: ");
         ArrayList<Cineplex> cineplexArrayList = customerUIController.showCineplexAval(movieId);
-        System.out.println("Select cineplex: ");
-        int cineplexIndex = sc.nextInt();
-        showOption4_2(movieId, customerUIController.getCinplexId(cineplexArrayList, cineplexIndex-1));
+        try
+        {
+            System.out.println("Select cineplex: ");
+            int cineplexIndex = sc.nextInt();
+            showOption4_2(movieId, customerUIController.getCinplexId(cineplexArrayList, cineplexIndex-1));
+        }
+        catch (InputMismatchException mismatchInput)
+        {
+            System.out.println("Sorry, please enter a valid number");
+        }
+        catch (IndexOutOfBoundsException exception)
+        {
+            System.out.println("Sorry please enter a valid number");
+        }
+        finally
+        {
+            sc.nextLine();
+            showOption4_1(movieId);
+        }
+
+
     }
 
     public void showOption4_2(int movieId, int cineplexId)
     {
         System.out.println("Showtime avaliable: ");
         ArrayList<ShowTime> showTimeArrayList = customerUIController.showShowTime(movieId, cineplexId);
-        System.out.println("Select showtime: ");
-        int showTimeIndex = sc.nextInt();
-        ShowTime selectedShowTime = customerUIController.getShowTime(showTimeArrayList, showTimeIndex-1);
-        showOption4_3(selectedShowTime);
+        try
+        {
+            System.out.println("Select showtime: ");
+            int showTimeIndex = sc.nextInt();
+            ShowTime selectedShowTime = customerUIController.getShowTime(showTimeArrayList, showTimeIndex-1);
+            showOption4_3(selectedShowTime);
+        }
+        catch (InputMismatchException mismatchInput)
+        {
+            System.out.println("Sorry, please enter a valid number");
+        }
+        catch (IndexOutOfBoundsException exception)
+        {
+            System.out.println("Sorry, please enter a valid number");
+        }
+        finally
+        {
+            sc.nextLine();
+            showOption4_2(movieId, cineplexId);
+        }
+        //java.util.InputMismatchException
+        //IndexOutOfBoundsException2
+
     }
 
     //case for cancel booking --> go back to main menu, and then case for go back
 
     public void showOption4_3(ShowTime showTime)
     {
-        System.out.println("How many tickets do u want to buy? ");
-        int numTicket = sc.nextInt();
-        showOption4_4(showTime, numTicket);
+        try
+        {
+            System.out.println("How many tickets do u want to buy? ");
+            int numTicket = sc.nextInt();
+            showOption4_4(showTime, numTicket);
+        }
+        catch (InputMismatchException mismatchInput)
+        {
+            System.out.println("Sorry, please enter a valid number");
+        }
+        catch (IndexOutOfBoundsException exception)
+        {
+            System.out.println("Sorry, please enter a valid number");
+        }
+        finally
+        {
+            sc.nextLine();
+            showOption4_3(showTime);
+        }
     }
 
     //can combine from 4_4 onwards
@@ -480,13 +554,24 @@ class CustomerUi implements ConsoleBasedInterface{
     {
         LocalTime time = LocalTime.of(18, 0);
         int numStudent=0, numSC=0;
-        if (showTime.getDateTime().toLocalTime().compareTo(time) < 0)   //and not weekend / public holiday
+        if (customerUIController.studentSeniorCitizenCheck(showTime))   //and not weekend / public holiday
         {
-            System.out.println("If there is any student/senior citizen. else enter zero. ");
-            System.out.println("Number of student: ");
-            numStudent = sc.nextInt();
-            System.out.println("Number of Senior Ciziten: ");
-            numSC = sc.nextInt();
+            //check if its public holiday or weekend or after 6
+            while (true)
+            {
+                System.out.println("If there is any student/senior citizen. else enter zero. ");
+                System.out.println("Number of student: ");
+                numStudent = sc.nextInt();
+                System.out.println("Number of Senior Ciziten: ");
+                numSC = sc.nextInt();
+                if (numTickets<(numStudent+numSC))
+                    System.out.println("Number of students and/or senior citizen cannot exceed the number of tickets. Please re-enter again");
+                else
+                    break;
+            }
+
+
+
         }
         showOption4_5(showTime, numTickets, numStudent, numSC);
     }
@@ -498,18 +583,19 @@ class CustomerUi implements ConsoleBasedInterface{
         int selectColumn;
         customerUIController.showLayout(showTime);
         System.out.println("Please note that the system will not allow you to leave a single occupied seat bewtween selected seats");
-        for (int i=0; i<numTickets;i++)
+        for (int i=1; i<numTickets+1;i++)
         {
             System.out.println("Choose seat for ticket "+i+": ");
+            sc.nextLine();
             while (true)
             {
-                System.out.println("Enter row: ");
+                System.out.println("Enter row (Eg. A): ");
                 selectRow = sc.nextLine().charAt(0);
-                System.out.println("Enter column: ");
+                System.out.println("Enter column (Eg 1): ");
                 selectColumn = sc.nextInt();
                 if (customerUIController.checkSeatAval(showTime, selectRow, selectColumn))
                 {
-                    seatSelected[i] = selectRow + String.valueOf(selectColumn);
+                    seatSelected[i-1] = selectRow + String.valueOf(selectColumn);
                     System.out.println("seat sucessfully selected");
                     break;
                 }
@@ -519,7 +605,7 @@ class CustomerUi implements ConsoleBasedInterface{
 
         }
         //check if thr is like unoccupied seat between selected seat
-        System.out.println("All seats sucessfully selected:");
+       // System.out.println("All seats sucessfully selected:");
         //print out all the seats again?
         showOption4_6(showTime, numTickets, numStudent, numSC, seatSelected);
     }
@@ -535,6 +621,7 @@ class CustomerUi implements ConsoleBasedInterface{
         //case statement
 
         System.out.println("Make payment: ");
+        sc.nextLine();
         showOption4_7(ticketArrayList, totalPrice, seatSelected);
     }
 
@@ -544,11 +631,14 @@ class CustomerUi implements ConsoleBasedInterface{
         String name = sc.nextLine();
         System.out.println("Enter mobile number: ");
         long number = sc.nextLong();
+        sc.nextLine();
         System.out.println("Enter email address: ");
         String email = sc.nextLine();
         //ask for payment by? then total price decrease
         System.out.println("Payment in progress.....");
         System.out.println("Payment sucessful! ");
+        //uncomment the next line to update dat file
+        //customerUIController.updateSuccessfulPayment(name, number, email, totalPrice, ticketArrayList, seatSelected);
         //put into transaction, update showtimelayout
     }
 

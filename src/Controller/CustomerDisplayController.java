@@ -22,10 +22,10 @@ public class CustomerDisplayController implements ControllerInterface{
     public void displayTicket(ArrayList<Ticket> ticketArrayList)
     {
         int count =1;
-        System.out.println("Movie: ");
-        System.out.println("Number of tickets: ");
-        System.out.println("Date: ");
-        System.out.println("start time: ");
+        System.out.println("Movie: " + ticketArrayList.get(0).getShowTime().getMovie().getMovieTitle());
+        System.out.println("Number of tickets: " + ticketArrayList.size());
+        System.out.println("Date: " + ticketArrayList.get(0).getShowTime().getDateTime().toLocalDate().toString());
+        System.out.println("start time: " + ticketArrayList.get(0).getShowTime().getDateTime().toLocalTime().toString());
         for (Ticket ticket: ticketArrayList)
         {
             System.out.println("Ticket " + count +".  Ticket Type: " + ticket.getCustomerClass() + ", Seat: "+
@@ -37,10 +37,10 @@ public class CustomerDisplayController implements ControllerInterface{
     public void displaySeatLayout(int[][] array, int row, int column)
     {
         String letters ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        System.out.print("   ");
-        for (int i=0; i<column;i++)
+        System.out.print(" ");
+        for (int i=1; i<column+1;i++)
         {
-            System.out.print("|"+ i+1 + "|");
+            System.out.print("|"+ i + "|");
         }
 
         System.out.println();
@@ -55,7 +55,7 @@ public class CustomerDisplayController implements ControllerInterface{
             for (int j=0;j<column;j++)
             {
                 System.out.print("|");
-                if (array[row][column]==1)
+                if (array[i][j]==1)
                     System.out.print("X");
                 else
                     System.out.print(" ");
@@ -63,13 +63,17 @@ public class CustomerDisplayController implements ControllerInterface{
             }
             System.out.println();
         }
+        for (int j=0;j<column;j++)
+        {
+            System.out.println(" __ ");
+        }
     }
 
     //sorted in terms of date and time
     public void displayShowTime(ArrayList<ShowTime> showTimeArrayList)
     {
         int count = 1;
-        LocalDateTime dateTime = null;
+        LocalDateTime dateTime = LocalDateTime.of(0,1,1,0,0);
         for (ShowTime showTime: showTimeArrayList)
         {
             if (dateTime.toLocalDate().compareTo(showTime.getDateTime().toLocalDate())!=0)
@@ -81,6 +85,7 @@ public class CustomerDisplayController implements ControllerInterface{
 
             System.out.print(count +". ");
             System.out.println(showTime.getDateTime().toLocalTime().toString());
+            count++;
         }
     }
 
@@ -110,7 +115,7 @@ public class CustomerDisplayController implements ControllerInterface{
         int count=1;
         for (Movie m: movieArrayList)
         {
-            if (m.getMovieStatus().compareTo("Preview")==0)
+            //if (m.getMovieStatus().compareTo("Preview")==0)
 
             System.out.print(count+". ");
             System.out.println(m.getMovieTitle());

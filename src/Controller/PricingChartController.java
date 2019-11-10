@@ -19,6 +19,7 @@ public class PricingChartController {
         pricingChartArrayList = database.readSerializedObject("PricingChart");
     }
 
+    /*
     private boolean weekend(ShowTime showTime)
     {
         DayOfWeek sat = DayOfWeek.SATURDAY;
@@ -29,7 +30,7 @@ public class PricingChartController {
                 return false;
         }
         return false;
-    }
+    }*/
 
     public double getPrice(ShowTime showTime, boolean publicHoliday, String customerClass)
     {
@@ -46,30 +47,46 @@ public class PricingChartController {
         //-------movieType
         movieType = showTime.getMovie().getMovieType();
         //-------dayOfTheWeek / weekend
-        weekend = weekend(showTime);
+       /* weekend = weekend(showTime);
         if (weekend)
             dayOfTheWeek = "weekend";  //check spelling
         else
-            dayOfTheWeek = "weekday";
+            dayOfTheWeek = "weekday";*/
         //-------Customer class --> publicHoliday -- no student, no seniorCitizen
+        DayOfWeek day;
         if (publicHoliday)
-            customerClass = "adult";
+        {
+            System.out.println("public holiday check"); //delete
+            customerClass = "Adult";
+            day = DayOfWeek.SATURDAY;
+        }
+        else
+            day = showTime.getDateTime().toLocalDate().getDayOfWeek();
+
         //-------from time / end time --> take from showTime
 
         for (PricingChart pricingChart: pricingChartArrayList)
         {
             if (pricingChart.getCinemaType().compareTo(cinemaType)==0)
             {
+                //System.out.println("Check cinema type: " + cinemaType);
                 if (pricingChart.getCustomerClass().compareTo(customerClass)==0)
                 {
-                    if (pricingChart.getDayOfTheWeek().compareTo(dayOfTheWeek)==0)
+                    //System.out.println("Check customer class: " + customerClass);
+                    //System.out.println("pricing chart : " +pricingChart.getDayOfTheWeek() );
+                    //System.out.println("showtime day: "+showTime.getDateTime().toLocalDate().getDayOfWeek() );
+                    if (pricingChart.getDayOfTheWeek().compareTo(day)==0)
                     {
+                        //System.out.println("Check day of the week: " +showTime.getDateTime().toLocalDate().getDayOfWeek().toString() );
                         if (pricingChart.getMovieType().compareTo(movieType)==0)
                         {
+                            //System.out.println("Check movie type: " + movieType);
                             if (pricingChart.getFromTime().isBefore(showTime.getDateTime().toLocalTime()))
                             {
+                                //System.out.println("Check time 1: ");
                                 if (pricingChart.getToTime().isAfter(showTime.getDateTime().toLocalTime()))
                                 {
+                                    //System.out.println("Check time 2: ");
                                     return pricingChart.getPrice();
                                 }
                             }

@@ -18,7 +18,7 @@ public class ShowTimeController implements  ControllerInterface{
     public ShowTimeController()
     {
         database = new DataHandler();
-        showTimeArrayList = database.readSerializedObject("ShowTime.dat");
+        showTimeArrayList = database.readSerializedObject("ShowTime");
     }
 
     //already sorted
@@ -50,7 +50,8 @@ public class ShowTimeController implements  ControllerInterface{
 
     public boolean checkSeatAval(ShowTime showTime, char row, int column)
     {
-        String letters ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        column--;
+        String letters =" ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int rowInt = letters.indexOf(row);
         if (showTime.getSeatLayout()[rowInt][column]==0)
             return true;
@@ -61,7 +62,7 @@ public class ShowTimeController implements  ControllerInterface{
     {
         char rowAlpha;
         int row, column;
-        String letters ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String letters =" ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for (ShowTime showTime: showTimeArrayList)
         {
             if (showTime.compareTo(showTimeSelected)==0)
@@ -70,7 +71,7 @@ public class ShowTimeController implements  ControllerInterface{
                 {
                     rowAlpha = selectedSeats[i].charAt(0);
                     row = letters.indexOf(rowAlpha);
-                    column = Character.getNumericValue(selectedSeats[i].charAt(1));
+                    column = Character.getNumericValue(selectedSeats[i].charAt(1))-1;
                     showTime.seatOccupied(row, column);
                 }
                 break;
@@ -81,6 +82,6 @@ public class ShowTimeController implements  ControllerInterface{
 
     @Override
     public void updateDat(){
-        database.writeSerializedObject("ShowTime.dat", showTimeArrayList);
+        database.writeSerializedObject("ShowTime", showTimeArrayList);
     }
 }

@@ -1,6 +1,7 @@
 package Entity;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -8,7 +9,7 @@ import java.time.LocalDate;
  * @since 17/10/2019
  * @typeofclass entity
  */
-public class PublicHoliday {
+public class PublicHoliday implements Serializable {
 
     private LocalDate date;
     private String holidayName;
