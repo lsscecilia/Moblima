@@ -24,6 +24,52 @@ public class CineplexController implements ControllerInterface{
     }
 
     /**
+     * Displays all the movies showing in a cineplex
+     * @param cineplexId
+     */
+    public void displayAllMoviesShowingInCineplex(int cineplexId){
+        for(Cineplex cineplex:cineplexArrayList){
+            if(cineplex.getCineplexID() == cineplexId){
+                for(Movie movie:cineplex.getMovieInCineplexArrayList()){
+                    System.out.println("Movie ID: " + movie.getMovieId() + " " + movie.getMovieTitle());
+                }
+            }
+        }
+    }
+
+    /**
+     * Remove movie showing from Cineplex
+     */
+    public boolean removeMovieFromCineplex(int movieID, int cineplexId){
+        for(Cineplex cineplex:cineplexArrayList){
+            if(cineplex.getCineplexID() == cineplexId){
+                for(Movie movie:cineplex.getMovieInCineplexArrayList()){
+                    if(movie.getMovieId() == movieID){
+                        cineplex.getMovieInCineplexArrayList().remove(movie);
+                        updateDat();
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void displayCinema(int cineplexId){
+        for(Cineplex cineplex: cineplexArrayList){
+            if(cineplex.getCineplexID() == cineplexId){
+                for(Cinema cinema: cineplex.getCinemaArrayList()){
+                    System.out.println("Cinema ID: " + cinema.getCinemaID());
+                    System.out.println("Cinema Type: " + cinema.getCinemaType());
+                    System.out.println("Cinema Capacity: " + (cinema.getRows() * cinema.getColumn()));
+                    System.out.println("Rows: " + cinema.getRows() + " Columns: " + cinema.getColumn());
+                    System.out.println("\n");
+                }
+            }
+        }
+    }
+
+    /**
      * Displays all the Cineplex Information
      */
     public void displayAllCineplexInfo(){
@@ -42,7 +88,10 @@ public class CineplexController implements ControllerInterface{
     }
 
 
-
+    /**
+     * View individual Cineplex based on the cineplexID
+     * @param cineplexID
+     */
     public void viewCineplex(int cineplexID){
         if(cineplexArrayList!= null){
             for(Cineplex cineplex:cineplexArrayList){
@@ -67,16 +116,27 @@ public class CineplexController implements ControllerInterface{
         }
     }
 
+    /**
+     * Returns Cineplex Object from cineplexId
+     * @param cineplexId
+     * @return
+     */
     public Cineplex returnCineplexFromId(int cineplexId){
         Cineplex returnCineplex = null;
         for(Cineplex cineplex: cineplexArrayList){
             if(cineplex.getCineplexID()==cineplexId){
-                return cineplex;
+                returnCineplex = cineplex;
             }
         }
         return returnCineplex;
     }
 
+    /**
+     * Add Movie object to cineplex based on cineplexId
+     * @param cineplexId
+     * @param movie
+     * @return
+     */
     public boolean addMovieToCineplex(int cineplexId, Movie movie){
         for(Cineplex cineplex: cineplexArrayList){
             if(cineplex.getCineplexID() == cineplexId){ //if cinplex is what we want
@@ -85,20 +145,19 @@ public class CineplexController implements ControllerInterface{
                         return false;
                     }
                 }
-                cineplex.getMovieInCineplexArrayList().add(movie); //means movie doesn't exist in this cineplexId
-                for(Movie movie1:cineplex.getMovieInCineplexArrayList()){
-                    System.out.println(movie1.getMovieTitle());
-                }
-                //need to implement sort cineplex arraylist
-                //updateDat();
-                // DONT TURN ^^ updateDat ON CAUSE it will write to file then need to keep adding new movie to test
-                // just test on adding movie 5.
+                cineplex.getMovieInCineplexArrayList().add(movie);
+                updateDat();
                 return true;
             }
         }
         return false;
     }
 
+    /**
+     * Returns all the Cineplex in an arraylist based on whether it is showing this particular Movie
+     * @param movieId
+     * @return
+     */
     public ArrayList<Cineplex> cineplexShowingMovie(int movieId)
     {
         ArrayList<Movie> movieArrayList;
@@ -111,6 +170,7 @@ public class CineplexController implements ControllerInterface{
                 if (movie.getMovieId()==movieId)
                 {
                     newCineplexArray.add(cineplex);
+                    updateDat();
                     break;
                 }
             }
@@ -118,11 +178,20 @@ public class CineplexController implements ControllerInterface{
         return newCineplexArray;
     }
 
+    /**
+     * get CineplexId from it's index
+     * @param cineplexArrayList
+     * @param index
+     * @return
+     */
     public int getCineplexId(ArrayList<Cineplex> cineplexArrayList, int index)
     {
         return cineplexArrayList.get(index).getCineplexID();
     }
 
+    /**
+     * Writes arraylist to Dat text file
+     */
     @Override
     public void updateDat() {
         database.writeSerializedObject("Cineplex", cineplexArrayList);

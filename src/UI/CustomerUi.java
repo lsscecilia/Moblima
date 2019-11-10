@@ -1,15 +1,12 @@
 package UI;
 
-import Controller.CustomerDisplayController;
 import Controller.CustomerUIController;
 import Entity.Cineplex;
 import Entity.Movie;
 import Entity.ShowTime;
 import Entity.Ticket;
 
-import javax.net.ssl.SNIHostName;
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -38,7 +35,7 @@ class CustomerUi implements ConsoleBasedInterface{
             System.out.println("====================== Menu++++ =======================");
             System.out.println("|1. Show me some Movies!                              |");
             System.out.println("|2. Search Movies!                                    |");
-            System.out.println("|3. Show me some Cinplex!                             |");
+            System.out.println("|3. Show me some Cineplex!                             |");
             System.out.println("|4. Buy Tickets                                       |");
             System.out.println("|5. View my Booking History                           |");
             System.out.println("|6. Rate and Review                                   |");
@@ -476,7 +473,7 @@ class CustomerUi implements ConsoleBasedInterface{
         {
             System.out.println("Select cineplex: ");
             int cineplexIndex = sc.nextInt();
-            showOption4_2(movieId, customerUIController.getCinplexId(cineplexArrayList, cineplexIndex-1));
+            showOption4_2(movieId, customerUIController.getCineplexId(cineplexArrayList, cineplexIndex-1));
         }
         catch (InputMismatchException mismatchInput)
         {

@@ -59,7 +59,7 @@ public class CustomerUIController {
         return cineplexAvalBookingArrayList;
     }
 
-    public int getCinplexId(ArrayList<Cineplex> cineplexArrayList, int index)
+    public int getCineplexId(ArrayList<Cineplex> cineplexArrayList, int index)
     {
         return cineplexController.getCineplexId(cineplexArrayList, index);
     }
