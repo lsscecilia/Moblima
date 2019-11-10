@@ -417,16 +417,22 @@ public class insert {
  *     private int rows;
  *     private int column;
  */
-/*
-        HandlerInterface database = new DataHandler();
 
+
+/*
         ArrayList<Cineplex> cineplexArrayList = new ArrayList<>();
 
         ArrayList<Cinema> cinemaArrayList1 = new ArrayList<>();
-        ArrayList<Movie> movieArrayList1 = database.readSerializedObject("Movie");
+        ArrayList<Movie> movieArrayList = database.readSerializedObject("Movie");
+        System.out.println(movieArrayList.size());*/
+        /*
+        ArrayList<Movie> movieArrayList2 = database.readSerializedObject("Movie");
+        ArrayList<Movie> movieArrayList3 = database.readSerializedObject("Movie");
+        //ArrayList<Movie> movieArrayList1 = database.readSerializedObject("Movie");
+
         Cinema cinema1 = new Cinema(1,8,2, "Platinum Movie Suites");
-        Cinema cinema2 = new Cinema(2,10, 5, "Ordinary");
-        Cinema cinema3 = new Cinema(3,10, 4, "Ordinary");
+        Cinema cinema2 = new Cinema(2,10, 5, "Normal");
+        Cinema cinema3 = new Cinema(3,10, 4, "Normal");
         cinemaArrayList1.add(cinema1);
         cinemaArrayList1.add(cinema2);
         cinemaArrayList1.add(cinema3);
@@ -434,29 +440,29 @@ public class insert {
 
         ArrayList<Cinema> cinemaArrayList2 = new ArrayList<>();
         Cinema cinema4 = new Cinema(1,5,4, "Platinum Movie Suites");
-        Cinema cinema5 = new Cinema(2,12, 10, "Ordinary");
-        Cinema cinema6 = new Cinema(3,11, 8, "Ordinary");
+        Cinema cinema5 = new Cinema(2,12, 10, "Normal");
+        Cinema cinema6 = new Cinema(3,11, 8, "Normal");
         cinemaArrayList2.add(cinema4);
         cinemaArrayList2.add(cinema5);
         cinemaArrayList2.add(cinema6);
-        Cineplex cineplex2 = new Cineplex(2, "Lido", "Orchard", cinemaArrayList2,movieArrayList1);
+        Cineplex cineplex2 = new Cineplex(2, "Lido", "Orchard", cinemaArrayList2,movieArrayList2);
 
         ArrayList<Cinema> cinemaArrayList3 = new ArrayList<>();
-        Cinema cinema7 = new Cinema(1,10,10, "Ordinary");
-        Cinema cinema8 = new Cinema(2,12, 10, "Ordinary");
-        Cinema cinema9 = new Cinema(3,10, 12, "Ordinary");
+        Cinema cinema7 = new Cinema(1,10,10, "Normal");
+        Cinema cinema8 = new Cinema(2,12, 10, "Normal");
+        Cinema cinema9 = new Cinema(3,10, 12, "Normal");
         cinemaArrayList3.add(cinema7);
         cinemaArrayList3.add(cinema8);
         cinemaArrayList3.add(cinema9);
-        Cineplex cineplex3 = new Cineplex(3, "The Cathay", "Dhoby Ghaut", cinemaArrayList3,movieArrayList1);
+        Cineplex cineplex3 = new Cineplex(3, "The Cathay", "Dhoby Ghaut", cinemaArrayList3,movieArrayList2);
 
         cineplexArrayList.add(cineplex1);
         cineplexArrayList.add(cineplex2);
         cineplexArrayList.add(cineplex3);
 
-        database.writeSerializedObject("Cineplex",cineplexArrayList);
+        database.writeSerializedObject("Cineplex",cineplexArrayList);*/
 
- */
+
 
 
 

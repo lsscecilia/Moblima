@@ -451,18 +451,18 @@ class CustomerUi implements ConsoleBasedInterface{
             System.out.println("Select movie to watch: ");
             int movieIndex = sc.nextInt();
             showOption4_1(customerUIController.getMovieId(movieArrayList, movieIndex-1));
+            sc.nextLine();
+            showOption4_1(movieIndex);
         }
         catch (InputMismatchException mismatchInput)
         {
             System.out.println("Sorry, please enter a valid number");
+            sc.nextLine();
+            showOption4();
         }
         catch  (IndexOutOfBoundsException exception)
         {
             System.out.println("Sorry please enter a valid number");
-        }
-        finally
-        {
-            sc.nextLine();
             showOption4();
         }
 
@@ -481,18 +481,15 @@ class CustomerUi implements ConsoleBasedInterface{
         catch (InputMismatchException mismatchInput)
         {
             System.out.println("Sorry, please enter a valid number");
+            sc.nextLine();
+            showOption4_1(movieId);
         }
         catch (IndexOutOfBoundsException exception)
         {
             System.out.println("Sorry please enter a valid number");
-        }
-        finally
-        {
             sc.nextLine();
             showOption4_1(movieId);
         }
-
-
     }
 
     public void showOption4_2(int movieId, int cineplexId)
@@ -509,13 +506,12 @@ class CustomerUi implements ConsoleBasedInterface{
         catch (InputMismatchException mismatchInput)
         {
             System.out.println("Sorry, please enter a valid number");
+            sc.nextLine();
+            showOption4_2(movieId, cineplexId);
         }
         catch (IndexOutOfBoundsException exception)
         {
             System.out.println("Sorry, please enter a valid number");
-        }
-        finally
-        {
             sc.nextLine();
             showOption4_2(movieId, cineplexId);
         }
@@ -537,13 +533,12 @@ class CustomerUi implements ConsoleBasedInterface{
         catch (InputMismatchException mismatchInput)
         {
             System.out.println("Sorry, please enter a valid number");
+            sc.nextLine();
+            showOption4_3(showTime);
         }
         catch (IndexOutOfBoundsException exception)
         {
             System.out.println("Sorry, please enter a valid number");
-        }
-        finally
-        {
             sc.nextLine();
             showOption4_3(showTime);
         }
@@ -557,24 +552,32 @@ class CustomerUi implements ConsoleBasedInterface{
         if (customerUIController.studentSeniorCitizenCheck(showTime))   //and not weekend / public holiday
         {
             //check if its public holiday or weekend or after 6
-            while (true)
-            {
-                System.out.println("If there is any student/senior citizen. else enter zero. ");
-                System.out.println("Number of student: ");
-                numStudent = sc.nextInt();
-                System.out.println("Number of Senior Ciziten: ");
-                numSC = sc.nextInt();
-                if (numTickets<(numStudent+numSC))
-                    System.out.println("Number of students and/or senior citizen cannot exceed the number of tickets. Please re-enter again");
-                else
-                    break;
+            try {
+                while (true) {
+                    System.out.println("If there is any student/senior citizen. else enter zero. ");
+                    System.out.println("Number of student: ");
+                    numStudent = sc.nextInt();
+                    System.out.println("Number of Senior Ciziten: ");
+                    numSC = sc.nextInt();
+                    if (numTickets < (numStudent + numSC))
+                        System.out.println("Number of students and/or senior citizen cannot exceed the number of tickets. Please re-enter again");
+                    else
+                        break;
+                }
             }
-
-
+            catch (InputMismatchException mismatchInput) {
+                System.out.println("Sorry, your input is not valid. Please enter according to requirement.");
+                showOption4_4(showTime, numTickets);
+            }
+            catch (IndexOutOfBoundsException exception) {
+                System.out.println("Sorry, your input is not valid. Please enter according to requirement.");
+                showOption4_4(showTime, numTickets);
+            }
 
         }
         showOption4_5(showTime, numTickets, numStudent, numSC);
     }
+
 
     public void showOption4_5(ShowTime showTime, int numTickets, int numStudent, int numSC)
     {
@@ -583,12 +586,11 @@ class CustomerUi implements ConsoleBasedInterface{
         int selectColumn;
         customerUIController.showLayout(showTime);
         System.out.println("Please note that the system will not allow you to leave a single occupied seat bewtween selected seats");
-        for (int i=1; i<numTickets+1;i++)
-        {
-            System.out.println("Choose seat for ticket "+i+": ");
-            sc.nextLine();
-            while (true)
+        try{
+            for (int i=1; i<numTickets+1;i++)
             {
+                System.out.println("Choose seat for ticket "+i+": ");
+                sc.nextLine();
                 System.out.println("Enter row (Eg. A): ");
                 selectRow = sc.nextLine().charAt(0);
                 System.out.println("Enter column (Eg 1): ");
@@ -597,17 +599,27 @@ class CustomerUi implements ConsoleBasedInterface{
                 {
                     seatSelected[i-1] = selectRow + String.valueOf(selectColumn);
                     System.out.println("seat sucessfully selected");
-                    break;
+                    continue;
                 }
                 else
                     System.out.println("seat occupied, please enter again");
             }
-
+            showOption4_6(showTime, numTickets, numStudent, numSC, seatSelected);
+        }
+        catch (InputMismatchException mismatchInput)
+        {
+            System.out.println("Sorry, your input is not valid. Please re-enter ALL seat according to requirement.");
+            showOption4_5(showTime, numTickets, numStudent, numSC);
+        }
+        catch (IndexOutOfBoundsException exception)
+        {
+            System.out.println("Sorry, your input is not valid. Please re-enter ALL seat according to requirement.");
+            showOption4_5(showTime, numTickets, numStudent, numSC);
         }
         //check if thr is like unoccupied seat between selected seat
        // System.out.println("All seats sucessfully selected:");
         //print out all the seats again?
-        showOption4_6(showTime, numTickets, numStudent, numSC, seatSelected);
+
     }
 
     //option to cancel booking
@@ -640,6 +652,8 @@ class CustomerUi implements ConsoleBasedInterface{
         //uncomment the next line to update dat file
         //customerUIController.updateSuccessfulPayment(name, number, email, totalPrice, ticketArrayList, seatSelected);
         //put into transaction, update showtimelayout
+        show();
+
     }
 
     public void showOption5() //view booking history
