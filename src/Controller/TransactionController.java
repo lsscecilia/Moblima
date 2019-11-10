@@ -18,7 +18,7 @@ public class TransactionController implements ControllerInterface {
     public TransactionController()
     {
         database = new DataHandler();
-        transactionArrayList = database.readSerializedObject("Transaction.dat");
+        transactionArrayList = database.readSerializedObject("Transaction");
     }
     //        this.TID = TID;
     //        this.namePurchaser = namePurchaser;
@@ -43,6 +43,6 @@ public class TransactionController implements ControllerInterface {
 
     @Override
     public void updateDat() {
-        database.writeSerializedObject("Transaction.dat", transactionArrayList);
+        database.writeSerializedObject("Transaction", transactionArrayList);
     }
 }

@@ -10,6 +10,7 @@ public class Cinema implements Serializable{
     private int rows;
     private int column;
     private String cinemaType;
+    private static final long serialVersionUID = -4383393423269014123L;
 
     public Cinema(int cinemaID, int rows, int column, String cinemaType) {
         this.cinemaID = cinemaID;

@@ -4,6 +4,8 @@ import Entity.ShowTime;
 import Entity.Ticket;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 //
@@ -36,39 +38,39 @@ public class BookingController {
         int count=0;
         if (publicHolidayController.evePublicHoliday(showTime.getDateTime().toLocalDate()))
         {
-            adultPrice = getPrice(showTime, "adult");
+            adultPrice = getPrice(showTime, "Adult");
             for (int i=0; i<numTickets;i++)
             {
-                ticketArrayList.add(new Ticket(showTime, "adult", adultPrice, seatSelected[i]));
+                ticketArrayList.add(new Ticket(showTime, "Adult", adultPrice, seatSelected[i]));
             }
         }
         else
         {
             if (numStudent!=0)
             {
-                studentPrice = getPrice(showTime, "student");
+                studentPrice = getPrice(showTime, "Student");
                 for (int i=0; i<numStudent;i++)
                 {
-                    ticketArrayList.add(new Ticket(showTime, "student", studentPrice, seatSelected[count]));
+                    ticketArrayList.add(new Ticket(showTime, "Student", studentPrice, seatSelected[count]));
                     count++;
                 }
             }
 
             if (numSC!=0)
             {
-                scPrice = getPrice(showTime, "senior citizen");
+                scPrice = getPrice(showTime, "Senior Citizen");
                 for (int i=0; i<numSC;i++)
                 {
-                    ticketArrayList.add(new Ticket(showTime, "senior citizen", scPrice, seatSelected[count]));
+                    ticketArrayList.add(new Ticket(showTime, "Senior Citizen", scPrice, seatSelected[count]));
                     count++;
                 }
             }
             if (numTickets>numStudent+numSC)
             {
-                adultPrice = getPrice(showTime, "adult");
+                adultPrice = getPrice(showTime, "Adult");
                 for (int i=0; i<numTickets-numSC-numStudent;i++)
                 {
-                    ticketArrayList.add(new Ticket(showTime, "adult", adultPrice, seatSelected[count]));
+                    ticketArrayList.add(new Ticket(showTime, "Adult", adultPrice, seatSelected[count]));
                     count++;
                 }
             }
@@ -82,6 +84,20 @@ public class BookingController {
         boolean publicHoliday;
         publicHoliday = publicHolidayController.evePublicHoliday(showTime.getDateTime().toLocalDate());
         return pricingChartController.getPrice(showTime,publicHoliday,customerClass);
+    }
+
+    public boolean studentSeniorCitizenCheck(ShowTime showTime)
+    {
+        LocalTime time = LocalTime.of(18, 0);
+        if (publicHolidayController.evePublicHoliday(showTime.getDateTime().toLocalDate()))
+            return false;
+        if (showTime.getDateTime().toLocalDate().getDayOfWeek().compareTo(DayOfWeek.SATURDAY)==0)
+            return false;
+        if (showTime.getDateTime().toLocalDate().getDayOfWeek().compareTo(DayOfWeek.SUNDAY)==0)
+            return false;
+        if (showTime.getDateTime().toLocalTime().isAfter(time))
+            return false;
+        return true;
     }
 
 

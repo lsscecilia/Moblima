@@ -1,6 +1,8 @@
 package Entity;
 
 
+import java.io.Serializable;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 /**
@@ -10,17 +12,18 @@ import java.time.LocalTime;
  * PriceChart provides an automated price ticket calculator based on the different factors such as age.
  *
  */
-public class PricingChart {
+public class PricingChart implements Serializable {
     private int pricingChartID;
     private String cinemaType;
     private String customerClass;
-    private String dayOfTheWeek;
+    private DayOfWeek dayOfTheWeek;
     private String movieType;
     private double price;
     private LocalTime fromTime;
     private LocalTime toTime;
 
-    public PricingChart(int pricingChartID, String cinemaType, String customerClass, String dayOfTheWeek, String movieType, double price, LocalTime fromTime, LocalTime toTime) {
+    public PricingChart(int pricingChartID, String cinemaType, String customerClass, DayOfWeek dayOfTheWeek,
+                        String movieType, double price, LocalTime fromTime, LocalTime toTime) {
         this.pricingChartID = pricingChartID;
         this.cinemaType = cinemaType;
         this.customerClass = customerClass;
@@ -30,7 +33,6 @@ public class PricingChart {
         this.fromTime = fromTime;
         this.toTime = toTime;
     }
-
 
     public int getPricingChartID() {
         return pricingChartID;
@@ -56,11 +58,11 @@ public class PricingChart {
         this.customerClass = customerClass;
     }
 
-    public String getDayOfTheWeek() {
+    public DayOfWeek getDayOfTheWeek() {
         return dayOfTheWeek;
     }
 
-    public void setDayOfTheWeek(String dayOfTheWeek) {
+    public void setDayOfTheWeek(DayOfWeek dayOfTheWeek) {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 

@@ -42,6 +42,11 @@ public class CustomerUIController {
         return movieAvalBookingArrayList ;
     }
 
+    public boolean studentSeniorCitizenCheck(ShowTime showTime)
+    {
+        return bookingController.studentSeniorCitizenCheck(showTime);
+    }
+
     public int getMovieId(ArrayList<Movie> movieArrayList, int index)
     {
         return movieController.getMovieId(movieArrayList, index);
