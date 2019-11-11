@@ -472,7 +472,7 @@ class CustomerUi implements ConsoleBasedInterface{
         {
             System.out.println("Select cineplex: ");
             int cineplexIndex = sc.nextInt();
-            showOption4_2(movieId,customerUIController.getCinplexId(cineplexArrayList, cineplexIndex-1));
+            showOption4_2(movieId,customerUIController.getCineplexId(cineplexArrayList, cineplexIndex-1));
         }
         catch (InputMismatchException mismatchInput)
         {
