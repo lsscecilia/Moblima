@@ -62,4 +62,5 @@ public class Cineplex implements Serializable {
     public void setMovieInCineplexArrayList(ArrayList<Movie> movieInCineplexArrayList) {
         this.movieInCineplexArrayList = movieInCineplexArrayList;
     }
+
 }

@@ -1,6 +1,8 @@
 package Controller;
 
 import Entity.Cinema;
+import Entity.Cineplex;
+import Entity.Movie;
 import Entity.ShowTime;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.stream.Stream;
 
 public class ShowTimeController implements  ControllerInterface{
     private HandlerInterface database;
@@ -40,7 +43,6 @@ public class ShowTimeController implements  ControllerInterface{
         }
         sortShowTime(showTimeAvalBookingArrayList);
         return showTimeAvalBookingArrayList;
-
     }
 
     //can do this private
@@ -78,10 +80,41 @@ public class ShowTimeController implements  ControllerInterface{
             column = Character.getNumericValue(selectedSeats[i].charAt(1)) - 1;
             showTimeSelected.seatOccupied(row, column);
         }
-
         updateDat();
     }
 
+    /**
+     * Checks whether the slot is avilable or taken
+     */
+    public boolean checkSlotAvailable(Cineplex cineplex, int cineplexId, int cinemaId, int movieId, String timeSlot, String date){
+        Movie movie1 = null;
+        Cinema cinema1 = null;
+        for(Movie movie: cineplex.getMovieInCineplexArrayList()){
+            if(movie.getMovieId() == movieId){
+                movie1=movie;
+            }
+        }
+        for(Cinema cinema: cineplex.getCinemaArrayList()){
+            if(cinema.getCinemaID() == cinemaId){
+                cinema1 = cinema;
+            }
+        }
+        int[] time = Stream.of((date+timeSlot).split(",")).mapToInt(Integer::parseInt).toArray();
+
+        ShowTime showTime = new ShowTime(cineplex
+                , movie1
+                , cinemaId
+                , cinema1.getColumn()
+                , cinema1.getRows()
+                , LocalDateTime.of(time[0],time[1],time[2],time[3],time[4]), new int[cinema1.getRows()][cinema1.getColumn()]);
+
+        for(ShowTime showTime1: showTimeArrayList){
+            if(showTime1.equals(showTime)){
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public void updateDat(){
