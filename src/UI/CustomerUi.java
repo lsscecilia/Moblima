@@ -1,12 +1,12 @@
 package UI;
 
+import Controller.CustomerDisplayController;
 import Controller.CustomerUIController;
-import Entity.Cineplex;
-import Entity.Movie;
-import Entity.ShowTime;
-import Entity.Ticket;
+import Entity.*;
 
+import javax.net.ssl.SNIHostName;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -35,13 +35,13 @@ class CustomerUi implements ConsoleBasedInterface{
             System.out.println("====================== Menu++++ =======================");
             System.out.println("|1. Show me some Movies!                              |");
             System.out.println("|2. Search Movies!                                    |");
-            System.out.println("|3. Show me some Cineplex!                             |");
+            System.out.println("|3. Show me some Cinplex!                             |");
             System.out.println("|4. Buy Tickets                                       |");
             System.out.println("|5. View my Booking History                           |");
             System.out.println("|6. Rate and Review                                   |");
             System.out.println("|7. Click here if you need movie recommendation       |");
             System.out.println("|8. Back                                              |");
-            System.out.println("|9. Quit                                             |");
+            System.out.println("|9. Quit                                              |");
             System.out.println("=======================================================");
             System.out.print("Please input your choice: ");
 
@@ -62,24 +62,22 @@ class CustomerUi implements ConsoleBasedInterface{
                     break;
                 case 3:
                     showOption3();
-
                     break;
                 case 4:
                     showOption4();
                     break;
                 case 5:
-
+                    showOption5();
                     break;
                 case 6:
-
+                    showOption6();
                     break;
                 case 7:
-
+                    showOption7();
                     break;
                 case 8:
                     MoblimaApp.main(null);
                     break;
-
                 case 9:
                     sc.close();
                     System.out.println("Program Terminating...");
@@ -105,7 +103,6 @@ class CustomerUi implements ConsoleBasedInterface{
             System.out.println("--------------------------------------------------------------------------------------");
             System.out.println();
             customerUIController.showMovieList();
-            System.out.println("test");
             System.out.println("====================== Option =========================");
             System.out.println("|1. Select movie for more details                     |");
             System.out.println("|2. Back                                              |");
@@ -140,6 +137,7 @@ class CustomerUi implements ConsoleBasedInterface{
 
         } while (userChoice > 3 | userChoice <= 0);
     }
+
     public void showOption1_1()
     {
         int userChoice = 0;
@@ -447,9 +445,9 @@ class CustomerUi implements ConsoleBasedInterface{
         {
             System.out.println("Select movie to watch: ");
             int movieIndex = sc.nextInt();
-            showOption4_1(customerUIController.getMovieId(movieArrayList, movieIndex-1));
             sc.nextLine();
-            showOption4_1(movieIndex);
+            showOption4_1(customerUIController.getMovieId(movieArrayList, movieIndex-1));
+
         }
         catch (InputMismatchException mismatchInput)
         {
@@ -462,18 +460,19 @@ class CustomerUi implements ConsoleBasedInterface{
             System.out.println("Sorry please enter a valid number");
             showOption4();
         }
-
     }
+
 
     public void showOption4_1(int movieId)
     {
         System.out.println("Cineplex avaliable: ");
         ArrayList<Cineplex> cineplexArrayList = customerUIController.showCineplexAval(movieId);
+
         try
         {
             System.out.println("Select cineplex: ");
             int cineplexIndex = sc.nextInt();
-            showOption4_2(movieId, customerUIController.getCineplexId(cineplexArrayList, cineplexIndex-1));
+            showOption4_2(movieId,customerUIController.getCineplexId(cineplexArrayList, cineplexIndex-1));
         }
         catch (InputMismatchException mismatchInput)
         {
@@ -492,7 +491,7 @@ class CustomerUi implements ConsoleBasedInterface{
     public void showOption4_2(int movieId, int cineplexId)
     {
         System.out.println("Showtime avaliable: ");
-        ArrayList<ShowTime> showTimeArrayList = customerUIController.showShowTime(movieId, cineplexId);
+        ArrayList<ShowTime> showTimeArrayList = customerUIController.showShowTime(movieId,cineplexId);
         try
         {
             System.out.println("Select showtime: ");
@@ -500,13 +499,7 @@ class CustomerUi implements ConsoleBasedInterface{
             ShowTime selectedShowTime = customerUIController.getShowTime(showTimeArrayList, showTimeIndex-1);
             showOption4_3(selectedShowTime);
         }
-        catch (InputMismatchException mismatchInput)
-        {
-            System.out.println("Sorry, please enter a valid number");
-            sc.nextLine();
-            showOption4_2(movieId, cineplexId);
-        }
-        catch (IndexOutOfBoundsException exception)
+        catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
         {
             System.out.println("Sorry, please enter a valid number");
             sc.nextLine();
@@ -525,7 +518,14 @@ class CustomerUi implements ConsoleBasedInterface{
         {
             System.out.println("How many tickets do u want to buy? ");
             int numTicket = sc.nextInt();
+            int numSeatAval = customerUIController.numAvalSeats(showTime);
+            if (numTicket > numSeatAval)
+            {
+                System.out.println("Sorry, there are not enough seats. (only " + numSeatAval+") Please choose a different showtime.");
+                showOption4_2(showTime.getMovie().getMovieId(), showTime.getCineplex().getCineplexID());
+            }
             showOption4_4(showTime, numTicket);
+            //check
         }
         catch (InputMismatchException mismatchInput)
         {
@@ -535,7 +535,8 @@ class CustomerUi implements ConsoleBasedInterface{
         }
         catch (IndexOutOfBoundsException exception)
         {
-            System.out.println("Sorry, please enter a valid number");
+            int numSeatAval = customerUIController.numAvalSeats(showTime);
+            System.out.println("Sorry, there are not enough seats. (only )" + numSeatAval+" Please choose a different showtime.");
             sc.nextLine();
             showOption4_3(showTime);
         }
@@ -562,16 +563,13 @@ class CustomerUi implements ConsoleBasedInterface{
                         break;
                 }
             }
-            catch (InputMismatchException mismatchInput) {
-                System.out.println("Sorry, your input is not valid. Please enter according to requirement.");
-                showOption4_4(showTime, numTickets);
-            }
-            catch (IndexOutOfBoundsException exception) {
+            catch (InputMismatchException | IndexOutOfBoundsException mismatchInput) {
                 System.out.println("Sorry, your input is not valid. Please enter according to requirement.");
                 showOption4_4(showTime, numTickets);
             }
 
         }
+        sc.nextLine();
         showOption4_5(showTime, numTickets, numStudent, numSC);
     }
 
@@ -581,38 +579,57 @@ class CustomerUi implements ConsoleBasedInterface{
         String[] seatSelected= new String[numTickets];
         char selectRow;
         int selectColumn;
+        String checker;
         customerUIController.showLayout(showTime);
-        System.out.println("Please note that the system will not allow you to leave a single occupied seat bewtween selected seats");
+        System.out.println("Please note that the system will not allow you to leave a single seat bewtween selected seats");
         try{
             for (int i=1; i<numTickets+1;i++)
             {
-                System.out.println("Choose seat for ticket "+i+": ");
-                sc.nextLine();
-                System.out.println("Enter row (Eg. A): ");
-                selectRow = sc.nextLine().charAt(0);
-                System.out.println("Enter column (Eg 1): ");
-                selectColumn = sc.nextInt();
-                if (customerUIController.checkSeatAval(showTime, selectRow, selectColumn))
+                while (true)
                 {
-                    seatSelected[i-1] = selectRow + String.valueOf(selectColumn);
-                    System.out.println("seat sucessfully selected");
-                    continue;
+                    System.out.println("Choose seat for ticket "+i+": ");
+                    System.out.println("Enter row (Eg. A): ");
+                    checker = sc.nextLine();
+                    if (checker.length()!=1)
+                    {
+                        throw new InputMismatchException();
+                    }
+                    selectRow = checker.charAt(0);
+                    selectRow = Character.toUpperCase(selectRow);
+                    System.out.println("Enter column (Eg 1): ");
+                    selectColumn = sc.nextInt();
+                    if (customerUIController.checkSeatAval(showTime, selectRow, selectColumn))
+                    {
+                        seatSelected[i-1] = selectRow + String.valueOf(selectColumn);
+                        System.out.println("seat sucessfully selected");
+                        if (i+1!=numTickets+1)
+                            sc.nextLine();
+                        break;
+                    }
+                    else
+                        System.out.println("seat occupied, please enter again");
+                    sc.nextLine();
                 }
-                else
-                    System.out.println("seat occupied, please enter again");
+
             }
-            showOption4_6(showTime, numTickets, numStudent, numSC, seatSelected);
+            if (customerUIController.checkSingleSeat(seatSelected, showTime, numTickets))
+                showOption4_6(showTime, numTickets, numStudent, numSC, seatSelected);
+            else
+            {
+                System.out.println("Please re-choose seats. System will not allow you to leave a single seat bewtween " +
+                        "selected seats");
+                //sc.nextLine();
+                showOption4_5(showTime, numTickets, numStudent, numSC);
+            }
         }
-        catch (InputMismatchException mismatchInput)
+        catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
         {
             System.out.println("Sorry, your input is not valid. Please re-enter ALL seat according to requirement.");
+            sc.nextLine();
             showOption4_5(showTime, numTickets, numStudent, numSC);
         }
-        catch (IndexOutOfBoundsException exception)
-        {
-            System.out.println("Sorry, your input is not valid. Please re-enter ALL seat according to requirement.");
-            showOption4_5(showTime, numTickets, numStudent, numSC);
-        }
+        //exception.printStackTrace();
+
         //check if thr is like unoccupied seat between selected seat
        // System.out.println("All seats sucessfully selected:");
         //print out all the seats again?
@@ -636,38 +653,121 @@ class CustomerUi implements ConsoleBasedInterface{
 
     public void showOption4_7(ArrayList<Ticket> ticketArrayList, double totalPrice, String[] seatSelected)
     {
-        System.out.println("Enter name: ");
-        String name = sc.nextLine();
-        System.out.println("Enter mobile number: ");
-        long number = sc.nextLong();
-        sc.nextLine();
-        System.out.println("Enter email address: ");
-        String email = sc.nextLine();
-        //ask for payment by? then total price decrease
-        System.out.println("Payment in progress.....");
-        System.out.println("Payment sucessful! ");
-        //uncomment the next line to update dat file
-        //customerUIController.updateSuccessfulPayment(name, number, email, totalPrice, ticketArrayList, seatSelected);
-        //put into transaction, update showtimelayout
-        show();
-
+        try{
+            System.out.println("Enter name: ");
+            String name = sc.nextLine();
+            System.out.println("Enter mobile number: ");
+            long number = sc.nextLong();
+            sc.nextLine();
+            System.out.println("Enter email address: ");
+            String email = sc.nextLine();
+            //ask for payment by? then total price decrease
+            System.out.println("Payment in progress.....");
+            System.out.println("Payment sucessful! ");
+            //uncomment the next line to update dat file
+            customerUIController.updateSuccessfulPayment(name, number, email, totalPrice, ticketArrayList, seatSelected);
+            //put into transaction, update showtimelayout
+            show();
+        }
+        catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
+        {
+            System.out.println("Sorry, your input is not valid. Please enter ur name/mobile number/email correctly");
+            sc.nextLine();
+            showOption4_7(ticketArrayList, totalPrice, seatSelected);
+        }
     }
 
     public void showOption5() //view booking history
     {
-        //in transaction, find using user's phone num or smth
+        System.out.println("Please enter ur phone number: ");
+        try
+        {
+            Long num = sc.nextLong();
+            customerUIController.showBookingHistory(num);
+        } catch (InputMismatchException mismatchInput)
+        {
+            System.out.println("Number invalid, please re-enter");
+            showOption5();
+        }
+        //find transaction
         //but for here because its a single user, can just print transaction history
     }
 
     public void showOption6() //rate and review --> only for movies that they watch
     {
+        System.out.println("Please enter ur phone number: ");
+        try
+        {
+            Long num = sc.nextLong();
+            ArrayList<Transaction> transactionArrayList = customerUIController.chooseMovieToReview(num);
+            showOption6_1(num, transactionArrayList);
+        }
+        catch (InputMismatchException mismatchInput)
+        {
+            System.out.println("Number invalid, please re-enter");
+            sc.nextLine();
+            showOption6();
+        }
+
+
+
         //find history --> how to ensure that user only review and rate once? hav a counter or smth isit --> means nid to store data?
         //rate movie OR write review for that movie
     }
 
+    public void showOption6_1(long num, ArrayList<Transaction> transactions)
+    {
+        try
+        {
+            System.out.println("Please select which movie to review: ");
+            int index = sc.nextInt();
+            if (customerUIController.review(transactions.get(index-1)))
+            {
+                sc.nextLine();
+                showOption6_2(transactions.get(index-1).getTicketArrayList().get(0).getShowTime().getMovie().getMovieId());
+            }
+            else
+                System.out.println("Sorry, u had already submit review (with n tickets, u can submit a max of n reviews only)");
+
+        }catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
+        {
+            System.out.println("Number invalid, please re-enter");
+            showOption6_1(num, transactions);
+        }
+    }
+
+    public void showOption6_2(int movieId)
+    {
+        int ratings;
+        System.out.println("Please enter ur review: ");
+        String reviewComment = sc.nextLine();
+        try
+        {
+            while (true)
+            {
+                System.out.println("Enter ratings (1-5) ");
+                ratings = sc.nextInt();
+                if ((ratings>0) | (ratings <=5))
+                    break;
+            }
+            customerUIController.submitReview(movieId, new Review(reviewComment,ratings));
+            System.out.println("Review submitted! ");
+        }catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
+        {
+            System.out.println("Sorry, your input is invalid, please re-according to the requirements");
+            showOption6_2(movieId);
+        }
+
+        //Review review = new Review()
+    }
+
     public void showOption7()
     {
-        //list top5 ranking by ticket sales
-        //list top5 ranking by overall reviewer's rating
+        System.out.println("Top 5 ranking by ticket sales!");
+        customerUIController.showTop5MovieByTicketSales();
+
+        System.out.println("Top 5 ranking by overall reviewer's rating");
+        customerUIController.showTop5MovieByRatings();
+
     }
 }

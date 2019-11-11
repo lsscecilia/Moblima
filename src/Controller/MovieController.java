@@ -1,12 +1,13 @@
 package Controller;
+import java.util.*;
+
 
 import Entity.Movie;
 import Entity.Review;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import static java.util.stream.Collectors.toMap;
 
 public class MovieController implements ControllerInterface{
     private HandlerInterface database;
@@ -216,6 +217,39 @@ public class MovieController implements ControllerInterface{
         return newMovies;
     }
 
+    public void insertReview(int movieId, Review review)
+    {
+        ArrayList<Review> reviewArrayList;
+        for (Movie movie: movieArrayList)
+        {
+            if (movie.getMovieId()==movieId)
+            {
+                movie.addReview(review);
+            }
+        }
+        updateDat();
+    }
+
+
+
+    public HashMap<Movie, Double> top5ByRatings()
+    {
+        HashMap<Movie, Double> ratings = new HashMap<>();
+        for (Movie movie: movieArrayList)
+        {
+            ratings.put(movie, getOverallRatings(movie));
+        }
+        HashMap<Movie, Double> sorted = ratings
+                .entrySet()
+                .stream()
+                .filter(d ->  ! Double.isNaN(d.getValue()))
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+
+        return sorted;
+    }
+
     public static double getOverallRatings(Movie movie){
         return calculateOverallRatings(movie.getMovieReviews());
     }
@@ -266,6 +300,8 @@ public class MovieController implements ControllerInterface{
     public void updateDat() {
         database.writeSerializedObject("Movie", movieArrayList);
     }
+
+
 
 
 }

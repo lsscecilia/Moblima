@@ -2,6 +2,8 @@ package Entity;
 
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.Comparator;
+
 /**
  * @version 1
  * @since 17/10/2019
@@ -123,5 +125,10 @@ public class Movie implements Serializable{
 
     public void setMovieReviews(ArrayList<Review> movieReviews) {
         this.movieReviews = movieReviews;
+    }
+
+    public void addReview(Review review)
+    {
+        movieReviews.add(review);
     }
 }

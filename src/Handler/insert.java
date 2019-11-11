@@ -1,5 +1,7 @@
 package Handler;
 
+import Controller.CineplexController;
+import Controller.ShowTimeController;
 import Entity.*;
 
 import java.lang.reflect.Array;
@@ -8,36 +10,56 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class insert {
     public static void main(String[] args)
     {
 
-/*
-        LocalDateTime localDateTime = LocalDateTime.of(2020,01,03,10,00);
-        System.out.println(localDateTime.toLocalDate().toString());
 
-        String newString = "2020-04-05";
-        String newnewString = (newString+"-"+localDateTime.toLocalTime().toString().replace(":","-")).replace("-",",");
-        System.out.println(newnewString);
-        int[] time = Stream.of((newnewString).split(",")).mapToInt(Integer::parseInt).toArray();
-        localDateTime = LocalDateTime.of(time[0],time[1],time[2],time[3],time[4]);
-
-        System.out.println("new"+ localDateTime.toLocalDate()+localDateTime.toLocalTime());
-
-
-         */
-        /*
         HandlerInterface database = new DataHandler();
-        ArrayList<ShowTime> showTimeArrayList = new ArrayList<>();
-        showTimeArrayList = database.readSerializedObject("ShowTime");
-        for(ShowTime showTime: showTimeArrayList){
-            System.out.println(showTime.getCineplex().getCineplexName() + " | " + showTime.getCinemaID() + " | " + showTime.getDateTime());
-        }
+        /*
+        HashMap<Transaction, Integer> map = new HashMap<Transaction, Integer>();
+        database.writeSerializedHashMap("ReviewTracker.ser", map);*/
 
-         */
+        HashMap<Transaction, Integer> map = database.readSerializedHashMap("ReviewTracker.ser");
+        /*
+        ArrayList<Transaction> transactions = database.readSerializedObject("Transaction");
+        for (Transaction t: transactions)
+        {
+            System.out.println("transaction id, num tick" + t.getTID());
+            System.out.println(t.getMobileNumber());
+        }*/
+        /*
+        CineplexController cineplexController = new CineplexController();
+        ArrayList<Cineplex>  cineplexArrayList = cineplexController.getCineplexArrayList();
+        for (Cineplex cineplex: cineplexArrayList)
+        {
+            for (Cinema cinema: cineplex.getCinemaArrayList())
+            {
+                if (cinema.getCinemaType()==null)
+                    cinema.setCinemaType("Normal");
+                System.out.println(cineplex.getCineplexName() + "  cinema id: " + cinema.getCinemaID() + " cinematype: " +cinema.getCinemaType());
+            }
+        }
+        database.writeSerializedObject("Cineplex", cineplexArrayList);*/
+
+        /*
+        ArrayList<ShowTime> showTimeArrayList =database.readSerializedObject("ShowTime");
+        for (ShowTime showTime: showTimeArrayList)
+        {
+            int[][] seatLayout = showTime.getSeatLayout();
+            for (int i=0; i<showTime.getRow();i++)
+            {
+                for (int r=0; r<showTime.getColumn();r++)
+                {
+                    seatLayout[i][r] = 0;
+                }
+            }
+        }
+        database.writeSerializedObject("ShowTime", showTimeArrayList);*/
+
 
         //cineplex
         //    private int cineplexID;

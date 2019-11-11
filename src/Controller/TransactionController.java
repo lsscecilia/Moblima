@@ -1,5 +1,6 @@
 package Controller;
 
+import Entity.Movie;
 import Entity.Ticket;
 import Entity.Transaction;
 import Handler.DataHandler;
@@ -8,7 +9,9 @@ import Handler.HandlerInterface;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
+import java.util.*;
+
+import static java.util.stream.Collectors.toMap;
 
 public class TransactionController implements ControllerInterface {
     //add transaction aft any booking
@@ -20,12 +23,27 @@ public class TransactionController implements ControllerInterface {
         database = new DataHandler();
         transactionArrayList = database.readSerializedObject("Transaction");
     }
-    //        this.TID = TID;
-    //        this.namePurchaser = namePurchaser;
-    //        this.mobileNumber = mobileNumber;
-    //        this.emailAddress = emailAddress;
-    //        this.totalPrice = totalPrice;
-    //        this.ticketArrayList = ticketArrayList;
+
+    public ArrayList<Transaction> findBookingHistory(long num)
+    {
+        ArrayList<Transaction> transactionArrayList1 = new ArrayList<>();
+        for (Transaction transaction: transactionArrayList)
+        {
+            if (transaction.getMobileNumber() == num)
+            {
+                transactionArrayList1.add(transaction);
+            }
+        }
+        return transactionArrayList1;
+    }
+
+    public boolean bookingHistoryExist(ArrayList<Transaction> transactions)
+    {
+        if (transactions.isEmpty())
+            return false;
+        else
+            return true;
+    }
 
     public void addTransaction(String name, long mobileNum, String email, double totalPrice, ArrayList<Ticket> ticketArrayList)
     {
@@ -39,6 +57,35 @@ public class TransactionController implements ControllerInterface {
         System.out.println("test: transactionID: " + transactionArrayList);
         transactionArrayList.add(new Transaction(transactionID, name, mobileNum, email, totalPrice, ticketArrayList));
         updateDat();
+    }
+
+    public HashMap<Movie,Integer> top5ByTicketSales()
+    {
+        HashMap<Movie,Integer> top5 = new HashMap<>();
+        int numTicket;
+        for (Transaction transaction: transactionArrayList)
+        {
+            Movie movie = transaction.getTicketArrayList().get(0).getShowTime().getMovie();
+            numTicket = transaction.getTicketArrayList().size();
+            for (Movie movie1: top5.keySet())
+            {
+                if (movie1.getMovieId()==movie.getMovieId())
+                {
+                    numTicket = top5.get(movie1) + numTicket;
+                    top5.remove(movie1);
+                    break;
+                }
+
+            }
+            top5.put(movie, numTicket);
+        }
+        HashMap<Movie, Integer> sorted = top5
+                .entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                        LinkedHashMap::new));
+        return sorted;
     }
 
     @Override

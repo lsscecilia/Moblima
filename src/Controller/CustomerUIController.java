@@ -1,11 +1,9 @@
 package Controller;
 
-import Entity.Cineplex;
-import Entity.Movie;
-import Entity.ShowTime;
-import Entity.Ticket;
+import Entity.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CustomerUIController {
     private CustomerDisplayController display;
@@ -14,6 +12,7 @@ public class CustomerUIController {
     private ShowTimeController showTimeController;
     private BookingController bookingController;
     private TransactionController transactionController;
+    private ReviewController reviewController;
 
     public CustomerUIController() {
         display = new CustomerDisplayController();
@@ -22,6 +21,7 @@ public class CustomerUIController {
         showTimeController = new ShowTimeController();
         bookingController = new BookingController();
         transactionController = new TransactionController();
+        reviewController = new ReviewController();
     }
 
     public void showMovieList()
@@ -82,6 +82,16 @@ public class CustomerUIController {
         display.displaySeatLayout(showTime.getSeatLayout(), showTime.getRow(),showTime.getColumn());
     }
 
+    public boolean checkSingleSeat(String[] seatSelected, ShowTime showTime, int numSeats)
+    {
+        return bookingController.checkSingleSeat(seatSelected, showTime, numSeats);
+    }
+
+    public int numAvalSeats(ShowTime showTime)
+    {
+        return bookingController.numAvalSeats(showTime);
+    }
+
     public boolean checkSeatAval(ShowTime showTime, char row, int column)
     {
         return showTimeController.checkSeatAval(showTime, row, column);
@@ -118,6 +128,17 @@ public class CustomerUIController {
         display.movieInformation(movieArrayList, index);
     }
 
+    public void showTop5MovieByRatings()
+    {
+        HashMap<Movie, Double> top5 = movieController.top5ByRatings();
+        display.displayTop5Rating(top5);
+    }
+
+    public void showTop5MovieByTicketSales()
+    {
+        HashMap<Movie,Integer> top5 = transactionController.top5ByTicketSales();
+        display.displayTop5TicketSale(top5);
+    }
 
     public void showCineplexList()
     {
@@ -147,6 +168,37 @@ public class CustomerUIController {
     {
         return movieController.noResultFound(movieArrayList);
     }
+
+    public ArrayList<Transaction> showBookingHistory(long num)
+    {
+        ArrayList<Transaction> transactionArrayList =transactionController.findBookingHistory(num);
+        if (transactionController.bookingHistoryExist(transactionArrayList))
+            display.displayBookingHistory(transactionArrayList);
+        else
+            System.out.println("Sorry, no transactions can be found.");
+        return transactionArrayList;
+    }
+
+    public ArrayList<Transaction> chooseMovieToReview(long num)
+    {
+        ArrayList<Transaction> transactionArrayList =transactionController.findBookingHistory(num);
+        if (transactionController.bookingHistoryExist(transactionArrayList))
+            display.displayMovieTitleBookingHistory(transactionArrayList);
+        else
+            System.out.println("Sorry, no transactions can be found.");
+        return transactionArrayList;
+    }
+
+    public boolean review(Transaction transaction)
+    {
+        return reviewController.updateNumReview(transaction);
+    }
+
+    public void submitReview(int movieId, Review review)
+    {
+        movieController.insertReview(movieId, review);
+    }
+
 
 
 }

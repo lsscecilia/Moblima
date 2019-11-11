@@ -8,6 +8,7 @@ import Handler.HandlerInterface;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.spi.AbstractResourceBundleProvider;
 
 public class CineplexController implements ControllerInterface{
     private HandlerInterface database;
@@ -173,7 +174,9 @@ public class CineplexController implements ControllerInterface{
                     updateDat();
                     break;
                 }
+
             }
+
         }
         return newCineplexArray;
     }
@@ -187,6 +190,11 @@ public class CineplexController implements ControllerInterface{
     public int getCineplexId(ArrayList<Cineplex> cineplexArrayList, int index)
     {
         return cineplexArrayList.get(index).getCineplexID();
+    }
+
+    public boolean cineplexExistChecker(ArrayList<Cineplex> cineplexArrayList)
+    {
+        return cineplexArrayList.isEmpty();
     }
 
     /**
