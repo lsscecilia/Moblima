@@ -19,11 +19,18 @@ public class insert {
 
 
         HandlerInterface database = new DataHandler();
+
+        ArrayList<PublicHoliday> publicHolidayArrayList = database.readSerializedObject("PublicHoliday");
+
+        for(PublicHoliday publicHoliday: publicHolidayArrayList){
+            System.out.println(publicHoliday.getDate().toString());
+            System.out.println(publicHoliday.getHolidayName()+"\n");
+        }
         /*
         HashMap<Transaction, Integer> map = new HashMap<Transaction, Integer>();
         database.writeSerializedHashMap("ReviewTracker.ser", map);*/
 
-        HashMap<Transaction, Integer> map = database.readSerializedHashMap("ReviewTracker.ser");
+        //HashMap<Transaction, Integer> map = database.readSerializedHashMap("ReviewTracker.ser");
         /*
         ArrayList<Transaction> transactions = database.readSerializedObject("Transaction");
         for (Transaction t: transactions)

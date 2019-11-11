@@ -20,12 +20,20 @@ public class CustomerDisplayController implements ControllerInterface {
 
     }
 
+    /**
+     * Displays CinemaType
+     * @param cinemaType
+     */
     public void displayCinemaType(String[] cinemaType) {
         for (int i = 1; i < cinemaType.length; i++) {
             System.out.println(i + ". " + cinemaType[i - 1]);
         }
     }
 
+    /**
+     * Displays Tickets details
+     * @param ticketArrayList
+     */
     public void displayTicket(ArrayList<Ticket> ticketArrayList) {
         int count = 1;
         System.out.println("Movie: " + ticketArrayList.get(0).getShowTime().getMovie().getMovieTitle());
@@ -39,6 +47,12 @@ public class CustomerDisplayController implements ControllerInterface {
         }
     }
 
+    /**
+     * Displays Seat Layout of cinema
+     * @param array
+     * @param row
+     * @param column
+     */
     public void displaySeatLayout(int[][] array, int row, int column) {
         String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         System.out.print(" ");
@@ -68,7 +82,10 @@ public class CustomerDisplayController implements ControllerInterface {
         }
     }
 
-    //sorted in terms of date and time
+    /**
+     * Displays ShowTime that is sorted with respect to date and time
+     * @param showTimeArrayList
+     */
     public void displayShowTime(ArrayList<ShowTime> showTimeArrayList) {
         int count = 1;
         LocalDateTime dateTime = LocalDateTime.of(0, 1, 1, 0, 0);
@@ -92,7 +109,10 @@ public class CustomerDisplayController implements ControllerInterface {
     }
 
 
-
+    /**
+     * Displays Top5Rating from HashMap
+     * @param top5
+     */
     public void displayTop5Rating(HashMap<Movie, Double> top5)
     {
         int count = 1;
@@ -109,6 +129,10 @@ public class CustomerDisplayController implements ControllerInterface {
         }
     }
 
+    /**
+     * Displays Top5TicketSale from HashMap
+     * @param top5
+     */
     public void displayTop5TicketSale(HashMap<Movie, Integer> top5)
     {
         int count = 1;
@@ -121,6 +145,10 @@ public class CustomerDisplayController implements ControllerInterface {
         }
     }
 
+    /**
+     * Displays booking history
+     * @param transactions
+     */
     public void displayBookingHistory(ArrayList<Transaction> transactions)
     {
         int count;
@@ -146,6 +174,10 @@ public class CustomerDisplayController implements ControllerInterface {
         }
     }
 
+    /**
+     * Displays all the Movie titles from user's booking history
+     * @param transactions
+     */
     public void displayMovieTitleBookingHistory(ArrayList<Transaction> transactions)
     {
         int count=1;
@@ -156,6 +188,10 @@ public class CustomerDisplayController implements ControllerInterface {
         }
     }
 
+    /**
+     * Display all Cineplex
+     * @param cineplexArrayList
+     */
     public void displayCineplex(ArrayList<Cineplex> cineplexArrayList) {
         int count = 1;
         for (Cineplex cineplex : cineplexArrayList) {
@@ -166,6 +202,11 @@ public class CustomerDisplayController implements ControllerInterface {
         System.out.println();
     }
 
+    /**
+     * Display individual Cineplex information
+     * @param cineplexArrayList
+     * @param index
+     */
     public void displayCineplexInformation(ArrayList<Cineplex> cineplexArrayList, int index) {
         Cineplex cineplex = cineplexArrayList.get(index);
         System.out.println("======================" + cineplex.getCineplexName() + "=========================");
@@ -173,6 +214,10 @@ public class CustomerDisplayController implements ControllerInterface {
         System.out.println();
     }
 
+    /**
+     * Display all Movie Titles
+     * @param movieArrayList
+     */
     public void displayMovieTitle(ArrayList<Movie> movieArrayList) {
         int count = 1;
         for (Movie m : movieArrayList) {
@@ -185,6 +230,11 @@ public class CustomerDisplayController implements ControllerInterface {
         System.out.println();
     }
 
+    /**
+     * Display information of a movie
+     * @param movieArrayList
+     * @param index
+     */
     //index here is the array index, so should be count-1
     public void movieInformation(ArrayList<Movie> movieArrayList, int index) {
 
@@ -204,6 +254,10 @@ public class CustomerDisplayController implements ControllerInterface {
         System.out.println();
     }
 
+    /**
+     * Display all reviews from a particular movie
+     * @param reviewArrayList
+     */
     public void displayReview(ArrayList<Review> reviewArrayList) {
         int count = 1;
         for (Review review : reviewArrayList) {

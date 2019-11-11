@@ -45,20 +45,36 @@ public class ShowTimeController implements  ControllerInterface{
         return showTimeAvalBookingArrayList;
     }
 
-    //can do this private
+    /**
+     * Method to sort ShowTimeArrayList using Collections.sort
+     * @param showTimes
+     * @return
+     */
     public ArrayList<ShowTime> sortShowTime(ArrayList<ShowTime> showTimes)
     {
         Collections.sort(showTimes);
         return showTimes;
     }
 
+    /**
+     * Returns ShowTime Object from it's index
+     * @param showTimes
+     * @param index
+     * @return
+     */
     public ShowTime getShowTime(ArrayList<ShowTime> showTimes, int index)
     {
         return showTimes.get(index);
     }
 
-    //seat aval return true;
-    public boolean checkSeatAval(ShowTime showTime, char row, int column)
+    /**
+     * Checks whether the seat selected is available, if available return true, else false.
+     * @param showTime
+     * @param row
+     * @param column
+     * @return boolean true/false
+     */
+    public boolean checkSeatAvailable(ShowTime showTime, char row, int column)
     {
         column--;
         String letters ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -68,7 +84,13 @@ public class ShowTimeController implements  ControllerInterface{
         return true;
     }
 
-    public void updateSeatAval(ShowTime showTimeSelected, String[] selectedSeats, int numSeats)
+    /**
+     * Update the availability of the Seats
+     * @param showTimeSelected
+     * @param selectedSeats
+     * @param numSeats
+     */
+    public void updateSeatAvailability(ShowTime showTimeSelected, String[] selectedSeats, int numSeats)
     {
         char rowAlpha;
         int row, column;
@@ -83,6 +105,13 @@ public class ShowTimeController implements  ControllerInterface{
         updateDat();
     }
 
+    /**
+     * Displays value of Attributes in Showtime object
+     * @param cineplexId
+     * @param cinemaId
+     * @param showTimeIndex
+     * @param choice
+     */
     public void displaySpecificAttributeInShowTime(int cineplexId, int cinemaId, int showTimeIndex, int choice){
         ArrayList<ShowTime> showTimeArrayListDisplay = new ArrayList<>();
         for(ShowTime showTime:showTimeArrayList){
@@ -274,6 +303,12 @@ public class ShowTimeController implements  ControllerInterface{
         updateDat();
     }
 
+    /**
+     * Removes ShowTime from showTimeArrayList
+     * @param cineplexId
+     * @param cinemaId
+     * @param showTimeIndex
+     */
     public void removeShowTime(int cineplexId, int cinemaId, int showTimeIndex){
         ArrayList<ShowTime> showTimeArrayListDisplay = new ArrayList<>();
         for(ShowTime showTime:showTimeArrayList){

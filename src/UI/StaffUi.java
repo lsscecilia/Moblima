@@ -4,6 +4,7 @@ package UI;
 
 import Controller.CineplexController;
 import Controller.MovieController;
+import Controller.PublicHolidayController;
 import Controller.ShowTimeController;
 import Entity.*;
 
@@ -11,21 +12,31 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * modifier package-private
+ * Class StaffUi implements ConsoleBasedInterface
+ * StaffUi is a boundary class used as the boundary between a User's action and the program logic
  */
 class StaffUi implements ConsoleBasedInterface {
     private MovieController movieController;
     private CineplexController cineplexController;
     private ShowTimeController showTimeController;
+    private PublicHolidayController publicHolidayController;
 
     public StaffUi(){
         this.movieController = new MovieController();
         this.cineplexController = new CineplexController();
         this.showTimeController = new ShowTimeController();
+        this.publicHolidayController = new PublicHolidayController();
     }
 
     /**
-     * Allows the Staff to choose the different options
+     * Serves as the Main Page for StaffUI
+     * Allows the Staff to choose the different options to do different things
+     * It branches off into 5 different options:
+     * 1. Setting for Individual Cineplex
+     * 2. Settings across All Cineplex
+     * 3. Configure System Setting
+     * 4. Back
+     * 5. Quit
      */
     @Override
     public void show() {
@@ -74,6 +85,10 @@ class StaffUi implements ConsoleBasedInterface {
 
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
+    /**
+     * From Branch 1
+     * Shows All Cineplex available
+     */
     public void showAllCineplex(){
         Scanner sc = new Scanner(System.in);
 
@@ -113,6 +128,14 @@ class StaffUi implements ConsoleBasedInterface {
         } while (choice != 4);
     }
 
+    /**
+     * From Branch 1
+     * Displays individual Cineplex
+     * Allows Staff to change details in Cineplex such as:
+     * 1. Add/Modify/Remove Movie
+     * 2. Add/Modify/Remove ShowTime
+     * @param cineplexId
+     */
     public void displayIndividualCineplex(int cineplexId){
         Scanner sc = new Scanner(System.in);
 
@@ -162,7 +185,12 @@ class StaffUi implements ConsoleBasedInterface {
 
         } while (choice != 6);
     }
-
+    // ------------------Add/Modify/Remove Movie------------------
+    /**
+     * From Branch 1
+     * Allows Staff to choose to Add New Movie Inside Cineplex
+     * @param cineplexID
+     */
     public void addNewMovieInCineplex(int cineplexID){
         Scanner sc = new Scanner(System.in);
 
@@ -184,6 +212,11 @@ class StaffUi implements ConsoleBasedInterface {
         }
     }
 
+    /**
+     * From Branch 1
+     * Allows Staff to choose to remove existing movie inside Cineplex
+     * @param cineplexId
+     */
     public void removeExistingMovieInCineplex(int cineplexId){
         Scanner sc = new Scanner(System.in);
 
@@ -203,9 +236,16 @@ class StaffUi implements ConsoleBasedInterface {
         else{
             System.out.println("Something went wrong :(");
         }
-
     }
 
+    // ------------------Add/Modify/Remove Movie------------------
+
+    // ------------------Add/Modify/Remove ShowTime------------------
+    /**
+     * From Branch 1
+     * Allows Staff to choose to add new ShowTime
+     * @param cineplexId
+     */
     public void addNewShowTimeInCineplex(int cineplexId){
         Scanner sc = new Scanner(System.in);
 
@@ -222,6 +262,12 @@ class StaffUi implements ConsoleBasedInterface {
         chooseMovieToAddToShowTime(cineplexId,choice);
     }
 
+    /**
+     * From Branch 1
+     * Allows staff to choose what movies to add into Cineplex based on the company's movie collection
+     * @param cineplexId
+     * @param cinemaId
+     */
     public void chooseMovieToAddToShowTime(int cineplexId, int cinemaId){
         Scanner sc = new Scanner(System.in);
         System.out.println("================= Choose Movie To Add =================");
@@ -243,6 +289,13 @@ class StaffUi implements ConsoleBasedInterface {
         }
     }
 
+    /**
+     * From Branch 1
+     * Allows Staff to choose which TimeSlot for each showTime
+     * @param cineplexId
+     * @param cinemaId
+     * @param movieId
+     */
     public void chooseTimeSlotToAddToShowTime(int cineplexId, int cinemaId, int movieId){
         Scanner sc = new Scanner(System.in);
 
@@ -259,7 +312,6 @@ class StaffUi implements ConsoleBasedInterface {
         choice = sc.nextInt();
         System.out.print("\n");
 
-        //ShowTime(cineplex, movie, cinemaId, column, row, dateTime[i],layOut)
         switch (choice) {
             case 1:
                 chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",10,00");
@@ -281,6 +333,14 @@ class StaffUi implements ConsoleBasedInterface {
         }
     }
 
+    /**
+     * From Branch 1
+     * Allows Staff to choose the date for each showTime
+     * @param cineplexId
+     * @param cinemaId
+     * @param movieId
+     * @param time
+     */
     public void chooseDateToAddToShowTime(int cineplexId, int cinemaId, int movieId, String time){
         Scanner sc = new Scanner(System.in);
 
@@ -301,6 +361,11 @@ class StaffUi implements ConsoleBasedInterface {
         }
     }
 
+    /**
+     * From Branch 1
+     * Allows Staff to choose which Hall to modify existing ShowTime
+     * @param cineplexId
+     */
     public void modifyExistingShowTimeInCineplex(int cineplexId){
         Scanner sc = new Scanner(System.in);
 
@@ -335,6 +400,12 @@ class StaffUi implements ConsoleBasedInterface {
         }
     }
 
+    /**
+     * From Branch 1
+     * ALlows Staff to choose which ShowTime from which Cinema to modify
+     * @param cineplexId
+     * @param cinemaId
+     */
     public void chooseShowTimeFromCinema(int cineplexId, int cinemaId){
         Scanner sc = new Scanner(System.in);
         int choice = 0;
@@ -349,6 +420,13 @@ class StaffUi implements ConsoleBasedInterface {
 
     }
 
+    /**
+     * From Branch 1
+     * Allows Staff to choose which Attributes inside ShowTime to modify
+     * @param cineplexId
+     * @param cinemaId
+     * @param showTimeIndex
+     */
     public void chooseAttributeToModifyShowTime(int cineplexId, int cinemaId, int showTimeIndex){
         Scanner sc = new Scanner(System.in);
         int choice = 0;
@@ -396,7 +474,7 @@ class StaffUi implements ConsoleBasedInterface {
         else if(choice == 3){ //change time
             System.out.println("You are changing from: ");
             showTimeController.displaySpecificAttributeInShowTime(cineplexId, cinemaId, showTimeIndex,choice);
-            System.out.println("\n" + "To: (hhmm)");
+            System.out.println("\n" + "To: (hhmm) [1000, 1300, 1600, 1900, 2200]");
             String time = sc.nextLine();
             try {
                 time = time.substring(0, 2) + "-" + time.substring(2,4);
@@ -409,7 +487,11 @@ class StaffUi implements ConsoleBasedInterface {
         }
     }
 
-
+    /**
+     * From Branch 1
+     * Allows Staff to choose which ShowTime to remove from which hall
+     * @param cineplexId
+     */
     public void removeExistingShowTime(int cineplexId){
         Scanner sc = new Scanner(System.in);
 
@@ -444,6 +526,12 @@ class StaffUi implements ConsoleBasedInterface {
         }
     }
 
+    /**
+     * From Branch 1
+     * Allows Staff to choose which ShowTime to remove from a selected cinema hall
+     * @param cineplexId
+     * @param cinemaId
+     */
     public void chooseShowTimeToRemoveFromCinema(int cineplexId, int cinemaId){
         Scanner sc = new Scanner(System.in);
         int choice = 0;
@@ -457,6 +545,13 @@ class StaffUi implements ConsoleBasedInterface {
         removeShowTimePreview(cineplexId,cinemaId,choice-1);
     }
 
+    /**
+     * From Branch 1
+     * Double checks with the Staff on whether he really wants to delete this ShowTime
+     * @param cineplexId
+     * @param cinemaId
+     * @param showTimeIndex
+     */
     public void removeShowTimePreview(int cineplexId, int cinemaId, int showTimeIndex){
         Scanner sc = new Scanner(System.in);
         int choice = 0;
@@ -482,14 +577,14 @@ class StaffUi implements ConsoleBasedInterface {
         else{
             System.out.println("Removal Cancelled!");
         }
-
     }
-
+    // ------------------Add/Modify/Remove ShowTime------------------
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
 
     // -------------------------------------------------------OPTION 2:Setting for All Cineplex-------------------------------------------------------
     /**
+     * From Branch 2
      * UI display for "Setting for all Cineplex"
      * Allows Staff to Add new movie, Remove existing movie, Update existing movie detail
      */
@@ -534,9 +629,10 @@ class StaffUi implements ConsoleBasedInterface {
 
         } while (choice != 4);
     }
-
+    // ------------------Add/Modify/Remove Movie------------------
     /**
-     * Allows user to input new movie and it's details!
+     * From branch 2
+     * Allows user to input new movie to company and it's details!
      */
     public void addNewMovie(){
         Scanner sc = new Scanner(System.in);
@@ -611,6 +707,7 @@ class StaffUi implements ConsoleBasedInterface {
     }
 
     /**
+     * From Branch 2
      * Allows Staff Admin to remove Movie based on MovieID or MovieTitle.
      */
     public void removeExistingMovie(){
@@ -640,6 +737,7 @@ class StaffUi implements ConsoleBasedInterface {
     }
 
     /**
+     * From Branch 2
      * Allows staff to update existing movie details
      */
     public void updateExistingMovieDetail(){
@@ -680,12 +778,111 @@ class StaffUi implements ConsoleBasedInterface {
         }
         System.out.println("========================================================" + "\n");
     }
+    // ------------------Add/Modify/Remove Movie------------------
     // -------------------------------------------------------OPTION 2:Setting for All Cineplex-------------------------------------------------------
 
 
     // -------------------------------------------------------OPTION 3:Configure System Setting-------------------------------------------------------
-    public void showSettingForSystemSetting(){
 
+    /**
+     * From Branch 3
+     */
+    public void showSettingForSystemSetting(){
+        Scanner sc = new Scanner(System.in);
+
+        int choice = 0;
+        do {
+            System.out.println("==================== System Setting ===================");
+            System.out.println("1.  View All Public Holiday");
+            System.out.println("2.  Add new Public Holiday.");
+            System.out.println("3.  Remove Public Holiday");
+            System.out.println("4.  Back");
+            System.out.println("5.  Quit");
+            System.out.println("=======================================================");
+            System.out.print("Please input your choice: ");
+
+            choice = sc.nextInt();
+            System.out.print("\n");
+
+            switch (choice) {
+                case 1:
+                    displayAllPublicHoliday();
+                    break;
+                case 2:
+                    addNewPublicHoliday();
+                    break;
+                case 3:
+                    removePublicHoliday();
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    sc.close();
+                    System.out.println("Program terminating...");
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+            }
+
+        } while (choice != 4);
     }
+
+    /**
+     * From Branch 3
+     * Calls PublicHolidayController to displays all public holiday
+     */
+    public void displayAllPublicHoliday(){
+        System.out.println("================ Display Public Holiday ===============");
+        publicHolidayController.displayAllPublicHoliday();
+        System.out.println("=======================================================");
+        System.out.println();
+    }
+
+    /**
+     * From Branch 3
+     * Allows Staff to add new public holiday
+     */
+    public void addNewPublicHoliday(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("================ Add New Public Holiday ===============");
+        System.out.println("Please enter the Holiday name!");
+        String holidayName = sc.nextLine();
+        System.out.println("Please enter the date! (yyyy,mm,dd)"); // LocalDate.of(year,month,dayOfMonth)
+        String date = sc.nextLine();
+
+        try{
+            publicHolidayController.addNewPublicHoliday(holidayName,date);
+            System.out.println("Successfully added Public Holiday!");
+        }
+        catch (Exception e){
+
+        }
+        System.out.println("=======================================================");
+    }
+
+    /**
+     * From Branch 3
+     * Calls PublicHolidayController to remove Public Holiday
+     */
+    public void removePublicHoliday(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("================ Remove Public Holiday ===============");
+        publicHolidayController.displayAllPublicHoliday();
+        System.out.println("=======================================================");
+        int choice = sc.nextInt();
+        try{
+            if(publicHolidayController.removePublicHoliday(choice-1)){
+                System.out.println("Successfully removed Public Holiday!");
+            }
+            else{
+                System.out.println("An error occurred! ;(");
+            }
+        }
+        catch (Exception e){
+
+        }
+    }
+
     // -------------------------------------------------------OPTION 3:Configure System Setting-------------------------------------------------------
 }

@@ -24,6 +24,11 @@ public class TransactionController implements ControllerInterface {
         transactionArrayList = database.readSerializedObject("Transaction");
     }
 
+    /**
+     * Finds Booking history from phone number provided by user
+     * @param num
+     * @return ArrayList<Transaction> ArrayList of Booking History
+     */
     public ArrayList<Transaction> findBookingHistory(long num)
     {
         ArrayList<Transaction> transactionArrayList1 = new ArrayList<>();
@@ -37,6 +42,12 @@ public class TransactionController implements ControllerInterface {
         return transactionArrayList1;
     }
 
+    /**
+     * Checks whether booking history exists
+     * Returns true if booking history is not empty, else false
+     * @param transactions
+     * @return boolean
+     */
     public boolean bookingHistoryExist(ArrayList<Transaction> transactions)
     {
         if (transactions.isEmpty())
@@ -45,6 +56,14 @@ public class TransactionController implements ControllerInterface {
             return true;
     }
 
+    /**
+     * Add Transaction to ticketArrayList
+     * @param name
+     * @param mobileNum
+     * @param email
+     * @param totalPrice
+     * @param ticketArrayList
+     */
     public void addTransaction(String name, long mobileNum, String email, double totalPrice, ArrayList<Ticket> ticketArrayList)
     {
         ZoneId zid = ZoneId.of("Asia/Singapore");
@@ -59,6 +78,10 @@ public class TransactionController implements ControllerInterface {
         updateDat();
     }
 
+    /**
+     * Returns HashMap of Top5 Movie by TicketSales
+     * @return
+     */
     public HashMap<Movie,Integer> top5ByTicketSales()
     {
         HashMap<Movie,Integer> top5 = new HashMap<>();
