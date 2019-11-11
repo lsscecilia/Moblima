@@ -9,11 +9,36 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class insert {
     public static void main(String[] args)
     {
+
+/*
+        LocalDateTime localDateTime = LocalDateTime.of(2020,01,03,10,00);
+        System.out.println(localDateTime.toLocalDate().toString());
+
+        String newString = "2020-04-05";
+        String newnewString = (newString+"-"+localDateTime.toLocalTime().toString().replace(":","-")).replace("-",",");
+        System.out.println(newnewString);
+        int[] time = Stream.of((newnewString).split(",")).mapToInt(Integer::parseInt).toArray();
+        localDateTime = LocalDateTime.of(time[0],time[1],time[2],time[3],time[4]);
+
+        System.out.println("new"+ localDateTime.toLocalDate()+localDateTime.toLocalTime());
+
+
+         */
+        /*
         HandlerInterface database = new DataHandler();
+        ArrayList<ShowTime> showTimeArrayList = new ArrayList<>();
+        showTimeArrayList = database.readSerializedObject("ShowTime");
+        for(ShowTime showTime: showTimeArrayList){
+            System.out.println(showTime.getCineplex().getCineplexName() + " | " + showTime.getCinemaID() + " | " + showTime.getDateTime());
+        }
+
+         */
+
         //cineplex
         //    private int cineplexID;
         //    private String cineplexName;

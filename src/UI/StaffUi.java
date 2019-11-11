@@ -5,10 +5,7 @@ package UI;
 import Controller.CineplexController;
 import Controller.MovieController;
 import Controller.ShowTimeController;
-import Entity.Cineplex;
-import Entity.Movie;
-import Entity.Review;
-import Entity.Staff;
+import Entity.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -116,13 +113,13 @@ class StaffUi implements ConsoleBasedInterface {
         } while (choice != 4);
     }
 
-    public void displayIndividualCineplex(int cineplexID){
+    public void displayIndividualCineplex(int cineplexId){
         Scanner sc = new Scanner(System.in);
 
         int choice = 0;
         do {
             System.out.println("================= Cineplex Information ================");
-            cineplexController.viewCineplex(cineplexID);
+            cineplexController.viewCineplex(cineplexId);
             System.out.println("\n" + "1.  Add new Movie.");
             System.out.println("2.  Remove Movie.");
             System.out.println("3.  Add new ShowTime!");
@@ -138,17 +135,19 @@ class StaffUi implements ConsoleBasedInterface {
 
             switch (choice) {
                 case 1:
-                    addNewMovieInCineplex(cineplexID);
+                    addNewMovieInCineplex(cineplexId);
                     break;
                 case 2:
-                    removeExistingMovieInCineplex(cineplexID);
+                    removeExistingMovieInCineplex(cineplexId);
                     break;
                 case 3:
-                    addNewShowTimeInCineplex(cineplexID);
+                    addNewShowTimeInCineplex(cineplexId);
                     break;
                 case 4:
+                    modifyExistingShowTimeInCineplex(cineplexId);
                     break;
                 case 5:
+                    removeExistingShowTime(cineplexId);
                     break;
                 case 6:
                     break;
@@ -210,112 +209,76 @@ class StaffUi implements ConsoleBasedInterface {
     public void addNewShowTimeInCineplex(int cineplexId){
         Scanner sc = new Scanner(System.in);
 
-        int choice = 0;
-        do {
-            System.out.println("================== Add New ShowTime! ==================");
-            cineplexController.displayCinema(cineplexId);
-            System.out.println("1.  Cinema ID 1");
-            System.out.println("2.  Cinema ID 2");
-            System.out.println("3.  Cinema ID 3");
-            System.out.println("4.  Back");
-            System.out.println("5.  Quit");
-            System.out.println("=======================================================");
-            System.out.print("Please input your choice: ");
+        System.out.println("================== Add New ShowTime! ==================");
+        cineplexController.displayCinema(cineplexId);
+        System.out.println("1.  Cinema ID 1");
+        System.out.println("2.  Cinema ID 2");
+        System.out.println("3.  Cinema ID 3");
+        System.out.println("=======================================================");
+        System.out.print("Please input your choice: ");
 
-            choice = sc.nextInt();
-            System.out.print("\n");
-
-            switch (choice) {
-                case 1:
-                case 2:
-                case 3:
-                    chooseMovieToAddToShowTime(cineplexId,choice);
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    sc.close();
-                    System.out.println("Program terminating...");
-                    System.exit(0);
-                default:
-                    break;
-            }
-
-        } while (choice != 4);
+        int choice = sc.nextInt();
+        System.out.print("\n");
+        chooseMovieToAddToShowTime(cineplexId,choice);
     }
 
     public void chooseMovieToAddToShowTime(int cineplexId, int cinemaId){
         Scanner sc = new Scanner(System.in);
-
-        int choice = 0;
-
-            System.out.println("================= Choose Movie To Add =================");
-            cineplexController.displayAllMoviesShowingInCineplex(cineplexId);
-            System.out.println("0.  Back");
-            System.out.println("=======================================================");
-            System.out.print("Please input your choice: ");
+        System.out.println("================= Choose Movie To Add =================");
+        cineplexController.displayAllMoviesShowingInCineplex(cineplexId);
+        System.out.println("0.  Back");
+        System.out.println("=======================================================");
+        System.out.print("Please input your choice: ");
 
 
-            choice = sc.nextInt();
-            sc.nextLine();
-            System.out.print("\n");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        System.out.print("\n");
 
-            if(choice == 0){
+        if(choice == 0){
 
-            }
-            else{
-                chooseTimeSlotToAddToShowTime(cineplexId,cinemaId,choice);
-            }
+        }
+        else{
+            chooseTimeSlotToAddToShowTime(cineplexId,cinemaId,choice);
+        }
     }
 
     public void chooseTimeSlotToAddToShowTime(int cineplexId, int cinemaId, int movieId){
         Scanner sc = new Scanner(System.in);
 
         int choice = 0;
-        do {
-            System.out.println("================== Choose Time Slot! ==================");
-            System.out.println("1.  10:00");
-            System.out.println("2.  13:00");
-            System.out.println("3.  16:00");
-            System.out.println("4.  19:00");
-            System.out.println("5.  22:00");
-            System.out.println("6.  Back");
-            System.out.println("7.  Quit");
-            System.out.println("=======================================================");
-            System.out.print("Please input your choice: ");
+        System.out.println("================== Choose Time Slot! ==================");
+        System.out.println("1.  10:00");
+        System.out.println("2.  13:00");
+        System.out.println("3.  16:00");
+        System.out.println("4.  19:00");
+        System.out.println("5.  22:00");
+        System.out.println("=======================================================");
+        System.out.print("Please input your choice: ");
 
-            choice = sc.nextInt();
-            System.out.print("\n");
+        choice = sc.nextInt();
+        System.out.print("\n");
 
-            //ShowTime(cineplex, movie, cinemaId, column, row, dateTime[i],layOut)
-            switch (choice) {
-                case 1:
-                    chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",10,00");
-                    break;
-                case 2:
-                    chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",13,00");
-                    break;
-                case 3:
-                    chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",16,00");
-                    break;
-                case 4:
-                    chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",19,00");
-                    break;
-                case 5:
-                    chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",22,00");
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    sc.close();
-                    System.out.println("Program terminating...");
-                    System.exit(0);
-                default:
-                    break;
-            }
-
-        } while (choice != 6);
-
+        //ShowTime(cineplex, movie, cinemaId, column, row, dateTime[i],layOut)
+        switch (choice) {
+            case 1:
+                chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",10,00");
+                break;
+            case 2:
+                chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",13,00");
+                break;
+            case 3:
+                chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",16,00");
+                break;
+            case 4:
+                chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",19,00");
+                break;
+            case 5:
+                chooseDateToAddToShowTime(cineplexId,cinemaId,movieId,",22,00");
+                break;
+            default:
+                break;
+        }
     }
 
     public void chooseDateToAddToShowTime(int cineplexId, int cinemaId, int movieId, String time){
@@ -334,10 +297,193 @@ class StaffUi implements ConsoleBasedInterface {
             System.out.println("Successful! New ShowTime has been added!");
         }
         else{
-            System.out.println("Something went wrong :(");
+            System.out.println("This ShowTime slot has already been taken! :(");
         }
     }
 
+    public void modifyExistingShowTimeInCineplex(int cineplexId){
+        Scanner sc = new Scanner(System.in);
+
+        int choice = 0;
+
+        System.out.println("============== Modify Existing ShowTime! =============");
+        System.out.println("1.  Cinema Hall 1");
+        System.out.println("2.  Cinema Hall 2");
+        System.out.println("3.  Cinema Hall 3");
+        System.out.println("4.  Back");
+        System.out.println("5.  Quit");
+        System.out.println("=======================================================");
+        System.out.print("Please input your choice: ");
+
+        choice = sc.nextInt();
+        System.out.print("\n");
+
+        switch (choice) {
+            case 1:
+            case 2:
+            case 3:
+                chooseShowTimeFromCinema(cineplexId,choice);
+                break;
+            case 4:
+                break;
+            case 5:
+                sc.close();
+                System.out.println("Program terminating...");
+                System.exit(0);
+            default:
+                break;
+        }
+    }
+
+    public void chooseShowTimeFromCinema(int cineplexId, int cinemaId){
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+
+        System.out.println("============== Choose ShowTime To Modify! =============");
+        showTimeController.displayAllShowTime(cineplexId,cinemaId);
+        System.out.println("=======================================================");
+        System.out.println("Which ShowTime would you like to modify?");
+        choice = sc.nextInt();
+        System.out.print("\n");
+        chooseAttributeToModifyShowTime(cineplexId,cinemaId,choice-1);
+
+    }
+
+    public void chooseAttributeToModifyShowTime(int cineplexId, int cinemaId, int showTimeIndex){
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+        System.out.println("================ Choose Item To Modify! ===============");
+        System.out.println("You have selected: " + "\n");
+        showTimeController.displaySpecificShowTime(cineplexId,cinemaId,showTimeIndex);
+        System.out.println("1. Change Movie");
+        System.out.println("2. Change Date");
+        System.out.println("3. Change Time");
+        System.out.println("=======================================================");
+        System.out.println("What would you like to change?");
+        choice = sc.nextInt();
+        sc.nextLine();
+
+        if(choice == 1){
+            System.out.println("You are changing from: ");
+            showTimeController.displaySpecificAttributeInShowTime(cineplexId, cinemaId, showTimeIndex,choice);
+            System.out.println("\n" + "To: ");
+            cineplexController.displayAllMoviesShowingInCineplex(cineplexId);
+            int movieChoice = sc.nextInt();
+            sc.nextLine();
+            try{
+                showTimeController.modifyMovieInShowTime(cineplexId, cinemaId, showTimeIndex, movieChoice);
+                System.out.println("Successfully modified Movie!");
+            }
+            catch(Exception e){
+
+            }
+
+        }
+        else if(choice == 2){ //change date
+            System.out.println("You are changing from: ");
+            showTimeController.displaySpecificAttributeInShowTime(cineplexId, cinemaId, showTimeIndex,choice);
+            System.out.println("\n" + "To: (yyyy-dd-mm)");
+            String date = sc.nextLine();
+            try{
+                showTimeController.modifyDateInShowTime(cineplexId, cinemaId, showTimeIndex, date);
+                System.out.println("Successfully modified Date!");
+            }
+            catch(Exception e){
+
+            }
+
+        }
+        else if(choice == 3){ //change time
+            System.out.println("You are changing from: ");
+            showTimeController.displaySpecificAttributeInShowTime(cineplexId, cinemaId, showTimeIndex,choice);
+            System.out.println("\n" + "To: (hhmm)");
+            String time = sc.nextLine();
+            try {
+                time = time.substring(0, 2) + "-" + time.substring(2,4);
+                showTimeController.modifyTimeInShowTime(cineplexId,cinemaId,showTimeIndex,time);
+                System.out.println("Successfully modified Time!");
+            }
+            catch(Exception e){
+
+            }
+        }
+    }
+
+
+    public void removeExistingShowTime(int cineplexId){
+        Scanner sc = new Scanner(System.in);
+
+        int choice = 0;
+
+        System.out.println("============== Remove Existing ShowTime! =============");
+        System.out.println("1.  Cinema Hall 1");
+        System.out.println("2.  Cinema Hall 2");
+        System.out.println("3.  Cinema Hall 3");
+        System.out.println("4.  Back");
+        System.out.println("5.  Quit");
+        System.out.println("=======================================================");
+        System.out.print("Please input your choice: ");
+
+        choice = sc.nextInt();
+        System.out.print("\n");
+
+        switch (choice) {
+            case 1:
+            case 2:
+            case 3:
+                chooseShowTimeToRemoveFromCinema(cineplexId,choice);
+                break;
+            case 4:
+                break;
+            case 5:
+                sc.close();
+                System.out.println("Program terminating...");
+                System.exit(0);
+            default:
+                break;
+        }
+    }
+
+    public void chooseShowTimeToRemoveFromCinema(int cineplexId, int cinemaId){
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+
+        System.out.println("============== Choose ShowTime To Remove! =============");
+        showTimeController.displayAllShowTime(cineplexId,cinemaId);
+        System.out.println("=======================================================");
+        System.out.println("Which ShowTime would you like to Remove?");
+        choice = sc.nextInt();
+        System.out.print("\n");
+        removeShowTimePreview(cineplexId,cinemaId,choice-1);
+    }
+
+    public void removeShowTimePreview(int cineplexId, int cinemaId, int showTimeIndex){
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+        System.out.println("================ Confirm Removal! ===============");
+        System.out.println("You have selected: " + "\n");
+        showTimeController.displaySpecificShowTime(cineplexId,cinemaId,showTimeIndex);
+        System.out.println("=======================================================");
+        System.out.println("What would you like to remove it? (Warning! This move cannot be reversed!)");
+        System.out.println("1. Delete");
+        System.out.println("2. Cancel");
+        choice = sc.nextInt();
+        sc.nextLine();
+
+        if(choice == 1){
+            try{
+                showTimeController.removeShowTime(cineplexId,cinemaId,showTimeIndex);
+                System.out.println("You have successfully removed this ShowTime!");
+            }
+            catch (Exception e){
+
+            }
+        }
+        else{
+            System.out.println("Removal Cancelled!");
+        }
+
+    }
 
     // -------------------------------------------------------OPTION 1:View All Cineplex-------------------------------------------------------
 
