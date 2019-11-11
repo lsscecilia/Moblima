@@ -1,10 +1,13 @@
 package Controller;
 
+import Entity.Cinema;
 import Entity.ShowTime;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,16 +27,20 @@ public class ShowTimeController implements  ControllerInterface{
     //already sorted
     public ArrayList<ShowTime> getShowTimeAval(int movieId, int cineplexId)
     {
+        ZoneId zid = ZoneId.of("Asia/Singapore");
+        LocalDateTime dateTime = LocalDateTime.now(zid);
         ArrayList<ShowTime> showTimeAvalBookingArrayList = new ArrayList<>();
         for (ShowTime showTime: showTimeArrayList)
         {
-            if ((showTime.getCineplex().getCineplexID() == cineplexId) && (showTime.getMovie().getMovieId() == movieId))
+            if ((showTime.getCineplex().getCineplexID() == cineplexId) && (showTime.getMovie().getMovieId() == movieId)
+            && showTime.getDateTime().isAfter(dateTime))
             {
                 showTimeAvalBookingArrayList.add(showTime);
             }
         }
         sortShowTime(showTimeAvalBookingArrayList);
         return showTimeAvalBookingArrayList;
+
     }
 
     //can do this private
@@ -48,37 +55,33 @@ public class ShowTimeController implements  ControllerInterface{
         return showTimes.get(index);
     }
 
+    //seat aval return true;
     public boolean checkSeatAval(ShowTime showTime, char row, int column)
     {
         column--;
-        String letters =" ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String letters ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int rowInt = letters.indexOf(row);
-        if (showTime.getSeatLayout()[rowInt][column]==0)
-            return true;
-        return false;
+        if (showTime.getSeatLayout()[rowInt][column]==1)
+            return false;
+        return true;
     }
 
     public void updateSeatAval(ShowTime showTimeSelected, String[] selectedSeats, int numSeats)
     {
         char rowAlpha;
         int row, column;
-        String letters =" ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        for (ShowTime showTime: showTimeArrayList)
-        {
-            if (showTime.compareTo(showTimeSelected)==0)
-            {
-                for (int i=0; i<numSeats;i++)
-                {
-                    rowAlpha = selectedSeats[i].charAt(0);
-                    row = letters.indexOf(rowAlpha);
-                    column = Character.getNumericValue(selectedSeats[i].charAt(1))-1;
-                    showTime.seatOccupied(row, column);
-                }
-                break;
-            }
+        String letters ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        CustomerDisplayController display = new CustomerDisplayController();
+        for (int i=0; i<numSeats;i++) {
+            rowAlpha = selectedSeats[i].charAt(0);
+            row = letters.indexOf(rowAlpha);
+            column = Character.getNumericValue(selectedSeats[i].charAt(1)) - 1;
+            showTimeSelected.seatOccupied(row, column);
         }
+
         updateDat();
     }
+
 
     @Override
     public void updateDat(){

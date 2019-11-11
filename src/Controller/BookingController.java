@@ -3,6 +3,7 @@ package Controller;
 import Entity.ShowTime;
 import Entity.Ticket;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -100,7 +101,60 @@ public class BookingController {
         return true;
     }
 
+    //cannot leave single seat gap. if ok return true
+    public boolean checkSingleSeat(String[] seatSelected, ShowTime showTime, int numSeats)
+    {
+        char rowAlpha;
+        int row, column, numEmpty;
+        String letters ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        ShowTime showTimeClone = new ShowTime(showTime);
+        for (int i=0; i<numSeats;i++)
+        {
+            rowAlpha = seatSelected[i].charAt(0);
+            row = letters.indexOf(rowAlpha);
+            column = Character.getNumericValue(seatSelected[i].charAt(1))-1;
+            showTimeClone.seatOccupied(row, column);
+        }
 
+
+        //num occupied and num empty is consequetive
+        int[][] updatedLayout = showTimeClone.getSeatLayout();
+        //System.arraycopy(showTimeClone.getSeatLayout(), 0,updatedLayout, 0, updatedLayout.length);
+        for (int i=0; i<showTimeClone.getRow(); i++)
+        {
+            numEmpty =0;
+            for (int r=0;r<showTimeClone.getColumn();r++)
+            {
+                if (updatedLayout[i][r]!=1)
+                    numEmpty++;
+                else if (numEmpty==1)
+                {
+                    System.out.println("array: "+ i +" , "+ r);
+                    return false;
+                }
+                else
+                    numEmpty=0;
+            }
+        }
+        return true;
+    }
+
+    public int numAvalSeats(ShowTime showTime)
+    {
+        int[][] seatLayout = showTime.getSeatLayout();
+        int row = showTime.getRow();
+        int column = showTime.getColumn();
+        int numAvalSeat=0;
+        for (int i=0;i<row;i++)
+        {
+            for (int r=0; r<column;r++)
+            {
+                if (seatLayout[i][r] == 0)
+                    numAvalSeat++;
+            }
+        }
+        return numAvalSeat;
+    }
 
     public void newTransaction()
     {

@@ -15,6 +15,7 @@ public class ShowTime implements Serializable, Comparable<ShowTime>{
     private int row;
     private LocalDateTime dateTime;
     private int[][] seatLayout;
+    private static final long  serialVersionUID = 4399209438434125145L;
 
     public ShowTime(Cineplex cineplex, Movie movie, int cinemaID, int column, int row, LocalDateTime dateTime, int[][] seatLayout) {
         this.cineplex = cineplex;
@@ -24,6 +25,22 @@ public class ShowTime implements Serializable, Comparable<ShowTime>{
         this.row = row;
         this.dateTime = dateTime;
         this.seatLayout = seatLayout;
+    }
+
+    public ShowTime(ShowTime showTime)
+    {
+        this.cineplex = showTime.cineplex;
+        this.movie = showTime.movie;
+        this.cinemaID = showTime.cinemaID;
+        this.dateTime = showTime.dateTime;
+        this.column = showTime.column;
+        this.row = showTime.row;
+        this.seatLayout = new int[showTime.row][showTime.column];
+        for (int i=0; i<showTime.row;i++)
+        {
+            System.arraycopy(showTime.seatLayout[i], 0, this.seatLayout[i], 0,seatLayout[i].length);
+        }
+
     }
 
     public Cineplex getCineplex() {

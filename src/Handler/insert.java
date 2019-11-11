@@ -1,5 +1,7 @@
 package Handler;
 
+import Controller.CineplexController;
+import Controller.ShowTimeController;
 import Entity.*;
 
 import java.lang.reflect.Array;
@@ -8,12 +10,57 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class insert {
     public static void main(String[] args)
     {
+
+
         HandlerInterface database = new DataHandler();
+        /*
+        HashMap<Transaction, Integer> map = new HashMap<Transaction, Integer>();
+        database.writeSerializedHashMap("ReviewTracker.ser", map);*/
+
+        HashMap<Transaction, Integer> map = database.readSerializedHashMap("ReviewTracker.ser");
+        /*
+        ArrayList<Transaction> transactions = database.readSerializedObject("Transaction");
+        for (Transaction t: transactions)
+        {
+            System.out.println("transaction id, num tick" + t.getTID());
+            System.out.println(t.getMobileNumber());
+        }*/
+        /*
+        CineplexController cineplexController = new CineplexController();
+        ArrayList<Cineplex>  cineplexArrayList = cineplexController.getCineplexArrayList();
+        for (Cineplex cineplex: cineplexArrayList)
+        {
+            for (Cinema cinema: cineplex.getCinemaArrayList())
+            {
+                if (cinema.getCinemaType()==null)
+                    cinema.setCinemaType("Normal");
+                System.out.println(cineplex.getCineplexName() + "  cinema id: " + cinema.getCinemaID() + " cinematype: " +cinema.getCinemaType());
+            }
+        }
+        database.writeSerializedObject("Cineplex", cineplexArrayList);*/
+
+        /*
+        ArrayList<ShowTime> showTimeArrayList =database.readSerializedObject("ShowTime");
+        for (ShowTime showTime: showTimeArrayList)
+        {
+            int[][] seatLayout = showTime.getSeatLayout();
+            for (int i=0; i<showTime.getRow();i++)
+            {
+                for (int r=0; r<showTime.getColumn();r++)
+                {
+                    seatLayout[i][r] = 0;
+                }
+            }
+        }
+        database.writeSerializedObject("ShowTime", showTimeArrayList);*/
+
+
         //cineplex
         //    private int cineplexID;
         //    private String cineplexName;
