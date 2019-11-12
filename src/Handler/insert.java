@@ -16,7 +16,7 @@ import java.util.List;
 public class insert {
     public static void main(String[] args)
     {
-
+/*
 
         HandlerInterface database = new DataHandler();
 
@@ -27,6 +27,8 @@ public class insert {
             System.out.println(publicHoliday.getHolidayName()+"\n");
         }
 
+
+ */
         /*
         HashMap<Transaction, Integer> map = new HashMap<Transaction, Integer>();
         database.writeSerializedHashMap("ReviewTracker", map);*/
