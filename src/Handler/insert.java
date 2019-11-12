@@ -19,11 +19,22 @@ public class insert {
 
 
         HandlerInterface database = new DataHandler();
+
         /*
         HashMap<Transaction, Integer> map = new HashMap<Transaction, Integer>();
-        database.writeSerializedHashMap("ReviewTracker.ser", map);*/
+        database.writeSerializedHashMap("ReviewTracker", map);*/
 
+        /*
         HashMap<Transaction, Integer> map = database.readSerializedHashMap("ReviewTracker.ser");
+        for (Transaction t: map.keySet())
+        {
+            System.out.println(t);
+            System.out.println(t.getMobileNumber());
+            System.out.println(map.get(t));
+        }*/
+
+
+
         /*
         ArrayList<Transaction> transactions = database.readSerializedObject("Transaction");
         for (Transaction t: transactions)
@@ -204,7 +215,8 @@ public class insert {
         //    private String seat;
 
         //create transaction file
-        /*ArrayList<Transaction>  transactionArrayList = new ArrayList<>();
+        /*
+        ArrayList<Transaction>  transactionArrayList = new ArrayList<>();
         database.writeSerializedObject("Transaction", transactionArrayList);*/
 
         //create pricing chart

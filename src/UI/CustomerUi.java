@@ -5,6 +5,7 @@ import Controller.CustomerUIController;
 import Entity.*;
 
 import javax.net.ssl.SNIHostName;
+import java.awt.*;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -88,16 +89,15 @@ class CustomerUi implements ConsoleBasedInterface{
                     break;
             }
 
-        } while (userChoice > 9);
+        } while (userChoice > 9 || userChoice<1);
 
     }
 
     public void showOption1()
     {
-        //display list of movie
-        //movieArrayList passed
-        int userChoice = 0;
-        do {
+        try
+        {
+            int userChoice = 0;        do {
             System.out.println("--------------------------------------------------------------------------------------");
             System.out.println("Menu --> Movie List");
             System.out.println("--------------------------------------------------------------------------------------");
@@ -136,11 +136,22 @@ class CustomerUi implements ConsoleBasedInterface{
             }
 
         } while (userChoice > 3 | userChoice <= 0);
+        } catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
+        {
+            System.out.println("You have made an invalid selection! Please try again!");
+            sc.nextLine();
+            showOption1();
+        }
+        //display list of movie
+        //movieArrayList passed
+
     }
+
 
     public void showOption1_1()
     {
         int userChoice = 0;
+
         do {
             System.out.println("Enter movie according to index: ");
             int index = sc.nextInt();
@@ -182,6 +193,7 @@ class CustomerUi implements ConsoleBasedInterface{
             }
 
         } while (userChoice > 3 | userChoice <= 0 );
+
     }
     public void showOption2()
     {
@@ -230,7 +242,7 @@ class CustomerUi implements ConsoleBasedInterface{
                         break;
                 }
 
-            } while (userChoice > 3);
+            } while (userChoice > 3 | userChoice < 1);
         }
     }
 
@@ -328,45 +340,54 @@ class CustomerUi implements ConsoleBasedInterface{
 
     public void showOption3(){
         int userChoice = 0;
-        do {
-            System.out.println("--------------------------------------------------------------------------------------");
-            System.out.println("Menu --> Cineplex List");
-            System.out.println("--------------------------------------------------------------------------------------");
-            System.out.println();
-            customerUIController.showCineplexList();
-            System.out.println("====================== Option =========================");
-            System.out.println("|1. Select cineplex for more details                  |");
-            System.out.println("|2. Back                                              |");
-            System.out.println("|3. Quit                                              |");
-            System.out.println("=======================================================");
-            System.out.print("Please input your choice: ");
+        try
+        {
+            do {
+                System.out.println("--------------------------------------------------------------------------------------");
+                System.out.println("Menu --> Cineplex List");
+                System.out.println("--------------------------------------------------------------------------------------");
+                System.out.println();
+                customerUIController.showCineplexList();
+                System.out.println("====================== Option =========================");
+                System.out.println("|1. Select cineplex for more details                  |");
+                System.out.println("|2. Back                                              |");
+                System.out.println("|3. Quit                                              |");
+                System.out.println("=======================================================");
+                System.out.print("Please input your choice: ");
 
-            if(sc.hasNextInt()){
-                userChoice = sc.nextInt();
-                System.out.print("\n");
-            }
-            else{
-                sc.next();
-            }
+                if(sc.hasNextInt()){
+                    userChoice = sc.nextInt();
+                    System.out.print("\n");
+                }
+                else{
+                    sc.next();
+                }
 
-            switch (userChoice) {
-                case 1:
-                    showOption3_1();
-                    break;
-                case 2:
-                    show();
-                    break;
-                case 3:
-                    sc.close();
-                    System.out.println("Program Terminating...");
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("You have made an invalid selection! Please try again!");
-                    break;
-            }
+                switch (userChoice) {
+                    case 1:
+                        showOption3_1();
+                        break;
+                    case 2:
+                        show();
+                        break;
+                    case 3:
+                        sc.close();
+                        System.out.println("Program Terminating...");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("You have made an invalid selection! Please try again!");
+                        break;
+                }
 
-        } while (userChoice > 3 | userChoice <= 0);
+            } while (userChoice > 3 | userChoice <= 0);
+        }catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
+        {
+            System.out.println("You have made an invalid selection! Please try again!");
+            sc.nextLine();
+            showOption3();
+        }
+
     } //similar to showOption1, just that now its for cineplex
 
     public void showOption3_1()
@@ -625,7 +646,6 @@ class CustomerUi implements ConsoleBasedInterface{
         catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
         {
             System.out.println("Sorry, your input is not valid. Please re-enter ALL seat according to requirement.");
-            sc.nextLine();
             showOption4_5(showTime, numTickets, numStudent, numSC);
         }
         //exception.printStackTrace();
@@ -684,9 +704,11 @@ class CustomerUi implements ConsoleBasedInterface{
         {
             Long num = sc.nextLong();
             customerUIController.showBookingHistory(num);
+            show();
         } catch (InputMismatchException mismatchInput)
         {
             System.out.println("Number invalid, please re-enter");
+            sc.nextLine();
             showOption5();
         }
         //find transaction
@@ -700,7 +722,10 @@ class CustomerUi implements ConsoleBasedInterface{
         {
             Long num = sc.nextLong();
             ArrayList<Transaction> transactionArrayList = customerUIController.chooseMovieToReview(num);
-            showOption6_1(num, transactionArrayList);
+            if (transactionArrayList.isEmpty())
+                show();
+            else
+                showOption6_1(num, transactionArrayList);
         }
         catch (InputMismatchException mismatchInput)
         {
@@ -732,6 +757,7 @@ class CustomerUi implements ConsoleBasedInterface{
         }catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
         {
             System.out.println("Number invalid, please re-enter");
+            sc.nextLine();
             showOption6_1(num, transactions);
         }
     }
@@ -747,8 +773,13 @@ class CustomerUi implements ConsoleBasedInterface{
             {
                 System.out.println("Enter ratings (1-5) ");
                 ratings = sc.nextInt();
-                if ((ratings>0) | (ratings <=5))
+                if ((ratings>0) & (ratings <=5))
+                {
+                    System.out.println("fk u");
                     break;
+                }
+                else
+                    System.out.println("Sorry please enter in the range of 1-5");
             }
             customerUIController.submitReview(movieId, new Review(reviewComment,ratings));
             System.out.println("Review submitted! ");
@@ -757,7 +788,7 @@ class CustomerUi implements ConsoleBasedInterface{
             System.out.println("Sorry, your input is invalid, please re-according to the requirements");
             showOption6_2(movieId);
         }
-
+        show();
         //Review review = new Review()
     }
 
@@ -765,9 +796,9 @@ class CustomerUi implements ConsoleBasedInterface{
     {
         System.out.println("Top 5 ranking by ticket sales!");
         customerUIController.showTop5MovieByTicketSales();
-
-        System.out.println("Top 5 ranking by overall reviewer's rating");
+        System.out.println();
+        System.out.println("Top 5 ranking by overall reviewer's rating! ");
         customerUIController.showTop5MovieByRatings();
-
+        show();
     }
 }
