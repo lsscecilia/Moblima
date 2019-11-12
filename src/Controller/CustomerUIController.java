@@ -94,7 +94,7 @@ public class CustomerUIController {
 
     public boolean checkSeatAval(ShowTime showTime, char row, int column)
     {
-        return showTimeController.checkSeatAval(showTime, row, column);
+        return showTimeController.checkSeatAvailable(showTime, row, column);
     }
     //ShowTime showTime, int numTickets, int numStudent, int numSC, String[] seatSelected)
     public ArrayList<Ticket> generateTicket(ShowTime showTime, int numTickets, int numStudent, int numSC, String[] seatSelected)
@@ -114,7 +114,7 @@ public class CustomerUIController {
                                         ArrayList<Ticket> ticketArrayList, String[] seatSelected)
     {
         transactionController.addTransaction(name, mobileNum, email, totalPrice, ticketArrayList);
-        showTimeController.updateSeatAval(ticketArrayList.get(0).getShowTime(),seatSelected, ticketArrayList.size());
+        showTimeController.updateSeatAvailability(ticketArrayList.get(0).getShowTime(),seatSelected, ticketArrayList.size());
     }
 
     //overload
