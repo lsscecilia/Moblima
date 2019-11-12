@@ -136,6 +136,11 @@ public class CustomerDisplayController implements ControllerInterface {
     public void displayTop5TicketSale(HashMap<Movie, Integer> top5)
     {
         int count = 1;
+        if (top5.isEmpty())
+        {
+            System.out.println("Sorry, there are no ticket sales yet");
+            return;
+        }
         for (Movie movie: top5.keySet())
         {
             if (count==6)
@@ -151,13 +156,12 @@ public class CustomerDisplayController implements ControllerInterface {
      */
     public void displayBookingHistory(ArrayList<Transaction> transactions)
     {
-        int count;
+        int count=1;
         System.out.println("Phone Number: " + transactions.get(0).getMobileNumber());
         System.out.println("Name: " + transactions.get(0).getNamePurchaser());
         System.out.println("Email: " + transactions.get(0).getEmailAddress());
         for (Transaction transaction:transactions)
         {
-            count=1;
             System.out.println(count + ". ");
             System.out.println("TID: " + transaction.getTID());
             System.out.println("Movie name: " + transaction.getTicketArrayList().get(0).getShowTime().getMovie().getMovieTitle());
@@ -241,7 +245,7 @@ public class CustomerDisplayController implements ControllerInterface {
         Movie movie = movieArrayList.get(index);
         System.out.println("======================" + movie.getMovieTitle() + "=========================");
         System.out.println("Showing status: " + movie.getMovieStatus());
-        System.out.println("Synopsis: " + movie.getMovieSynopsis());
+        System.out.println("Synopsis: " + MovieController.wordWrap(movie.getMovieSynopsis()));
         System.out.println("Director: " + movie.getMovieDirector());
         System.out.print("Cast :");
         Arrays.stream(movie.getMovieCast().split(",")).forEach(cast -> System.out.print(cast + " "));

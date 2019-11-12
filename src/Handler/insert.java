@@ -26,9 +26,21 @@ public class insert {
             System.out.println(publicHoliday.getDate().toString());
             System.out.println(publicHoliday.getHolidayName()+"\n");
         }
+
         /*
         HashMap<Transaction, Integer> map = new HashMap<Transaction, Integer>();
-        database.writeSerializedHashMap("ReviewTracker.ser", map);*/
+        database.writeSerializedHashMap("ReviewTracker", map);*/
+
+        /*
+        HashMap<Transaction, Integer> map = database.readSerializedHashMap("ReviewTracker.ser");
+        for (Transaction t: map.keySet())
+        {
+            System.out.println(t);
+            System.out.println(t.getMobileNumber());
+            System.out.println(map.get(t));
+        }*/
+
+
 
         //HashMap<Transaction, Integer> map = database.readSerializedHashMap("ReviewTracker.ser");
         /*
@@ -211,7 +223,8 @@ public class insert {
         //    private String seat;
 
         //create transaction file
-        /*ArrayList<Transaction>  transactionArrayList = new ArrayList<>();
+        /*
+        ArrayList<Transaction>  transactionArrayList = new ArrayList<>();
         database.writeSerializedObject("Transaction", transactionArrayList);*/
 
         //create pricing chart

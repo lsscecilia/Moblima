@@ -14,7 +14,7 @@ public class ReviewController implements ControllerInterface{
     public ReviewController()
     {
         database = new DataHandler();
-        reviewTracker = database.readSerializedHashMap("ReviewTracker.ser");
+        reviewTracker = database.readSerializedHashMap("ReviewTracker");
     }
 
     //add one by one
@@ -47,6 +47,6 @@ public class ReviewController implements ControllerInterface{
 
     @Override
     public void updateDat() {
-        database.writeSerializedHashMap("ReviewTracker.ser", reviewTracker);
+        database.writeSerializedHashMap("ReviewTracker", reviewTracker);
     }
 }
