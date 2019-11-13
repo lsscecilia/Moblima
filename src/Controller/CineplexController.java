@@ -155,7 +155,7 @@ public class CineplexController implements ControllerInterface{
      * Add Movie object to cineplex based on cineplexId
      * @param cineplexId
      * @param movie
-     * @return
+     * @return true if addition is successful
      */
     public boolean addMovieToCineplex(int cineplexId, Movie movie){
         for(Cineplex cineplex: cineplexArrayList){
