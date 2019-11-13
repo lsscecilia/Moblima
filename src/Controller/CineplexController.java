@@ -43,7 +43,9 @@ public class CineplexController implements ControllerInterface{
         for(Cineplex cineplex:cineplexArrayList){
             if(cineplex.getCineplexID() == cineplexId){
                 for(Movie movie:cineplex.getMovieInCineplexArrayList()){
-                    System.out.println(movie.getMovieId() + ".  " + movie.getMovieTitle());
+                    System.out.println("Movie ID: " + movie.getMovieId() +
+                            " | Movie Title: " + movie.getMovieTitle() +
+                            " | " + movie.getMovieType());
                 }
             }
         }
@@ -155,7 +157,7 @@ public class CineplexController implements ControllerInterface{
      * Add Movie object to cineplex based on cineplexId
      * @param cineplexId
      * @param movie
-     * @return true if addition is successful
+     * @return
      */
     public boolean addMovieToCineplex(int cineplexId, Movie movie){
         for(Cineplex cineplex: cineplexArrayList){

@@ -13,8 +13,10 @@ import java.time.LocalTime;
  */
 public class PricingChart implements Serializable {
     /**
-     * unique id is used to represent a pricing
+     * serial version ID to match file i/o, ensures the right version is used
      */
+    private static final long serialVersionUID = 3338247823531836590L;
+
     private int pricingChartID;
     /**
      * cinema type for this pricing

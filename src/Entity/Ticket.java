@@ -7,6 +7,12 @@ import java.io.Serializable;
  * @typeofclass entity
  */
 public class Ticket implements Serializable{
+
+    /**
+     * serial version ID to match file i/o, ensures the right version is used
+     */
+    private static final long serialVersionUID = 8626450327498985680L;
+
     /**
      * show time of this ticket
      */

@@ -12,6 +12,12 @@ public class Transaction implements Serializable{
     /**
      * unique id is used to represent a transaction (XXXYYYYMMDDHHMM: XXX - cinemaID, YYYY - MM - DD - HH - MM : current date and time)
      */
+
+    /**
+     * serial version ID to match file i/o, ensures the right version is used
+     */
+    private static final long serialVersionUID = -6013897489884672971L;
+
     private String TID;
     /**
      * name of moviegoer that make this transaction

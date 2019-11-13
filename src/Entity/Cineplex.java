@@ -2,6 +2,7 @@ package Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
 /**
  * Cineplex represents a collection of Cinema class, or cinema hall
  * @version 1

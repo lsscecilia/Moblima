@@ -94,9 +94,9 @@ class CustomerDisplayController {
                     System.out.print(", Cinema Type: " + cinema.getCinemaType());
                     System.out.println(", Movie Type: " + showTime.getMovie().getMovieType());
                 }
-
             }
             count++;
+
         }
     }
 

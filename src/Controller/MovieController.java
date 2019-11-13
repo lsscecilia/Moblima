@@ -176,7 +176,9 @@ public class MovieController implements ControllerInterface{
      */
     public void printMovieIdAndTitle(){
         for(Movie movie: movieArrayList){
-            System.out.println("Movie ID: " + movie.getMovieId() + " | Movie Title: " + movie.getMovieTitle());
+            System.out.println("Movie ID: " + movie.getMovieId() +
+                               " | Movie Title: " + movie.getMovieTitle() +
+                               " | " + movie.getMovieType());
         }
     }
 
