@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 /**
  * @version 1
- * @since 17/10/2019
+ * @since 2019-11-13
  * @typeofclass entity
  */
 public class Movie implements Serializable, Comparable<Movie>{
