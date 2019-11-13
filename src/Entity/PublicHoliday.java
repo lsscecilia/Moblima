@@ -12,6 +12,11 @@ import java.time.LocalDate;
 public class PublicHoliday implements Serializable {
 
     /**
+     * serial version ID to match file i/o, ensures the right version is used
+     */
+    private static final long serialVersionUID = -79339066882145601L;
+
+    /**
      * date of this public holiday
      */
     private LocalDate date;

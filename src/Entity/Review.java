@@ -43,6 +43,11 @@ public class Review implements Serializable {
         return rating;
     }
 
+    /**
+     * serial version ID to match file i/o, ensures the right version is used
+     */
+    private static final long serialVersionUID = 2651012827123358983L;
+
     @Override
     public String toString(){
         return ("Rating: " + rating + "\n" +

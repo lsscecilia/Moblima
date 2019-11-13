@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @typeofclass entity
  */
 public class Staff implements Serializable{
+
     /**
      * userName for this staff
      */
@@ -39,6 +40,11 @@ public class Staff implements Serializable{
         }
         return String.valueOf(Math.abs(sum));
     }
+
+    /**
+     * serial version ID to match file i/o, ensures the right version is used
+     */
+    private static final long serialVersionUID = 4386879467427227749L;
 
     /**
      * get userName of this staff

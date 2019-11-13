@@ -497,7 +497,7 @@ class CustomerUi implements ConsoleBasedInterface{
     private void selectShowTimeBookTicket(int movieId, int cineplexId)
     {
         int userChoice = 0;
-        System.out.println("Showtime avaliable: ");
+        System.out.println("Showtime avaliable: " + "\n");
         ArrayList<ShowTime> showTimeArrayList = customerUIController.showShowTime(movieId,cineplexId);
         try
         {
