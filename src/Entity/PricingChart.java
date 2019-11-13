@@ -1,6 +1,10 @@
 package Entity;
 
 
+import java.io.Serializable;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+
 /**
  * @version 1
  * @since 17/10/2019
@@ -8,30 +12,53 @@ package Entity;
  * PriceChart provides an automated price ticket calculator based on the different factors such as age.
  *
  */
-public class PricingChart {
+public class PricingChart implements Serializable {
+    /**
+     * unique id is used to represent a pricing
+     */
     private int pricingChartID;
+    /**
+     * cinema type for this pricing
+     */
     private String cinemaType;
+    /**
+     * customer class for this pricing
+     */
     private String customerClass;
-    private String dayOfTheWeek;
+    /**
+     * day for this pricing
+     */
+    private DayOfWeek dayOfTheWeek;
+    /**
+     * movie type for this pricing
+     */
     private String movieType;
+    /**
+     * price for this pricing
+     */
     private double price;
-    private int fromTime;
-    private int toTime;
+    /**
+     * start time for this pricing
+     */
+    private LocalTime fromTime;
+    /**
+     * end time for this pricing
+     */
+    private LocalTime toTime;
 
-    public PricingChart()
-    {
-        this.pricingChartID = -1;
-        this.cinemaType = null;
-        this.customerClass = null;
-        this.dayOfTheWeek = null;
-        this.movieType = null;
-        this.price = -1;
-        this.fromTime = -1;
-        this.toTime = -1;
-    }
-
-    public PricingChart(int pricingChartID, String cinemaType, String customerClass
-            , String dayOfTheWeek, String movieType, int fromTime, int toTime, double price) {
+    /**
+     * Creates pricing
+     * @param pricingChartID
+     * @param cinemaType
+     * @param customerClass
+     * @param dayOfTheWeek
+     * @param movieType
+     * @param price
+     * @param fromTime
+     * @param toTime
+     */
+    public PricingChart(int pricingChartID, String cinemaType, String customerClass, DayOfWeek dayOfTheWeek,
+                        String movieType, double price, LocalTime fromTime, LocalTime toTime) {
         this.pricingChartID = pricingChartID;
         this.cinemaType = cinemaType;
         this.customerClass = customerClass;
@@ -66,11 +93,11 @@ public class PricingChart {
         this.customerClass = customerClass;
     }
 
-    public String getDayOfTheWeek() {
+    public DayOfWeek getDayOfTheWeek() {
         return dayOfTheWeek;
     }
 
-    public void setDayOfTheWeek(String dayOfTheWeek) {
+    public void setDayOfTheWeek(DayOfWeek dayOfTheWeek) {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
@@ -90,12 +117,19 @@ public class PricingChart {
         this.price = price;
     }
 
-    public int getFromTime() {return fromTime;}
+    public LocalTime getFromTime() {
+        return fromTime;
+    }
 
-    public void setFromTime(int Time) {this.fromTime = Time;}
+    public void setFromTime(LocalTime fromTime) {
+        this.fromTime = fromTime;
+    }
 
-    public int getToTime() {return toTime;}
+    public LocalTime getToTime() {
+        return toTime;
+    }
 
-    public void setToTime(int Time) {this.toTime = Time;}
-
+    public void setToTime(LocalTime toTime) {
+        this.toTime = toTime;
+    }
 }
