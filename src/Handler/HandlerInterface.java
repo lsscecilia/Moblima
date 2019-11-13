@@ -6,6 +6,8 @@ import java.util.HashMap;
 /**
  * Interface for UI
  * modifier package-private
+ * @version 1.0
+ * @since 2019-11-13
  */
 public interface HandlerInterface {
     public <T> ArrayList<T> readSerializedObject(String filename);

@@ -5,21 +5,32 @@ import Entity.Cineplex;
 import Entity.Movie;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.spi.AbstractResourceBundleProvider;
+
+/**
+ *
+ * @version 1.0
+ * @since 2019-11-13
+ */
 
 public class CineplexController implements ControllerInterface{
     private HandlerInterface database;
+    /**
+     * contains all the cineplexes managed by this system
+     */
     private ArrayList<Cineplex> cineplexArrayList;
 
-
+    /**
+     * As cineplex controller is created, date is retrieved from file i/o
+     */
     public CineplexController() {
         this.database = new DataHandler();
         this.cineplexArrayList = database.readSerializedObject("Cineplex");
     }
 
+    /**
+     * @return array list of all cineplexes
+     */
     public ArrayList<Cineplex> getCineplexArrayList() {
         return cineplexArrayList;
     }
@@ -38,8 +49,12 @@ public class CineplexController implements ControllerInterface{
         }
     }
 
+
     /**
      * Remove movie showing from Cineplex
+     * @param movieID
+     * @param cineplexId
+     * @return true if movie is removed
      */
     public boolean removeMovieFromCineplex(int movieID, int cineplexId){
         for(Cineplex cineplex:cineplexArrayList){
@@ -56,6 +71,10 @@ public class CineplexController implements ControllerInterface{
         return false;
     }
 
+    /**
+     * displays all cinema in a particular cineplex base on cineplexId
+     * @param cineplexId
+     */
     public void displayCinema(int cineplexId){
         for(Cineplex cineplex: cineplexArrayList){
             if(cineplex.getCineplexID() == cineplexId){
@@ -192,13 +211,14 @@ public class CineplexController implements ControllerInterface{
         return cineplexArrayList.get(index).getCineplexID();
     }
 
+
     public boolean cineplexExistChecker(ArrayList<Cineplex> cineplexArrayList)
     {
         return cineplexArrayList.isEmpty();
     }
 
     /**
-     * Writes arraylist to Dat text file
+     * update file i/o with current data for cineplex
      */
     @Override
     public void updateDat() {

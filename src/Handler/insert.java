@@ -5,10 +5,7 @@ import Controller.ShowTimeController;
 import Entity.*;
 
 import java.lang.reflect.Array;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +13,15 @@ import java.util.List;
 public class insert {
     public static void main(String[] args)
     {
+        /*
+        ZoneId zid = ZoneId.of("Asia/Singapore");
+        LocalDateTime test =LocalDateTime.now(zid);
+        String dateTimeString = test.toString();
+        System.out.println(dateTimeString.substring(0,4) + dateTimeString.substring(5,7) + dateTimeString.substring(8,10) +
+                dateTimeString.substring(11,13)+dateTimeString.substring(14,16)+dateTimeString.substring(17,19));
+        System.out.println(test);*/
+        //+  +
+        //                 +dateTimeString.substring(14,15)+dateTimeString.substring(17,18)
 /*
 
         HandlerInterface database = new DataHandler();

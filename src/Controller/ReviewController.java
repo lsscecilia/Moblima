@@ -3,21 +3,36 @@ package Controller;
 import Entity.Transaction;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
-
-import java.io.Serializable;
 import java.util.HashMap;
 
+/**
+ *
+ * @version 1.0
+ * @since 2019-11-13
+ */
 public class ReviewController implements ControllerInterface{
     private HandlerInterface database;
+    /**
+     * Maps a transaction to the number of reviews submitted
+     */
     private HashMap<Transaction,Integer> reviewTracker;
 
+    /**
+     * As ReviewController is created, data is retrieved from file i/o
+     */
     public ReviewController()
     {
         database = new DataHandler();
         reviewTracker = database.readSerializedHashMap("ReviewTracker");
     }
 
-    //add one by one
+
+    /**
+     * Checks that moviegoer is eligible to make a review (n tickets can only make n reviews)
+     * update the number of reviews if moviegoer is eligible
+     * @param transaction
+     * @return true if
+     */
     public boolean updateNumReview(Transaction transaction)
     {
         if (reviewTracker!=null)
@@ -39,12 +54,14 @@ public class ReviewController implements ControllerInterface{
                 }
             }
         }
-
         reviewTracker.put(transaction, 1);
         updateDat();
         return true;
     }
 
+    /**
+     * update file i/o with current data for reviewTracker
+     */
     @Override
     public void updateDat() {
         database.writeSerializedHashMap("ReviewTracker", reviewTracker);

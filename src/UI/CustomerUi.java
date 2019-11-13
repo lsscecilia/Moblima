@@ -496,14 +496,51 @@ class CustomerUi implements ConsoleBasedInterface{
 
     private void selectShowTimeBookTicket(int movieId, int cineplexId)
     {
+        int userChoice = 0;
         System.out.println("Showtime avaliable: ");
         ArrayList<ShowTime> showTimeArrayList = customerUIController.showShowTime(movieId,cineplexId);
         try
         {
-            System.out.println("Select showtime: ");
-            int showTimeIndex = sc.nextInt();
-            ShowTime selectedShowTime = customerUIController.getShowTime(showTimeArrayList, showTimeIndex-1);
-            selectNumOfTicketBookTicket(selectedShowTime);
+            do {
+                System.out.println("====================== Option =========================");
+                System.out.println("|1. Continue to order tickets                         |");
+                System.out.println("|2. Back to choose different cineplex                 |");
+                System.out.println("|3. Back to main menu                                 |");
+                System.out.println("|4. Quit                                              |");
+                System.out.println("=======================================================");
+                System.out.print("Please input your choice: ");
+
+                if(sc.hasNextInt()){
+                    userChoice = sc.nextInt();
+                    System.out.print("\n");
+                }
+                else{
+                    sc.next();
+                }
+
+                switch (userChoice) {
+                    case 1:
+                        System.out.println("Select showtime: ");
+                        int showTimeIndex = sc.nextInt();
+                        ShowTime selectedShowTime = customerUIController.getShowTime(showTimeArrayList, showTimeIndex-1);
+                        selectNumOfTicketBookTicket(selectedShowTime);
+                        break;
+                    case 2:
+                        selectCineplexBookTicket(movieId);
+                    case 3:
+                        show();
+                        break;
+                    case 4:
+                        sc.close();
+                        System.out.println("Program Terminating...");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("You have made an invalid selection! Please try again!");
+                        break;
+                }
+
+            } while (userChoice > 4 | userChoice <= 0 );
         }
         catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
         {
@@ -604,7 +641,6 @@ class CustomerUi implements ConsoleBasedInterface{
                     if (customerUIController.checkSeatAval(showTime, selectRow, selectColumn))
                     {
                         seatSelected[i-1] = selectRow + String.valueOf(selectColumn);
-                        System.out.println("seat sucessfully selected");
                         if (i+1!=numTickets+1)
                             sc.nextLine();
                         break;
@@ -615,13 +651,23 @@ class CustomerUi implements ConsoleBasedInterface{
                 }
 
             }
+            if (!customerUIController.checkNoDuplicateSeat(seatSelected))
+            {
+                System.out.println("Sorry, u cannot book a seat twice. Please re-choose seats ");
+                sc.nextLine();
+                chooseSeatBookTicket(showTime, numTickets, numStudent, numSC);
+            }
+
             if (customerUIController.checkSingleSeat(seatSelected, showTime, numTickets))
+            {
+                System.out.println("seat sucessfully selected. ('u' represents the seats u selected) ");
                 showTicketBookTicket(showTime, numTickets, numStudent, numSC, seatSelected);
+            }
             else
             {
                 System.out.println("Please re-choose seats. System will not allow you to leave a single seat bewtween " +
                         "selected seats");
-                //sc.nextLine();
+                sc.nextLine();
                 chooseSeatBookTicket(showTime, numTickets, numStudent, numSC);
             }
         }
@@ -639,12 +685,44 @@ class CustomerUi implements ConsoleBasedInterface{
         //display ticket
         double totalPrice = customerUIController.calculateTotalPrice(ticketArrayList);
         System.out.printf("Total price: $ %.2f \n", totalPrice);
+        int userChoice = 0;
+        do {
+            System.out.println("====================== Option =========================");
+            System.out.println("|1. Proceed to payment                                |");
+            System.out.println("|2. Cancel booking (Back to main menu)                |");
+            System.out.println("|3. Quit                                              |");
+            System.out.println("=======================================================");
+            System.out.print("Please input your choice: ");
+
+            if(sc.hasNextInt()){
+                userChoice = sc.nextInt();
+                System.out.print("\n");
+            }
+            else{
+                sc.next();
+            }
+
+            switch (userChoice) {
+                case 1:
+                    sc.nextLine();
+                    enterPurchaserDetailsBookTicket(ticketArrayList, totalPrice, seatSelected);
+                    break;
+                case 2:
+                    show();
+                    break;
+                case 3:
+                    sc.close();
+                    System.out.println("Program Terminating...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("You have made an invalid selection! Please try again!");
+                    break;
+            }
+
+        } while (userChoice > 3 | userChoice <= 0 );
 
         //case statement
-
-        System.out.println("Make payment: ");
-        sc.nextLine();
-        enterPurchaserDetailsBookTicket(ticketArrayList, totalPrice, seatSelected);
     }
 
     public void enterPurchaserDetailsBookTicket(ArrayList<Ticket> ticketArrayList, double totalPrice, String[] seatSelected)
@@ -701,7 +779,7 @@ class CustomerUi implements ConsoleBasedInterface{
         try
         {
             Long num = sc.nextLong();
-            ArrayList<Transaction> transactionArrayList = customerUIController.chooseMovieToReview(num);
+            ArrayList<Transaction> transactionArrayList = customerUIController.retrieveMovieToReview(num);
             if (transactionArrayList.isEmpty())
                 show();
             else
@@ -721,7 +799,7 @@ class CustomerUi implements ConsoleBasedInterface{
         {
             System.out.println("Please select which movie to review: ");
             int index = sc.nextInt();
-            if (customerUIController.review(transactions.get(index-1)))
+            if (customerUIController.eligibleToReview(transactions.get(index-1)))
             {
                 sc.nextLine();
                 enterReview(transactions.get(index-1).getTicketArrayList().get(0).getShowTime().getMovie().getMovieId());
@@ -755,7 +833,7 @@ class CustomerUi implements ConsoleBasedInterface{
                 else
                     System.out.println("Sorry please enter in the range of 1-5");
             }
-            customerUIController.submitReview(movieId, new Review(reviewComment,ratings));
+            customerUIController.submitReview(movieId, reviewComment, ratings);
             System.out.println("Review submitted! ");
         }catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
         {

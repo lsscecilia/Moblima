@@ -104,6 +104,11 @@ public class ShowTime implements Serializable, Comparable<ShowTime>{
         seatLayout[row][column] = 1;
     }
 
+    public void seatOccupiedDraft(int row, int column)
+    {
+        seatLayout[row][column] = 5;
+    }
+
     @Override
     public int compareTo(ShowTime o) {
         if (getDateTime() == null || o.getDateTime() == null)

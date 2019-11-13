@@ -13,15 +13,50 @@ import java.time.LocalTime;
  *
  */
 public class PricingChart implements Serializable {
+    /**
+     * unique id is used to represent a pricing
+     */
     private int pricingChartID;
+    /**
+     * cinema type for this pricing
+     */
     private String cinemaType;
+    /**
+     * customer class for this pricing
+     */
     private String customerClass;
+    /**
+     * day for this pricing
+     */
     private DayOfWeek dayOfTheWeek;
+    /**
+     * movie type for this pricing
+     */
     private String movieType;
+    /**
+     * price for this pricing
+     */
     private double price;
+    /**
+     * start time for this pricing
+     */
     private LocalTime fromTime;
+    /**
+     * end time for this pricing
+     */
     private LocalTime toTime;
 
+    /**
+     * Creates pricing
+     * @param pricingChartID
+     * @param cinemaType
+     * @param customerClass
+     * @param dayOfTheWeek
+     * @param movieType
+     * @param price
+     * @param fromTime
+     * @param toTime
+     */
     public PricingChart(int pricingChartID, String cinemaType, String customerClass, DayOfWeek dayOfTheWeek,
                         String movieType, double price, LocalTime fromTime, LocalTime toTime) {
         this.pricingChartID = pricingChartID;
