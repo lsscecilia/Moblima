@@ -43,8 +43,8 @@ public class TransactionController implements ControllerInterface {
     }
 
     /**
-     * Checks whether booking history exists
-     * Returns true if booking history is not empty, else false
+     * Checks if there is any booking history
+     * Returns true if booking history exist, else return false
      * @param transactions
      * @return boolean
      */
@@ -57,7 +57,7 @@ public class TransactionController implements ControllerInterface {
     }
 
     /**
-     * Add Transaction to ticketArrayList
+     * Add Transaction to transaction array list and update in file i/o
      * @param name
      * @param mobileNum
      * @param email
@@ -66,8 +66,7 @@ public class TransactionController implements ControllerInterface {
      */
     public void addTransaction(String name, long mobileNum, String email, double totalPrice, ArrayList<Ticket> ticketArrayList)
     {
-        ZoneId zid = ZoneId.of("Asia/Singapore");
-        LocalDateTime dateTime = LocalDateTime.now(zid);  //see if you can find sg time zone
+        LocalDateTime dateTime = LocalDateTime.now();  //see if you can find sg time zone
         String dateTimeString = dateTime.toString();
         //2019-01-21T06:47:22.756
         int cinemaID = ticketArrayList.get(0).getShowTime().getCinemaID();

@@ -111,41 +111,41 @@ public class CustomerDisplayController implements ControllerInterface {
 
     /**
      * Displays Top5Rating from HashMap
-     * @param top5
+     * @param movieRatingHashMap
      */
-    public void displayTop5Rating(HashMap<Movie, Double> top5)
+    public void displayTop5Rating(HashMap<Movie, Double> movieRatingHashMap)
     {
         int count = 1;
-        for (Movie movie: top5.keySet())
+        for (Movie movie: movieRatingHashMap.keySet())
         {
-            if (top5.get(movie)==null)
+            if (movieRatingHashMap.get(movie)==null)
             {
                 continue;
             }
             if (count==6)
                 break;
-            System.out.println(count+". " + movie.getMovieTitle() + ", Ratings: " + top5.get(movie));
+            System.out.println(count+". " + movie.getMovieTitle() + ", Ratings: " + movieRatingHashMap.get(movie));
             count++;
         }
     }
 
     /**
      * Displays Top5TicketSale from HashMap
-     * @param top5
+     * @param movieTicketSaleHashMap
      */
-    public void displayTop5TicketSale(HashMap<Movie, Integer> top5)
+    public void displayTop5TicketSale(HashMap<Movie, Integer> movieTicketSaleHashMap)
     {
         int count = 1;
-        if (top5.isEmpty())
+        if (movieTicketSaleHashMap.isEmpty())
         {
             System.out.println("Sorry, there are no ticket sales yet");
             return;
         }
-        for (Movie movie: top5.keySet())
+        for (Movie movie: movieTicketSaleHashMap.keySet())
         {
             if (count==6)
                 break;
-            System.out.println(count+". " + movie.getMovieTitle() + ", Ticket Sales: " + top5.get(movie));
+            System.out.println(count+". " + movie.getMovieTitle() + ", Ticket Sales: " + movieTicketSaleHashMap.get(movie));
             count++;
         }
     }
@@ -270,7 +270,5 @@ public class CustomerDisplayController implements ControllerInterface {
             count++;
 
         }
-
-
     }
 }

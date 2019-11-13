@@ -105,7 +105,9 @@ public class BookingController {
     public boolean checkSingleSeat(String[] seatSelected, ShowTime showTime, int numSeats)
     {
         char rowAlpha;
-        int row, column, numEmpty;
+        int row, column, numEmpty=0;
+        CustomerDisplayController display = new CustomerDisplayController();
+
         String letters ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         ShowTime showTimeClone = new ShowTime(showTime);
         for (int i=0; i<numSeats;i++)
@@ -115,18 +117,19 @@ public class BookingController {
             column = Character.getNumericValue(seatSelected[i].charAt(1))-1;
             showTimeClone.seatOccupied(row, column);
         }
+        display.displaySeatLayout(showTimeClone.getSeatLayout(), showTimeClone.getRow(),showTimeClone.getColumn());
 
-
-        //num occupied and num empty is consequetive
-        int[][] updatedLayout = showTimeClone.getSeatLayout();
-        //System.arraycopy(showTimeClone.getSeatLayout(), 0,updatedLayout, 0, updatedLayout.length);
         for (int i=0; i<showTimeClone.getRow(); i++)
         {
             numEmpty =0;
             for (int r=0;r<showTimeClone.getColumn();r++)
             {
-                if (updatedLayout[i][r]!=1)
+                if (showTimeClone.getSeatLayout()[i][r]!=1)
+                {
                     numEmpty++;
+                    System.out.println("num of empty shit: " + numEmpty);
+                }
+
                 else if (numEmpty==1)
                 {
                     System.out.println("array: "+ i +" , "+ r);
@@ -136,6 +139,8 @@ public class BookingController {
                     numEmpty=0;
             }
         }
+        if  (numEmpty==1)
+            return false;
         return true;
     }
 
@@ -155,11 +160,5 @@ public class BookingController {
         }
         return numAvalSeat;
     }
-
-    public void newTransaction()
-    {
-
-    }
-
 
 }
