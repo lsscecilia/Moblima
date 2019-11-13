@@ -193,7 +193,7 @@ public class ShowTimeController implements  ControllerInterface{
      * @param date date, formatted in yyyy,dd,mm
      * @return
      */
-    public boolean checkSlotAvailable(Cineplex cineplex, int cineplexId, int cinemaId, int movieId, String timeSlot, String date){
+    public boolean addNewShowTime(Cineplex cineplex, int cineplexId, int cinemaId, int movieId, String timeSlot, String date){
         Movie movie1 = null;
         Cinema cinema1 = null;
         boolean duplicate = false;

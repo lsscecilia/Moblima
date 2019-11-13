@@ -352,7 +352,7 @@ class StaffUi implements ConsoleBasedInterface {
         String choice = sc.nextLine();
         System.out.print("\n");
 
-        if(showTimeController.checkSlotAvailable(cineplexController.returnCineplexFromId(cineplexId),cineplexId,cinemaId
+        if(showTimeController.addNewShowTime(cineplexController.returnCineplexFromId(cineplexId),cineplexId,cinemaId
         ,movieId,time,choice)){
             System.out.println("Successful! New ShowTime has been added!");
         }
