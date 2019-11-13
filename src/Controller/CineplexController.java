@@ -43,7 +43,9 @@ public class CineplexController implements ControllerInterface{
         for(Cineplex cineplex:cineplexArrayList){
             if(cineplex.getCineplexID() == cineplexId){
                 for(Movie movie:cineplex.getMovieInCineplexArrayList()){
-                    System.out.println(movie.getMovieId() + ".  " + movie.getMovieTitle());
+                    System.out.println("Movie ID: " + movie.getMovieId() +
+                            " | Movie Title: " + movie.getMovieTitle() +
+                            " | " + movie.getMovieType());
                 }
             }
         }

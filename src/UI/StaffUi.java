@@ -249,7 +249,7 @@ class StaffUi implements ConsoleBasedInterface {
     public void addNewShowTimeInCineplex(int cineplexId){
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("================== Add New ShowTime! ==================");
+        System.out.println("========= Choose A Cinema To Add New ShowTime! ========");
         cineplexController.displayCinema(cineplexId);
         System.out.println("1.  Cinema ID 1");
         System.out.println("2.  Cinema ID 2");
