@@ -6,28 +6,42 @@ import Entity.Movie;
 import Entity.ShowTime;
 import Handler.DataHandler;
 import Handler.HandlerInterface;
-
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.stream.Stream;
+
+/**
+ *
+ * @version 1.0
+ * @since 2019-11-13
+ */
 
 public class ShowTimeController implements  ControllerInterface{
     private HandlerInterface database;
-    private ArrayList<ShowTime> showTimeArrayList;
-    //all the showtime regardless of which cineplex
 
+    /**
+     * contains all the showtime across all cineplexes
+     */
+    private ArrayList<ShowTime> showTimeArrayList;
+
+
+    /**
+     * As ShowTimeController is created, data is retrieved from file i/o
+     */
     public ShowTimeController()
     {
         database = new DataHandler();
         showTimeArrayList = database.readSerializedObject("ShowTime");
     }
 
-    //already sorted
+    /**
+     * get showtimes available screening a particular movie, in a particular cinplex
+     * @param movieId
+     * @param cineplexId
+     * @return array list of show time available
+     */
     public ArrayList<ShowTime> getShowTimeAval(int movieId, int cineplexId)
     {
         ZoneId zid = ZoneId.of("Asia/Singapore");
@@ -46,9 +60,9 @@ public class ShowTimeController implements  ControllerInterface{
     }
 
     /**
-     * Method to sort ShowTimeArrayList using Collections.sort
+     * sort ShowTimeArrayList according show time's date and time
      * @param showTimes
-     * @return
+     * @return sorted array list with all the show time
      */
     public ArrayList<ShowTime> sortShowTime(ArrayList<ShowTime> showTimes)
     {
@@ -57,10 +71,10 @@ public class ShowTimeController implements  ControllerInterface{
     }
 
     /**
-     * Returns ShowTime Object from it's index
+     * retrieve show time from array list base on its index in the array list
      * @param showTimes
      * @param index
-     * @return
+     * @return show time
      */
     public ShowTime getShowTime(ArrayList<ShowTime> showTimes, int index)
     {
@@ -68,11 +82,11 @@ public class ShowTimeController implements  ControllerInterface{
     }
 
     /**
-     * Checks whether the seat selected is available, if available return true, else false.
+     * Checks whether the seat selected is available
      * @param showTime
      * @param row
      * @param column
-     * @return boolean true/false
+     * @return true if seat is available, else return false
      */
     public boolean checkSeatAvailable(ShowTime showTime, char row, int column)
     {
@@ -134,8 +148,8 @@ public class ShowTimeController implements  ControllerInterface{
 
     /**
      * Displays Specific ShowTime from showTimeIndex
-     * @param cineplexId
-     * @param cinemaId
+     * @param cineplexId represents cineplex ID
+     * @param cinemaId represents cinema ID
      * @param showTimeIndex
      */
     public void displaySpecificShowTime(int cineplexId, int cinemaId, int showTimeIndex){
@@ -185,13 +199,13 @@ public class ShowTimeController implements  ControllerInterface{
 
     /**
      * Checks whether the slot is available or taken, if it is available then Add to showTimeArrayList. Else return false and exit.
-     * @param cineplex Object
-     * @param cineplexId cineplex object Id
-     * @param cinemaId cinemaId
-     * @param movieId MovieId
-     * @param timeSlot time, formatted in hh,mm
-     * @param date date, formatted in yyyy,dd,mm
-     * @return
+     * @param cineplex
+     * @param cineplexId
+     * @param cinemaId
+     * @param movieId
+     * @param timeSlot
+     * @param date
+     * @return true if time slot is available, else return false
      */
     public boolean addNewShowTime(Cineplex cineplex, int cineplexId, int cinemaId, int movieId, String timeSlot, String date){
         Movie movie1 = null;
@@ -321,6 +335,9 @@ public class ShowTimeController implements  ControllerInterface{
         updateDat();
     }
 
+    /**
+     * update file i/o with current data for showTime
+     */
     @Override
     public void updateDat(){
         database.writeSerializedObject("ShowTime", showTimeArrayList);

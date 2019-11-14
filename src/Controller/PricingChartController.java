@@ -9,30 +9,37 @@ import Handler.HandlerInterface;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
-public class PricingChartController {
+/**
+ * Controls ????
+ * @version 1.0
+ * @since 2019-11-13
+ */
+
+class PricingChartController {
     private HandlerInterface database;
+    /**
+     * contains pricing chart for all showtime
+     */
     private ArrayList<PricingChart> pricingChartArrayList;
 
-    public PricingChartController()
+    /**
+     * As PricingChartController is created, data is retrieved from file i/o
+     */
+    PricingChartController()
     {
         database = new DataHandler();
         pricingChartArrayList = database.readSerializedObject("PricingChart");
     }
 
-    /*
-    private boolean weekend(ShowTime showTime)
-    {
-        DayOfWeek sat = DayOfWeek.SATURDAY;
-        DayOfWeek sun = DayOfWeek.SUNDAY;
-        if (showTime.getDateTime().getDayOfWeek().compareTo(sat)!=0)
-        {
-            if (showTime.getDateTime().getDayOfWeek().compareTo(sun)!=0)
-                return false;
-        }
-        return false;
-    }*/
+    /**
+     * get price of a ticket base on a particular show time, taking into consideration of various factors
+     * @param showTime
+     * @param publicHoliday
+     * @param customerClass
+     * @return price of a ticket
+     */
 
-    public double getPrice(ShowTime showTime, boolean publicHoliday, String customerClass)
+    double getPrice(ShowTime showTime, boolean publicHoliday, String customerClass)
     {
         int cinemaID = showTime.getCinemaID();
         boolean weekend;
@@ -46,13 +53,8 @@ public class PricingChartController {
         }
         //-------movieType
         movieType = showTime.getMovie().getMovieType();
-        //-------dayOfTheWeek / weekend
-       /* weekend = weekend(showTime);
-        if (weekend)
-            dayOfTheWeek = "weekend";  //check spelling
-        else
-            dayOfTheWeek = "weekday";*/
-        //-------Customer class --> publicHoliday -- no student, no seniorCitizen
+
+        //-------Customer class
         DayOfWeek day;
         if (publicHoliday)
         {
@@ -63,7 +65,7 @@ public class PricingChartController {
         else
             day = showTime.getDateTime().toLocalDate().getDayOfWeek();
 
-        //-------from time / end time --> take from showTime
+        //-------from time / end time
 
         for (PricingChart pricingChart: pricingChartArrayList)
         {
@@ -72,21 +74,14 @@ public class PricingChartController {
                 //System.out.println("Check cinema type: " + cinemaType);
                 if (pricingChart.getCustomerClass().compareTo(customerClass)==0)
                 {
-                    //System.out.println("Check customer class: " + customerClass);
-                    //System.out.println("pricing chart : " +pricingChart.getDayOfTheWeek() );
-                    //System.out.println("showtime day: "+showTime.getDateTime().toLocalDate().getDayOfWeek() );
                     if (pricingChart.getDayOfTheWeek().compareTo(day)==0)
                     {
-                        //System.out.println("Check day of the week: " +showTime.getDateTime().toLocalDate().getDayOfWeek().toString() );
                         if (pricingChart.getMovieType().compareTo(movieType)==0)
                         {
-                            //System.out.println("Check movie type: " + movieType);
                             if (pricingChart.getFromTime().isBefore(showTime.getDateTime().toLocalTime()))
                             {
-                                //System.out.println("Check time 1: ");
                                 if (pricingChart.getToTime().isAfter(showTime.getDateTime().toLocalTime()))
                                 {
-                                    //System.out.println("Check time 2: ");
                                     return pricingChart.getPrice();
                                 }
                             }
@@ -95,15 +90,7 @@ public class PricingChartController {
                 }
             }
         }
-        return -1;  //--> if cannot find but this situation shouldnt happen
+        return -1;  //--> if cannot find but this situation shouldn't happen
     }
 }
 
-//    private int pricingChartID;
-//    private String cinemaType;
-//    private String customerClass;
-//    private String dayOfTheWeek;
-//    private String movieType;
-//    private double price;
-//    private int fromTime;
-//    private int toTime;

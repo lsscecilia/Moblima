@@ -7,6 +7,11 @@ import Handler.HandlerInterface;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @version 1.0
+ * @since 2019-11-13
+
+ */
 public class StaffController implements ControllerInterface {
 
     private ArrayList<Staff> staffArrayList;
@@ -19,8 +24,7 @@ public class StaffController implements ControllerInterface {
 
 
     /**
-     * After a user has chosen to modify the ArrayList such as deletion or addition, it will call this method
-     * to write the ArrayList into the DAT file using DataHandler.
+     * update file i/o with current data for staff
      */
     @Override
     public void updateDat() {

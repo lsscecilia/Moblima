@@ -1,40 +1,30 @@
 package Controller;
 
 import Entity.*;
-
-import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 
-public class CustomerDisplayController implements ControllerInterface {
+/**
+ * Controls all display of objects or segment of object. Objects or segment of objects will be printed in a readable format
+ * @version 1.0
+ * @since 2019-11-13
+ */
 
-    public CustomerDisplayController() {
-    }
-
-    //is there anything to update for the this class?
-    @Override
-    public void updateDat() {
-
-    }
+class CustomerDisplayController {
 
     /**
-     * Displays CinemaType
-     * @param cinemaType
+     * This creates the display controller.
      */
-    public void displayCinemaType(String[] cinemaType) {
-        for (int i = 1; i < cinemaType.length; i++) {
-            System.out.println(i + ". " + cinemaType[i - 1]);
-        }
+    public CustomerDisplayController() {
     }
 
     /**
      * Displays Tickets details
      * @param ticketArrayList
      */
-    public void displayTicket(ArrayList<Ticket> ticketArrayList) {
+    void displayTicket(ArrayList<Ticket> ticketArrayList) {
         int count = 1;
         System.out.println("Movie: " + ticketArrayList.get(0).getShowTime().getMovie().getMovieTitle());
         System.out.println("Number of tickets: " + ticketArrayList.size());
@@ -53,7 +43,7 @@ public class CustomerDisplayController implements ControllerInterface {
      * @param row
      * @param column
      */
-    public void displaySeatLayout(int[][] array, int row, int column) {
+    void displaySeatLayout(int[][] array, int row, int column) {
         String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         System.out.print(" ");
         for (int i = 1; i < column + 1; i++) {
@@ -71,6 +61,8 @@ public class CustomerDisplayController implements ControllerInterface {
                 System.out.print("|");
                 if (array[i][j] == 1)
                     System.out.print("X");
+                else if (array[i][j]==5)
+                    System.out.print("U");
                 else
                     System.out.print(" ");
                 System.out.print("|");
@@ -83,69 +75,69 @@ public class CustomerDisplayController implements ControllerInterface {
     }
 
     /**
-     * Displays ShowTime that is sorted with respect to date and time
+     * Displays ShowTime that is sorted by date and time
      * @param showTimeArrayList
      */
-    public void displayShowTime(ArrayList<ShowTime> showTimeArrayList) {
+    void displayShowTime(ArrayList<ShowTime> showTimeArrayList) {
         int count = 1;
         LocalDateTime dateTime = LocalDateTime.of(0, 1, 1, 0, 0);
         for (ShowTime showTime : showTimeArrayList) {
             if (dateTime.toLocalDate().compareTo(showTime.getDateTime().toLocalDate()) != 0) {
-                System.out.print("Date: " + showTime.getDateTime().toLocalDate().toString());
+                System.out.println("Date: " + showTime.getDateTime().toLocalDate().toString());
                 dateTime = showTime.getDateTime();
-                System.out.println(";   Showtimes: ");
             }
 
             System.out.print(count + ". ");
             System.out.print(showTime.getDateTime().toLocalTime().toString());
             for (Cinema cinema : showTime.getCineplex().getCinemaArrayList()) {
                 if (showTime.getCinemaID() == cinema.getCinemaID()) {
-                    System.out.println(", Cinema Type: " + cinema.getCinemaType());
+                    System.out.print(", Cinema Type: " + cinema.getCinemaType());
+                    System.out.println(", Movie Type: " + showTime.getMovie().getMovieType());
                 }
-
             }
             count++;
+
         }
     }
 
 
     /**
-     * Displays Top5Rating from HashMap
-     * @param top5
+     * Displays top 5 Movie with the highest ratings.
+     * @param movieRatingHashMap
      */
-    public void displayTop5Rating(HashMap<Movie, Double> top5)
+    void displayTop5Rating(HashMap<Movie, Double> movieRatingHashMap)
     {
         int count = 1;
-        for (Movie movie: top5.keySet())
+        for (Movie movie: movieRatingHashMap.keySet())
         {
-            if (top5.get(movie)==null)
+            if (movieRatingHashMap.get(movie)==null)
             {
                 continue;
             }
             if (count==6)
                 break;
-            System.out.println(count+". " + movie.getMovieTitle() + ", Ratings: " + top5.get(movie));
+            System.out.println(count+". " + movie.getMovieTitle() + ", Ratings: " + movieRatingHashMap.get(movie));
             count++;
         }
     }
 
     /**
-     * Displays Top5TicketSale from HashMap
-     * @param top5
+     * Displays top 5 Movie with the highest ticket sales.
+     * @param movieTicketSaleHashMap
      */
-    public void displayTop5TicketSale(HashMap<Movie, Integer> top5)
+    void displayTop5TicketSale(HashMap<Movie, Integer> movieTicketSaleHashMap)
     {
         int count = 1;
-        if (top5.isEmpty())
+        if (movieTicketSaleHashMap.isEmpty())
         {
             System.out.println("Sorry, there are no ticket sales yet");
             return;
         }
-        for (Movie movie: top5.keySet())
+        for (Movie movie: movieTicketSaleHashMap.keySet())
         {
             if (count==6)
                 break;
-            System.out.println(count+". " + movie.getMovieTitle() + ", Ticket Sales: " + top5.get(movie));
+            System.out.println(count+". " + movie.getMovieTitle() + ", Ticket Sales: " + movieTicketSaleHashMap.get(movie));
             count++;
         }
     }
@@ -154,7 +146,7 @@ public class CustomerDisplayController implements ControllerInterface {
      * Displays booking history
      * @param transactions
      */
-    public void displayBookingHistory(ArrayList<Transaction> transactions)
+    void displayBookingHistory(ArrayList<Transaction> transactions)
     {
         int count=1;
         System.out.println("Phone Number: " + transactions.get(0).getMobileNumber());
@@ -182,7 +174,7 @@ public class CustomerDisplayController implements ControllerInterface {
      * Displays all the Movie titles from user's booking history
      * @param transactions
      */
-    public void displayMovieTitleBookingHistory(ArrayList<Transaction> transactions)
+    void displayMovieTitleBookingHistory(ArrayList<Transaction> transactions)
     {
         int count=1;
         for (Transaction transaction:transactions)
@@ -193,10 +185,10 @@ public class CustomerDisplayController implements ControllerInterface {
     }
 
     /**
-     * Display all Cineplex
+     * Display Cineplex
      * @param cineplexArrayList
      */
-    public void displayCineplex(ArrayList<Cineplex> cineplexArrayList) {
+    void displayCineplex(ArrayList<Cineplex> cineplexArrayList) {
         int count = 1;
         for (Cineplex cineplex : cineplexArrayList) {
             System.out.print(count + ". ");
@@ -211,7 +203,7 @@ public class CustomerDisplayController implements ControllerInterface {
      * @param cineplexArrayList
      * @param index
      */
-    public void displayCineplexInformation(ArrayList<Cineplex> cineplexArrayList, int index) {
+    void displayCineplexInformation(ArrayList<Cineplex> cineplexArrayList, int index) {
         Cineplex cineplex = cineplexArrayList.get(index);
         System.out.println("======================" + cineplex.getCineplexName() + "=========================");
         System.out.println("Location: " + cineplex.getLocation());
@@ -219,14 +211,12 @@ public class CustomerDisplayController implements ControllerInterface {
     }
 
     /**
-     * Display all Movie Titles
+     * Display Movie Titles
      * @param movieArrayList
      */
-    public void displayMovieTitle(ArrayList<Movie> movieArrayList) {
+    void displayMovieTitle(ArrayList<Movie> movieArrayList) {
         int count = 1;
         for (Movie m : movieArrayList) {
-            //if (m.getMovieStatus().compareTo("Preview")==0)
-
             System.out.print(count + ". ");
             System.out.println(m.getMovieTitle());
             count++;
@@ -239,8 +229,7 @@ public class CustomerDisplayController implements ControllerInterface {
      * @param movieArrayList
      * @param index
      */
-    //index here is the array index, so should be count-1
-    public void movieInformation(ArrayList<Movie> movieArrayList, int index) {
+    void movieInformation(ArrayList<Movie> movieArrayList, int index) {
 
         Movie movie = movieArrayList.get(index);
         System.out.println("======================" + movie.getMovieTitle() + "=========================");
@@ -262,7 +251,7 @@ public class CustomerDisplayController implements ControllerInterface {
      * Display all reviews from a particular movie
      * @param reviewArrayList
      */
-    public void displayReview(ArrayList<Review> reviewArrayList) {
+    private void displayReview(ArrayList<Review> reviewArrayList) {
         int count = 1;
         for (Review review : reviewArrayList) {
             System.out.print(count + ". ");
@@ -270,7 +259,5 @@ public class CustomerDisplayController implements ControllerInterface {
             count++;
 
         }
-
-
     }
 }

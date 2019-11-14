@@ -1,7 +1,5 @@
 package Controller;
 import java.util.*;
-
-
 import Entity.Movie;
 import Entity.Review;
 import Handler.DataHandler;
@@ -9,11 +7,31 @@ import Handler.HandlerInterface;
 
 import static java.util.stream.Collectors.toMap;
 
+/**
+ *
+ * @version 1.0
+ * @since 2019-11-13
+ */
 public class MovieController implements ControllerInterface{
     private HandlerInterface database;
+    /**
+     * arraylist of entire movie collection in the database
+     */
     private ArrayList<Movie> movieArrayList;
-    //the movie here represent all the movie in moblima, each cineplex hav full/subset of it
 
+    /**
+     * As movieController is created, data is retrieved from file i/o
+     */
+    public MovieController()
+    {
+        database = new DataHandler();
+        movieArrayList = database.readSerializedObject("movie");
+    }
+    /**
+     * format string into a readable paragraph
+     * @param a
+     * @return formatted string
+     */
     public static String wordWrap(String a) {
         StringBuilder sb = new StringBuilder(a);
         int i = 0;
@@ -25,11 +43,33 @@ public class MovieController implements ControllerInterface{
 
         return sb.toString();
     }
-    public MovieController()
-    {
-        database = new DataHandler();
-        movieArrayList = database.readSerializedObject("movie");
+
+    /**
+     * @param movie
+     * @return overall ratings for a particular movie
+     */
+
+    public static double getOverallRatings(Movie movie){
+        return calculateOverallRatings(movie.getMovieReviews());
     }
+
+    /**
+     * calculate overall ratings from all ratings given by all moviegoer who reviewed a particular movie
+     * @param reviewArrayList
+     * @return overall ratings
+     */
+    private static double calculateOverallRatings(ArrayList<Review> reviewArrayList){
+        int total=0;
+        int count=0;
+        for (Review review: reviewArrayList)
+        {
+            total += review.getRating();
+            count++;
+        }
+        return (double) total/count;
+    }
+
+
 
 
     /**
@@ -136,7 +176,9 @@ public class MovieController implements ControllerInterface{
      */
     public void printMovieIdAndTitle(){
         for(Movie movie: movieArrayList){
-            System.out.println("Movie ID: " + movie.getMovieId() + " | Movie Title: " + movie.getMovieTitle());
+            System.out.println("Movie ID: " + movie.getMovieId() +
+                               " | Movie Title: " + movie.getMovieTitle() +
+                               " | " + movie.getMovieType());
         }
     }
 
@@ -201,37 +243,80 @@ public class MovieController implements ControllerInterface{
         updateDat();
     }
 
+    /**
+     * get all the movies
+     * @return arraylist of entire movie collection
+     */
     public ArrayList<Movie> getMovieArrayList() {
         return movieArrayList;
     }
 
+    /**
+     * get all movies with unique titles
+     * @return arraylist of movies that have unique title
+     */
+    public ArrayList<Movie> getMovieArrayListWithoutDuplicate() {
+        ArrayList<Movie> movies = new ArrayList<>();
+        boolean flag=true;
+        for (Movie movie: movieArrayList)
+        {
+            flag = true;
+            if (!movies.isEmpty())
+            {
+                for (Movie m1: movies)
+                {
+                   if(m1.compareTo(movie)==0)
+                   {
+                       flag = false;
+                       break;
+                   }
+                }
+            }
+            if (flag)
+                movies.add(movie);
+        }
+        return movies;
+    }
+
+    /**
+     * filter out movies that are not available for booking as for now
+     * @return arraylist of movies that are available for booking
+     */
     public ArrayList<Movie> getMovieArrayListAvalBooking(){
-        ArrayList<Movie> newMovies = new ArrayList<>();
+        ArrayList<Movie> moviesAvailableForBooking = new ArrayList<>();
         for (Movie movie: movieArrayList)
         {
             if (movie.getMovieStatus().compareTo("Coming Soon")!=0)
             {
-                newMovies.add(movie);
+                moviesAvailableForBooking.add(movie);
             }
         }
-        return newMovies;
+        return moviesAvailableForBooking;
     }
 
-    public void insertReview(int movieId, Review review)
+    /**
+     * insert new review for a particular movie into the database
+     * @param movieId
+     * @param comment
+     * @param ratings
+     */
+    public void insertReview(int movieId, String comment, int ratings)
     {
         ArrayList<Review> reviewArrayList;
         for (Movie movie: movieArrayList)
         {
             if (movie.getMovieId()==movieId)
             {
-                movie.addReview(review);
+                movie.addReview(new Review(comment, ratings));
             }
         }
         updateDat();
     }
 
-
-
+    /**
+     * get overall ratings for each movie and sort them in descending order
+     * @return hashmap where its key = movie and value = overall ratings, and sorted in descending order
+     */
     public HashMap<Movie, Double> top5ByRatings()
     {
         HashMap<Movie, Double> ratings = new HashMap<>();
@@ -250,21 +335,11 @@ public class MovieController implements ControllerInterface{
         return sorted;
     }
 
-    public static double getOverallRatings(Movie movie){
-        return calculateOverallRatings(movie.getMovieReviews());
-    }
-
-    private static double calculateOverallRatings(ArrayList<Review> reviewArrayList){
-        int total=0;
-        int count=0;
-        for (Review review: reviewArrayList)
-        {
-            total += review.getRating();
-            count++;
-        }
-        return (double) total/count;
-    }
-
+    /**
+     * search movie in entire movie collections
+     * @param search
+     * @return arraylist of movies that fulfill the search
+     */
     public ArrayList<Movie> searchMovie(String search)
     {
         ArrayList<Movie> searchArrayList = new ArrayList<>();
@@ -278,6 +353,10 @@ public class MovieController implements ControllerInterface{
         return searchArrayList;
     }
 
+    /**
+     * @param movieArrayList
+     * @return true if arraylist is empty
+     */
     public boolean noResultFound(ArrayList<Movie> movieArrayList)
     {
         if (movieArrayList.isEmpty())
@@ -288,13 +367,19 @@ public class MovieController implements ControllerInterface{
         return false;
     }
 
+    /**
+     * get movieId base on the index where the movie is found in the arraylist
+     * @param movieArrayList
+     * @param index
+     * @return movieId
+     */
     public int getMovieId(ArrayList<Movie> movieArrayList, int index)
     {
         return movieArrayList.get(index).getMovieId();
     }
 
     /**
-     * updates file where we store data for movieArrayList
+     * update file i/o with current data for movies
      */
     @Override
     public void updateDat() {
