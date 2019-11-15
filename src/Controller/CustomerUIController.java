@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class CustomerUIController {
 
-    private CustomerDisplayController display;
+    private CustomerDisplayController customerDisplayController;
     private MovieController movieController;
     private CineplexController cineplexController;
     private ShowTimeController showTimeController;
@@ -25,7 +25,7 @@ public class CustomerUIController {
      * CustomerUIController initialise the different controllers that it need to dedicate job to
      */
     public CustomerUIController() {
-        display = new CustomerDisplayController();
+        customerDisplayController = new CustomerDisplayController();
         movieController = new MovieController();
         cineplexController = new CineplexController();
         showTimeController = new ShowTimeController();
@@ -39,7 +39,7 @@ public class CustomerUIController {
      */
     public void showMovieList()
     {
-        display.displayMovieTitle(movieController.getMovieArrayListWithoutDuplicate());
+        customerDisplayController.displayMovieTitle(movieController.getMovieArrayListWithoutDuplicate());
     }
 
     /**
@@ -49,7 +49,7 @@ public class CustomerUIController {
     public ArrayList<Movie> showMovieListAvalBooking()
     {
         ArrayList<Movie> movieAvalBookingArrayList = movieController.getMovieArrayListAvalBooking();
-        display.displayMovieTitle(movieAvalBookingArrayList );
+        customerDisplayController.displayMovieTitle(movieAvalBookingArrayList );
         return movieAvalBookingArrayList ;
     }
 
@@ -74,7 +74,7 @@ public class CustomerUIController {
     public ArrayList<Cineplex> showCineplexAval(int movieId)
     {
         ArrayList<Cineplex> cineplexAvalBookingArrayList = cineplexController.cineplexShowingMovie(movieId);
-       display.displayCineplex(cineplexAvalBookingArrayList ); //get cineplex that show movie and display
+       customerDisplayController.displayCineplex(cineplexAvalBookingArrayList ); //get cineplex that show movie and display
         return cineplexAvalBookingArrayList;
     }
 
@@ -99,7 +99,7 @@ public class CustomerUIController {
     {
         ArrayList<ShowTime> showTimeAvalBookingArrayList;
         showTimeAvalBookingArrayList = showTimeController.getShowTimeAval(movieId, cineplexId);
-        display.displayShowTime(showTimeAvalBookingArrayList);
+        customerDisplayController.displayShowTime(showTimeAvalBookingArrayList);
         return showTimeAvalBookingArrayList;
     }
 
@@ -121,7 +121,7 @@ public class CustomerUIController {
      */
     public void showLayout(ShowTime showTime)
     {
-        display.displaySeatLayout(showTime.getSeatLayout(), showTime.getRow(),showTime.getColumn());
+        customerDisplayController.displaySeatLayout(showTime.getSeatLayout(), showTime.getRow(),showTime.getColumn());
     }
 
     /**
@@ -156,7 +156,7 @@ public class CustomerUIController {
         ShowTime showTimeDraft = bookingController.draftLayout(seatSelected, showTime, numSeats);
         boolean result = bookingController.checkSingleSeat(seatSelected, showTimeDraft, numSeats);
         if (result)
-            display.displaySeatLayout(showTimeDraft.getSeatLayout(), showTimeDraft.getRow(), showTimeDraft.getColumn());
+            customerDisplayController.displaySeatLayout(showTimeDraft.getSeatLayout(), showTimeDraft.getRow(), showTimeDraft.getColumn());
         return result;
     }
 
@@ -197,7 +197,7 @@ public class CustomerUIController {
     public ArrayList<Ticket> generateTicket(ShowTime showTime, int numTickets, int numStudent, int numSC, String[] seatSelected)
     {
         ArrayList<Ticket> ticketArrayList = bookingController.newTicketArrayList(showTime ,numTickets, numStudent, numSC, seatSelected);
-        display.displayTicket(ticketArrayList);
+        customerDisplayController.displayTicket(ticketArrayList);
         return ticketArrayList;
     }
 
@@ -234,7 +234,7 @@ public class CustomerUIController {
     //overload
     public void showMovieInformation(int index)
     {
-        display.movieInformation(movieController.getMovieArrayList(), index);
+        customerDisplayController.movieInformation(movieController.getMovieArrayList(), index);
     }
 
     /**
@@ -244,7 +244,7 @@ public class CustomerUIController {
      */
     public void showMovieInformation(ArrayList<Movie> movieArrayList,int index)
     {
-        display.movieInformation(movieArrayList, index);
+        customerDisplayController.movieInformation(movieArrayList, index);
     }
 
     /**
@@ -253,7 +253,7 @@ public class CustomerUIController {
     public void showTop5MovieByRatings()
     {
         HashMap<Movie, Double> top5 = movieController.top5ByRatings();
-        display.displayTop5Rating(top5);
+        customerDisplayController.displayTop5Rating(top5);
     }
 
     /**
@@ -262,7 +262,7 @@ public class CustomerUIController {
     public void showTop5MovieByTicketSales()
     {
         HashMap<Movie,Integer> top5 = transactionController.top5ByTicketSales();
-        display.displayTop5TicketSale(top5);
+        customerDisplayController.displayTop5TicketSale(top5);
     }
 
     /**
@@ -270,7 +270,7 @@ public class CustomerUIController {
      */
     public void showCineplexList()
     {
-        display.displayCineplex(cineplexController.getCineplexArrayList());
+        customerDisplayController.displayCineplex(cineplexController.getCineplexArrayList());
     }
 
     /**
@@ -279,7 +279,7 @@ public class CustomerUIController {
      */
     public void showCineplexInformation(int index)
     {
-        display.displayCineplexInformation(cineplexController.getCineplexArrayList(), index);
+        customerDisplayController.displayCineplexInformation(cineplexController.getCineplexArrayList(), index);
     }
 
     /**
@@ -290,7 +290,7 @@ public class CustomerUIController {
     public ArrayList<Movie> showSearchMovieResult(String search)
     {
         ArrayList<Movie> searchArrayList = movieController.searchMovie(search);
-        display.displayMovieTitle(searchArrayList);
+        customerDisplayController.displayMovieTitle(searchArrayList);
         return searchArrayList;
     }
 
@@ -313,7 +313,7 @@ public class CustomerUIController {
     {
         ArrayList<Transaction> transactionArrayList =transactionController.findBookingHistory(number);
         if (transactionController.bookingHistoryExist(transactionArrayList))
-            display.displayBookingHistory(transactionArrayList);
+            customerDisplayController.displayBookingHistory(transactionArrayList);
         else
             System.out.println("Sorry, no transactions can be found.");
         return transactionArrayList;
@@ -329,7 +329,7 @@ public class CustomerUIController {
     {
         ArrayList<Transaction> transactionArrayList =transactionController.findBookingHistory(num);
         if (transactionController.bookingHistoryExist(transactionArrayList))
-            display.displayMovieTitleBookingHistory(transactionArrayList);
+            customerDisplayController.displayMovieTitleBookingHistory(transactionArrayList);
         else
             System.out.println("Sorry, no transactions can be found.");
         return transactionArrayList;

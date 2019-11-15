@@ -283,15 +283,15 @@ public class MovieController implements ControllerInterface{
      * @return arraylist of movies that are available for booking
      */
     public ArrayList<Movie> getMovieArrayListAvalBooking(){
-        ArrayList<Movie> newMovies = new ArrayList<>();
+        ArrayList<Movie> moviesAvailableForBooking = new ArrayList<>();
         for (Movie movie: movieArrayList)
         {
             if (movie.getMovieStatus().compareTo("Coming Soon")!=0)
             {
-                newMovies.add(movie);
+                moviesAvailableForBooking.add(movie);
             }
         }
-        return newMovies;
+        return moviesAvailableForBooking;
     }
 
     /**

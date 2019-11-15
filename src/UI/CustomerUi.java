@@ -84,11 +84,6 @@ class CustomerUi implements ConsoleBasedInterface{
 
     public void showMovie()
     {
-        listMovie();
-    }
-
-    public void listMovie()
-    {
         try
         {
             int userChoice = 0;
@@ -135,7 +130,7 @@ class CustomerUi implements ConsoleBasedInterface{
         {
             System.out.println("You have made an invalid selection! Please try again!");
             sc.nextLine();
-            listMovie();
+            showMovie();
         }
     }
 
@@ -168,7 +163,7 @@ class CustomerUi implements ConsoleBasedInterface{
 
             switch (userChoice) {
                 case 1:
-                    listMovie();
+                    showMovie();
                     break;
                 case 2:
                     show();
