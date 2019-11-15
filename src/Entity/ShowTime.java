@@ -187,4 +187,15 @@ public class ShowTime implements Serializable, Comparable<ShowTime>{
         return getDateTime().compareTo(o.getDateTime());
     }
 
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setSeatLayout(int[][] seatLayout) {
+        this.seatLayout = seatLayout;
+    }
 }

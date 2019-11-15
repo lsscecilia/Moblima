@@ -17,7 +17,7 @@ class CustomerDisplayController {
     /**
      * This creates the display controller.
      */
-    public CustomerDisplayController() {
+    CustomerDisplayController() {
     }
 
     /**
@@ -44,34 +44,44 @@ class CustomerDisplayController {
      * @param column
      */
     void displaySeatLayout(int[][] array, int row, int column) {
+        String ANSI_RED_BACKGROUND = "\u001B[41m";
+        String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+        String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+        String ANSI_RESET = "\u001B[0m";
         String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        System.out.print(" ");
+        System.out.print("  ");
+        System.out.println("-------------------SCREEN---------------------");
         for (int i = 1; i < column + 1; i++) {
-            System.out.print("|" + i + "|");
+            if (i%2==0)
+                System.out.print(" " + i + "  ");
+            else
+                System.out.print("  " + i + "  ");
         }
 
         System.out.println();
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
-                System.out.print(" __ ");
+                System.out.print(" ");
             }
             System.out.println();
             System.out.print(letters.charAt(i));
             for (int j = 0; j < column; j++) {
-                System.out.print("|");
                 if (array[i][j] == 1)
-                    System.out.print("X");
+                    System.out.print(" " + ANSI_RED_BACKGROUND + "☒" +  ANSI_RESET + "  ");
                 else if (array[i][j]==5)
-                    System.out.print("U");
+                {
+                    System.out.print(" " +ANSI_YELLOW_BACKGROUND + "☒" + ANSI_RESET+ "  ");
+                }
                 else
-                    System.out.print(" ");
-                System.out.print("|");
+                    System.out.print(" " + ANSI_BLUE_BACKGROUND + "☐" +ANSI_RESET+ "  " );
             }
             System.out.println();
         }
-        for (int j = 0; j < column; j++) {
-            System.out.println(" __ ");
-        }
+        System.out.println();
+        System.out.println("LEGEND: ");
+        System.out.println("seat available: " + ANSI_BLUE_BACKGROUND + "☐" +ANSI_RESET );
+        System.out.println("seat taken: " + ANSI_RED_BACKGROUND + "☒" +  ANSI_RESET);
+        System.out.println("--------------------------------------------");
     }
 
     /**
