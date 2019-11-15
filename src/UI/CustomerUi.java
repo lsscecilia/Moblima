@@ -256,9 +256,9 @@ class CustomerUi implements ConsoleBasedInterface{
                 System.out.println("Enter Movie according to index: ");
                 index = sc.nextInt();
             }
-            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
             System.out.println("Menu --> Search Movie  --> Movie information" );
-            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
             System.out.println();
             customerUIController.showMovieInformation(movieArrayList, index-1);
             //customerUIController.showCineplexInformation(index-1);
@@ -346,9 +346,9 @@ class CustomerUi implements ConsoleBasedInterface{
         try
         {
             do {
-                System.out.println("--------------------------------------------------------------------------------------");
+                System.out.println("-------------------------------------------------------");
                 System.out.println("Menu --> Cineplex List");
-                System.out.println("--------------------------------------------------------------------------------------");
+                System.out.println("-------------------------------------------------------");
                 System.out.println();
                 customerUIController.showCineplexList();
                 System.out.println("====================== Option =========================");
@@ -399,9 +399,9 @@ class CustomerUi implements ConsoleBasedInterface{
         do {
             System.out.println("Enter cineplex according to index: ");
             int index = sc.nextInt();
-            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
             System.out.println("Menu --> Cineplex List --> Cineplex information" );
-            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
             System.out.println();
             customerUIController.showCineplexInformation(index-1);
             System.out.println("====================== Option =========================");
@@ -473,6 +473,12 @@ class CustomerUi implements ConsoleBasedInterface{
     {
         System.out.println("Cineplex avaliable: ");
         ArrayList<Cineplex> cineplexArrayList = customerUIController.showCineplexAval(movieId);
+        if (cineplexArrayList.isEmpty())
+        {
+            System.out.println("Sorry, no cineplexes are showing this movie. Please wait for more updates!");
+            System.out.println();
+            selectMovieBookTicket();
+        }
 
         try
         {
