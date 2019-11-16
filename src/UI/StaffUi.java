@@ -345,7 +345,7 @@ class StaffUi implements ConsoleBasedInterface {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("============== Choose Date For ShowTime ===============");
-        System.out.println("Please enter the date in: yyyy,dd,mm");
+        System.out.println("Please enter the date in: yyyy,mm,dd");
         System.out.println("=======================================================");
         System.out.print("Please input your choice: ");
 
@@ -666,7 +666,7 @@ class StaffUi implements ConsoleBasedInterface {
         movieRating = sc.nextLine();
         System.out.println("Please enter the movie duration: (in mins)");
         movieDuration = sc.nextLine();
-        System.out.println("Please enter the movie type: (2D, 3D)");
+        System.out.println("Please enter the movie type: [2D, 3D, 2D Blockbuster, 3D Blockbuster]");
         movieType = sc.next();
 
          while(true){
