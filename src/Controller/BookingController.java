@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2019-11-13
  */
-public class BookingController {
+class BookingController {
     /**
      * booking controller utilises pricing chart controller to get pricing for respective tickets
      */
@@ -30,7 +30,7 @@ public class BookingController {
     /**
      * Creating booking controller initialises all other controller required
      */
-    public BookingController()
+    BookingController()
     {
         pricingChartController = new PricingChartController();
         publicHolidayController = new PublicHolidayController();
@@ -43,7 +43,7 @@ public class BookingController {
      * @param ticketArrayList
      * @return total price
      */
-    public double calculateTotalPrice(ArrayList<Ticket> ticketArrayList)
+    double calculateTotalPrice(ArrayList<Ticket> ticketArrayList)
     {
         double totalPrice=0;
         for (Ticket ticket: ticketArrayList)
@@ -62,7 +62,7 @@ public class BookingController {
      * @param seatSelected
      * @return array list of ticket
      */
-    public ArrayList<Ticket> newTicketArrayList(ShowTime showTime, int numTickets, int numStudent, int numSC, String[] seatSelected)
+    ArrayList<Ticket> newTicketArrayList(ShowTime showTime, int numTickets, int numStudent, int numSC, String[] seatSelected)
     {
         ArrayList<Ticket> ticketArrayList = new ArrayList<>();
         double studentPrice, scPrice, adultPrice;
@@ -116,7 +116,7 @@ public class BookingController {
      * @return price
      */
 
-    public double getPrice(ShowTime showTime, String customerClass)
+    private double getPrice(ShowTime showTime, String customerClass)
     {
         boolean publicHoliday;
         publicHoliday = publicHolidayController.evePublicHoliday(showTime.getDateTime().toLocalDate());
@@ -128,7 +128,7 @@ public class BookingController {
      * @param showTime
      * @return true if student tickets and senior citizen tickets are available, else return false
      */
-    public boolean studentSeniorCitizenCheck(ShowTime showTime)
+    boolean studentSeniorCitizenCheck(ShowTime showTime)
     {
         LocalTime time = LocalTime.of(18, 0);
         if (publicHolidayController.evePublicHoliday(showTime.getDateTime().toLocalDate()))
@@ -137,9 +137,7 @@ public class BookingController {
             return false;
         if (showTime.getDateTime().toLocalDate().getDayOfWeek().compareTo(DayOfWeek.SUNDAY)==0)
             return false;
-        if (showTime.getDateTime().toLocalTime().isAfter(time))
-            return false;
-        return true;
+        return !showTime.getDateTime().toLocalTime().isAfter(time);
     }
 
     /**
@@ -149,10 +147,10 @@ public class BookingController {
      * @param numSeats
      * @return show time will the draft layout
      */
-    public ShowTime draftLayout (String[] seatSelected, ShowTime showTime, int numSeats)
+    ShowTime draftLayout(String[] seatSelected, ShowTime showTime, int numSeats)
     {
         char rowAlpha;
-        int row, column, numEmpty = 0;
+        int row, column;
         String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         ShowTime showTimeClone = new ShowTime(showTime);
         for (int i = 0; i < numSeats; i++) {
@@ -170,7 +168,7 @@ public class BookingController {
      * @return true if there is no duplicated seats, else return false
      */
 
-    public boolean checkNoDuplicateSeat(String[] seatSelected)
+    boolean checkNoDuplicateSeat(String[] seatSelected)
     {
         for (int i =0;i<seatSelected.length; i++)
         {
@@ -191,23 +189,27 @@ public class BookingController {
      * @return true if movie goer does not leave a single unoccupied seat between selected seats, else return false
      */
 
-    public boolean checkSingleSeat(String[] seatSelected, ShowTime showTime, int numSeats){
-        int numEmpty=0;
+    boolean checkSingleSeat(String[] seatSelected, ShowTime showTime, int numSeats){
+        ShowTime showTimeDraft = draftLayout(seatSelected, showTime, numSeats);
+        int numEmpty;
         for (int i=0; i<showTime.getRow(); i++)
         {
             numEmpty =0;
             for (int r=0;r<showTime.getColumn();r++)
             {
-                if (showTime.getSeatLayout()[i][r]!=1)
+
+                if (showTimeDraft.getSeatLayout()[i][r]!=1 && showTimeDraft.getSeatLayout()[i][r]!=5)
                 {
                     numEmpty++;
                 }
+                else if ((showTimeDraft.getSeatLayout()[i][r]==1 && numEmpty==1 )|| (showTimeDraft.getSeatLayout()[i][r]==5 && numEmpty==1 ))
+                    return false;
+                else if (showTimeDraft.getSeatLayout()[i][r]==1 || showTimeDraft.getSeatLayout()[i][r]==5)
+                    numEmpty=0;
                 else if (numEmpty==1)
                 {
                     return false;
                 }
-                else
-                    numEmpty=0;
             }
             if  (numEmpty==1)
             {
@@ -222,7 +224,7 @@ public class BookingController {
      * @param showTime
      * @return number of available seats in the show time
      */
-    public int numAvalSeats(ShowTime showTime)
+    int numAvalSeats(ShowTime showTime)
     {
         int[][] seatLayout = showTime.getSeatLayout();
         int row = showTime.getRow();

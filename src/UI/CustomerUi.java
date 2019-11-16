@@ -14,8 +14,8 @@ import java.util.Scanner;
 class CustomerUi implements ConsoleBasedInterface{
 
     //put in constructor
-    public Scanner sc = new Scanner(System.in);
-    public CustomerUIController customerUIController = new CustomerUIController();
+    private Scanner sc = new Scanner(System.in);
+    private CustomerUIController customerUIController = new CustomerUIController();
 
     @Override
     public void show() {
@@ -82,7 +82,7 @@ class CustomerUi implements ConsoleBasedInterface{
 
     }
 
-    public void showMovie()
+    private void showMovie()
     {
         try
         {
@@ -134,7 +134,7 @@ class CustomerUi implements ConsoleBasedInterface{
         }
     }
 
-    public void selectMovie()
+    private void selectMovie()
     {
         int userChoice = 0;
 
@@ -251,9 +251,9 @@ class CustomerUi implements ConsoleBasedInterface{
                 System.out.println("Enter Movie according to index: ");
                 index = sc.nextInt();
             }
-            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
             System.out.println("Menu --> Search Movie  --> Movie information" );
-            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
             System.out.println();
             customerUIController.showMovieInformation(movieArrayList, index-1);
             //customerUIController.showCineplexInformation(index-1);
@@ -341,9 +341,9 @@ class CustomerUi implements ConsoleBasedInterface{
         try
         {
             do {
-                System.out.println("--------------------------------------------------------------------------------------");
+                System.out.println("-------------------------------------------------------");
                 System.out.println("Menu --> Cineplex List");
-                System.out.println("--------------------------------------------------------------------------------------");
+                System.out.println("-------------------------------------------------------");
                 System.out.println();
                 customerUIController.showCineplexList();
                 System.out.println("====================== Option =========================");
@@ -394,9 +394,9 @@ class CustomerUi implements ConsoleBasedInterface{
         do {
             System.out.println("Enter cineplex according to index: ");
             int index = sc.nextInt();
-            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
             System.out.println("Menu --> Cineplex List --> Cineplex information" );
-            System.out.println("--------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------");
             System.out.println();
             customerUIController.showCineplexInformation(index-1);
             System.out.println("====================== Option =========================");
@@ -468,6 +468,12 @@ class CustomerUi implements ConsoleBasedInterface{
     {
         System.out.println("Cineplex avaliable: ");
         ArrayList<Cineplex> cineplexArrayList = customerUIController.showCineplexAval(movieId);
+        if (cineplexArrayList.isEmpty())
+        {
+            System.out.println("Sorry, no cineplexes are showing this movie. Please wait for more updates!");
+            System.out.println();
+            selectMovieBookTicket();
+        }
 
         try
         {
@@ -547,7 +553,7 @@ class CustomerUi implements ConsoleBasedInterface{
 
     //case for cancel booking --> go back to main menu, and then case for go back
 
-    public void selectNumOfTicketBookTicket(ShowTime showTime)
+    private void selectNumOfTicketBookTicket(ShowTime showTime)
     {
         try
         {
@@ -578,7 +584,7 @@ class CustomerUi implements ConsoleBasedInterface{
     }
 
     //can combine from 4_4 onwards
-    public void enterStudentOrSeniorCitizenBookTicket(ShowTime showTime, int numTickets)
+    private void enterStudentOrSeniorCitizenBookTicket(ShowTime showTime, int numTickets)
     {
         LocalTime time = LocalTime.of(18, 0);
         int numStudent=0, numSC=0;
@@ -615,6 +621,8 @@ class CustomerUi implements ConsoleBasedInterface{
         char selectRow;
         int selectColumn;
         String checker;
+        String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+        String ANSI_RESET = "\u001B[0m";
         customerUIController.showLayout(showTime);
         System.out.println("Please note that the system will not allow you to leave a single seat bewtween selected seats");
         try{
@@ -655,7 +663,7 @@ class CustomerUi implements ConsoleBasedInterface{
 
             if (customerUIController.checkSingleSeat(seatSelected, showTime, numTickets))
             {
-                System.out.println("seat sucessfully selected. ('u' represents the seats u selected) ");
+                System.out.println("seat sucessfully selected. your seats are highlighted in yellow :"+ ANSI_YELLOW_BACKGROUND + "☒" + ANSI_RESET );
                 showTicketBookTicket(showTime, numTickets, numStudent, numSC, seatSelected);
             }
             else
@@ -669,12 +677,13 @@ class CustomerUi implements ConsoleBasedInterface{
         catch (InputMismatchException | IndexOutOfBoundsException mismatchInput)
         {
             System.out.println("Sorry, your input is not valid. Please re-enter ALL seat according to requirement.");
+            sc.nextLine();
             chooseSeatBookTicket(showTime, numTickets, numStudent, numSC);
         }
     }
 
 
-    public void showTicketBookTicket(ShowTime showTime, int numTickets, int numStudent, int numSC, String[] seatSelected)
+    private void showTicketBookTicket(ShowTime showTime, int numTickets, int numStudent, int numSC, String[] seatSelected)
     {
         ArrayList<Ticket> ticketArrayList = customerUIController.generateTicket(showTime, numTickets, numStudent, numSC, seatSelected);
         //display ticket
@@ -720,7 +729,7 @@ class CustomerUi implements ConsoleBasedInterface{
         //case statement
     }
 
-    public void enterPurchaserDetailsBookTicket(ArrayList<Ticket> ticketArrayList, double totalPrice, String[] seatSelected)
+    private void enterPurchaserDetailsBookTicket(ArrayList<Ticket> ticketArrayList, double totalPrice, String[] seatSelected)
     {
         try{
             System.out.println("Enter name: ");
@@ -747,7 +756,7 @@ class CustomerUi implements ConsoleBasedInterface{
     }
 
 
-    public void viewBookingHistory() //view booking history
+    private void viewBookingHistory() //view booking history
     {
         System.out.println("Please enter ur phone number: ");
         try
@@ -763,12 +772,12 @@ class CustomerUi implements ConsoleBasedInterface{
         }
     }
 
-    public void reviewMovie()
+    private void reviewMovie()
     {
         inputNumberReviewMovie();
     }
 
-    public void inputNumberReviewMovie() //rate and review --> only for movies that they watch
+    private void inputNumberReviewMovie() //rate and review --> only for movies that they watch
     {
         System.out.println("Please enter ur phone number: ");
         try
@@ -788,7 +797,7 @@ class CustomerUi implements ConsoleBasedInterface{
         }
     }
 
-    public void selectMovieReview(long num, ArrayList<Transaction> transactions)
+    private void selectMovieReview(long num, ArrayList<Transaction> transactions)
     {
         try
         {
@@ -810,7 +819,7 @@ class CustomerUi implements ConsoleBasedInterface{
         }
     }
 
-    public void enterReview(int movieId)
+    private void enterReview(int movieId)
     {
         int ratings;
         System.out.println("Please enter ur review: ");
@@ -838,7 +847,7 @@ class CustomerUi implements ConsoleBasedInterface{
         show();
     }
 
-    public void movieRecommendation()
+    private void movieRecommendation()
     {
         System.out.println("Top 5 ranking by ticket sales!");
         customerUIController.showTop5MovieByTicketSales();
