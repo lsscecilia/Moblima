@@ -58,7 +58,6 @@ class PricingChartController {
         DayOfWeek day;
         if (publicHoliday)
         {
-            System.out.println("public holiday check"); //delete
             customerClass = "Adult";
             day = DayOfWeek.SATURDAY;
         }

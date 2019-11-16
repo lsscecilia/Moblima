@@ -623,7 +623,6 @@ class CustomerUi implements ConsoleBasedInterface{
                 selectShowTimeBookTicket(showTime.getMovie().getMovieId(), showTime.getCineplex().getCineplexID());
             }
             enterStudentOrSeniorCitizenBookTicket(showTime, numTicket);
-            //check
         }
         catch (InputMismatchException mismatchInput)
         {
@@ -653,7 +652,6 @@ class CustomerUi implements ConsoleBasedInterface{
         int numStudent=0, numSC=0;
         if (customerUIController.studentSeniorCitizenCheck(showTime))   //and not weekend / public holiday
         {
-            //check if its public holiday or weekend or after 6
             try {
                 while (true) {
                     System.out.println("If there is any student/senior citizen. else enter zero. ");

@@ -14,7 +14,8 @@ import java.util.ArrayList;
  * @since 2019-11-13
  */
 class BookingController {
-    /**
+    /**1
+     *
      * booking controller utilises pricing chart controller to get pricing for respective tickets
      */
     private PricingChartController pricingChartController;
@@ -132,12 +133,29 @@ class BookingController {
     {
         LocalTime time = LocalTime.of(18, 0);
         if (publicHolidayController.evePublicHoliday(showTime.getDateTime().toLocalDate()))
+        {
+            //System.out.println("public holiday");
             return false;
+        }
+
         if (showTime.getDateTime().toLocalDate().getDayOfWeek().compareTo(DayOfWeek.SATURDAY)==0)
+        {
+            //System.out.println("SATURDAY");
             return false;
+        }
+
         if (showTime.getDateTime().toLocalDate().getDayOfWeek().compareTo(DayOfWeek.SUNDAY)==0)
+        {
+            //System.out.println("sunday");
             return false;
-        return !showTime.getDateTime().toLocalTime().isAfter(time);
+        }
+        if (showTime.getDateTime().toLocalTime().isAfter(time)==true)
+        {
+            //System.out.println("after 6");
+            return false;
+        }
+
+        return true;
     }
 
     /**

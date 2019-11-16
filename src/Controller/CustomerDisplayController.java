@@ -27,6 +27,14 @@ class CustomerDisplayController {
     void displayTicket(ArrayList<Ticket> ticketArrayList) {
         int count = 1;
         System.out.println("Movie: " + ticketArrayList.get(0).getShowTime().getMovie().getMovieTitle());
+        System.out.println("Movie type: " + ticketArrayList.get(0).getShowTime().getMovie().getMovieType());
+        for (Cinema cinema: ticketArrayList.get(0).getShowTime().getCineplex().getCinemaArrayList())
+        {
+            if (cinema.getCinemaID()==ticketArrayList.get(0).getShowTime().getCinemaID())
+            {
+                System.out.println("Cinema type: " + cinema.getCinemaType());
+            }
+        }
         System.out.println("Number of tickets: " + ticketArrayList.size());
         System.out.println("Date: " + ticketArrayList.get(0).getShowTime().getDateTime().toLocalDate().toString());
         System.out.println("start time: " + ticketArrayList.get(0).getShowTime().getDateTime().toLocalTime().toString());
@@ -49,9 +57,14 @@ class CustomerDisplayController {
         String ANSI_BLUE_BACKGROUND = "\u001B[44m";
         String ANSI_RESET = "\u001B[0m";
         String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        int half = column/2;
         System.out.print("  ");
-        System.out.println("-------------------SCREEN---------------------");
+        System.out.println("-------------------------SCREEN-------------------------");
         for (int i = 1; i < column + 1; i++) {
+            if (i==half+1)
+            {
+                System.out.print("|    |");
+            }
             if (i%2==0)
                 System.out.print(" " + i + "  ");
             else
@@ -66,6 +79,8 @@ class CustomerDisplayController {
             System.out.println();
             System.out.print(letters.charAt(i));
             for (int j = 0; j < column; j++) {
+                if (j==half)
+                    System.out.print("|    |");
                 if (array[i][j] == 1)
                     System.out.print(" " + ANSI_RED_BACKGROUND + "☒" +  ANSI_RESET + "  ");
                 else if (array[i][j]==5)
@@ -77,10 +92,13 @@ class CustomerDisplayController {
             }
             System.out.println();
         }
+
+        System.out.println("-----------------------Entrance------------------------");
         System.out.println();
         System.out.println("LEGEND: ");
         System.out.println("seat available: " + ANSI_BLUE_BACKGROUND + "☐" +ANSI_RESET );
         System.out.println("seat taken: " + ANSI_RED_BACKGROUND + "☒" +  ANSI_RESET);
+        System.out.println("|    | represents the walk way");
         System.out.println("--------------------------------------------");
     }
 
