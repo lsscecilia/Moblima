@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toMap;
  * @version 1
  * @since 2019-11-13
  */
-public class TransactionController implements ControllerInterface {
+class TransactionController implements ControllerInterface {
     private HandlerInterface database;
     /**
      * contains all the transactions across all the cineplexes
@@ -24,7 +24,7 @@ public class TransactionController implements ControllerInterface {
     /**
      * As TransactionController is created, data is retrieved from file i/o
      */
-    public TransactionController()
+    TransactionController()
     {
         database = new DataHandler();
         transactionArrayList = database.readSerializedObject("Transaction");
@@ -35,7 +35,7 @@ public class TransactionController implements ControllerInterface {
      * @param number
      * @return ArrayList<Transaction> ArrayList of Booking History
      */
-    public ArrayList<Transaction> findBookingHistory(long number)
+    ArrayList<Transaction> findBookingHistory(long number)
     {
         ArrayList<Transaction> transactionArrayList1 = new ArrayList<>();
         for (Transaction transaction: transactionArrayList)
@@ -53,7 +53,7 @@ public class TransactionController implements ControllerInterface {
      * @param transactions
      * @return true if booking history exist, else return false
      */
-    public boolean bookingHistoryExist(ArrayList<Transaction> transactions)
+    boolean bookingHistoryExist(ArrayList<Transaction> transactions)
     {
         if (transactions.isEmpty())
             return false;
@@ -69,7 +69,7 @@ public class TransactionController implements ControllerInterface {
      * @param totalPrice
      * @param ticketArrayList
      */
-    public void addTransaction(String name, long mobileNum, String email, double totalPrice, ArrayList<Ticket> ticketArrayList)
+    void addTransaction(String name, long mobileNum, String email, double totalPrice, ArrayList<Ticket> ticketArrayList)
     {
         ZoneId zid = ZoneId.of("Asia/Singapore");
         LocalDateTime dateTime = LocalDateTime.now(zid);  //see if you can find sg time zone
@@ -85,7 +85,7 @@ public class TransactionController implements ControllerInterface {
      * get number of ticket sales for each movie
      * @return hashmap where key = movie, value = number of ticket sales, and sorted in descending order
      */
-    public HashMap<Movie,Integer> top5ByTicketSales()
+    HashMap<Movie,Integer> top5ByTicketSales()
     {
         HashMap<Movie,Integer> top5 = new HashMap<>();
         int numTicket;

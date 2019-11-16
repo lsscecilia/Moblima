@@ -257,7 +257,7 @@ class CustomerDisplayController {
      * @param movieArrayList
      * @param index
      */
-    void movieInformation(ArrayList<Movie> movieArrayList, int index) {
+    void displayMovieInformation(ArrayList<Movie> movieArrayList, int index) {
 
         Movie movie = movieArrayList.get(index);
         System.out.println("======================" + movie.getMovieTitle() + "=========================");

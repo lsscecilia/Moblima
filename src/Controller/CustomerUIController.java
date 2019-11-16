@@ -234,7 +234,7 @@ public class CustomerUIController {
     //overload
     public void showMovieInformation(int index)
     {
-        customerDisplayController.movieInformation(movieController.getMovieArrayList(), index);
+        customerDisplayController.displayMovieInformation(movieController.getMovieArrayList(), index);
     }
 
     /**
@@ -244,7 +244,7 @@ public class CustomerUIController {
      */
     public void showMovieInformation(ArrayList<Movie> movieArrayList,int index)
     {
-        customerDisplayController.movieInformation(movieArrayList, index);
+        customerDisplayController.displayMovieInformation(movieArrayList, index);
     }
 
     /**

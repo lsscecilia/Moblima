@@ -667,6 +667,7 @@ class CustomerUi implements ConsoleBasedInterface{
             }
             catch (InputMismatchException | IndexOutOfBoundsException mismatchInput) {
                 System.out.println("Sorry, your input is not valid. Please enter according to requirement.");
+                sc.nextLine();
                 enterStudentOrSeniorCitizenBookTicket(showTime, numTickets);
             }
 

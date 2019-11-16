@@ -667,7 +667,7 @@ class StaffUi implements ConsoleBasedInterface {
         System.out.println("Please enter the movie duration: (in mins)");
         movieDuration = sc.nextLine();
         System.out.println("Please enter the movie type: [2D, 3D, 2D Blockbuster, 3D Blockbuster]");
-        movieType = sc.next();
+        movieType = sc.nextLine();
 
          while(true){
              System.out.println("Do you wish to enter additional reviews? (Y/N)");
